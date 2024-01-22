@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.BsBlog.mapper.NewsMapper">
+
+	<!-- 
+	CREATE TABLE news(
+	news_num INT PRIMARY KEY ,
+	news_name VARCHAR(10) NOT NULL,
+	news_password VARCHAR(20) NOT NULL,
+	news_subject VARCHAR(50) NOT NULL,
+	news_content VARCHAR(2000) NOT NULL,
+	news_file VARCHAR(50) NOT NULL,
+	news_realfile VARCHAR(50) NOT NULL,
+	news_readcount INT DEFAULT 0,
+	news_date DATE NOT NULL
+	);
+	 -->
+	 
+	 <!-- 글 작성 -->
+	<insert id="writeNewsPro">
+		<!--
+			* SELECT IFNULL(MAX(news_num),0)+1 FROM news; 
+			=> mysql에서 정상적으로 조회
+			=> IFNULL 함수는 컬럼이 NULL일때 정해놓은 값으로 치환해주는 역할일 뿐임, 그래서 만약 NULL이라면 
+			   SELECTKEY 구문 조회 먼저 했을 때 0이 조회되고 밑으로 내려가서 news_num + 1 구문을 만나 1이 되는 것
+			   또 만약 1이라면 SELCTKEY 구문 조회 먼저 했을 때 1이 조회되고 밑으로 내려가서 news_num + 1 구문을 만나 2가 되는 것  
+			* IFNULL, IF, NVL, ISNULL 정리
+		-->
+		<!-- <selectKey keyProperty="news_num" resultType="integer" order="BEFORE">
+			SELECT 
+				  IFNULL(
+						 MAX(news_num), 0
+					    ) 
+						 FROM 
+						     news
+		</selectKey> -->
+	INSERT 
+	  INTO 
+	  	   news
+	VALUES(
+	<!-- 
+	* infull 알아보기
+	* selectkey 이용해서 해보기
+	 -->
+	 <!-- 
+	 * IFNULL(SELECT~)는 MYSQL에서 오류뜸 => 여기는 INSERT문이라서 오류 안나는듯(MYSQL에서는 INNULL함수는 SQL문 맨처음에 올 수 없다고 되어 있음)
+	 * 그래서 SELECTKEY 쓸거면 SELECT IFNULL~ 써야하는듯 => 이 때 구문은 news_num + 1
+	  -->
+			IFNULL(
+            	   (SELECT 
+                		   MAX(news_num)
+                	  FROM 
+                		   news n
+               		),0
+              	  )+1,    
+			#{news_name},
+			#{news_password},
+			#{news_subject},
+			#{news_content},
+			#{news_file},
+			#{news_realfile},
+			#{news_readcount},
+			0, 
+			0, 
+			0,
+			now()
+	)
+	</insert>
+	
+	<select id="selectNews" resultType="com.project.BsBlog.vo.NewsVO">
+		SELECT 
+			   * 
+		  FROM 
+		  	   news
+				<!-- 1. 검색어(keyword)가 널스트링이 아닐 때 검색 수행 -->
+				<if test="!keyword.equals('')">
+					<!-- 2. 검색타입(search)에 따른 WHERE 변경 -->
+					<!-- 
+					주의! #{} 는 주로 파라미터 데이터 표시 용도로 사용하며 문자열의 경우 자동으로 따옴표 붙음 
+					반면, ${} 는 주로 컬럼명 등의 데이터가 아닌 용도로 사용하며 자동으로 따옴표 붙지 않음
+					(#{} 은 SQL 삽입 공격 방지 대책으로 사용되므로 데이터(파라미터) 부분에 사용함)
+					따라서, LIKE 절의 % 와 검색어 등을 조합해야할 경우 #{} 사용 시 %'#{데이터}'% 형식이 되므로
+					#{} 대신 ${} 를 사용하여 직접 '%${데이터}%' 형태로 작은따옴표를 붙여서 표시해야한다!
+					또는 CONCAT 함수를 통해 문자열 결합으로 사용해야한다!
+					-->
+					<choose>
+						<when test="searchType.equals('subject')">
+							WHERE 
+								  news_subject 
+							 LIKE 
+							 	  '%${keyword}%' 
+						</when>
+						<when test="searchType.equals('content')">
+							WHERE 
+								  news_content 
+							 LIKE 
+							 	  '%${keyword}%' 
+						</when>
+						<when test="searchType.equals('subject_content')">
+							WHERE 
+								  news_subject 
+							 LIKE 
+							 	  '%${keyword}%' 
+							   OR 
+							   	  news_content 
+							 LIKE 
+							 	  '%${keyword}%'
+						</when>
+						<when test="searchType.equals('name')">
+							WHERE 
+								  news_name
+							 LIKE 
+							 	  '%${keyword}%'
+						</when>
+					</choose>
+				</if>
+				<!-- * 아래 구문 써야하는 이유? -->
+				ORDER BY
+						 news_num DESC
+				   LIMIT 
+				   		 #{startRow}, #{listLimit}
+	</select>
+	
+	<!-- 글 목록 갯수 조회(검색 기능 추가) -->
+	<select id="selectNewsCount" resultType="integer">
+		SELECT 
+			   COUNT(*) 
+		  FROM 
+		  	   news
+			<!-- choose, when, otherwise 태그를 사용하여 복수개의 조건 판별(if ~ else if 문 구조) -->
+			<!-- 1. 검색어(keyword)가 널스트링이 아닐 때 검색 수행 -->
+			<if test="!keyword.equals('')">
+				<!-- 2. 검색타입(search)에 따른 WHERE 변경 -->
+				<choose>
+					<when test="searchType.equals('subject')">
+						WHERE 
+							  news_subject 
+						 LIKE 
+						 	  '%${keyword}%' 
+					</when>
+					<when test="searchType.equals('content')">
+						WHERE 
+							  news_content 
+						 LIKE 
+						 	  '%${keyword}%' 
+					</when>
+					<when test="searchType.equals('subject_content')">
+						WHERE 
+							  news_subject 
+						 LIKE 
+						 	  '%${keyword}%' 
+						   OR 
+						   	  news_content 
+						 LIKE 
+						 	  '%${keyword}%'
+					</when>
+					<when test="searchType.equals('name')">
+						WHERE 
+							  news_name
+						 LIKE 
+						 	  '%${keyword}%'
+					</when>
+				</choose>
+			</if>
+	</select>
+	
+	<!-- 글 상세 조회 -->
+	<select id="selectNewsDetail" resultType="com.project.BsBlog.vo.NewsVO">
+		SELECT 
+			   * 
+		  FROM 
+		  	   news
+		 WHERE
+			   news_num = #{news_num}
+	</select>
+	
+	<!-- 글 조회수 증가 -->
+	<update id="increaseNewsReadCount">
+		UPDATE
+			   news
+		   SET
+		   	   news_readcount = news_readcount + 1
+		 WHERE
+		 	   news_num = #{news_num}  	    	   
+	</update>
+	
+	<!-- 글 수정 -->
+	<update id="modifyNewsPro">
+		UPDATE
+			   news
+		   SET
+		   	   news_name = #{news_name},
+		   	   news_subject = #{news_subject},
+		   	   news_content = #{news_content},
+		   <if test="!news_file.equals('')">
+			   news_file = #{news_file},
+			   news_realfile = #{news_realfile}
+		   </if>
+		 WHERE
+			   news_num = #{news_num}
+		   AND
+		   	   news_password = #{news_password}	      	   	   
+	</update>
+	
+	<!-- 글 삭제 전 실제 업로드된 파일명 조회 -->
+	<select id="selectRealFile" resultType="string">
+		SELECT
+			   news_realfile
+		  FROM
+		  	   news
+		 WHERE
+		 	   news_num = #{news_num} 	   
+	</select>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteNewsPro">
+		DELETE 
+		  FROM
+		  	   news
+		 WHERE
+		 	   news_num = #{news_num}	   
+		   AND
+		       news_password = #{news_password} 	   
+	</delete>
+</mapper>
