@@ -32,30 +32,7 @@
 				<img src="<%=request.getContextPath() %>/resources/css/images/company/CEO.jpg">
 				<figcaption>Fun Web CEO Michael</figcaption>
 			</figure>
-			<p>Lorem ipsum ipsum dolor... tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus Lorem ipsum ipsum
-				dolor...tellus Lorem ipsum ipsum dolor...tellus</p>
+			<p>경력란임</p>
 		</article>
 
 

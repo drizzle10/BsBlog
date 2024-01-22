@@ -32,7 +32,7 @@
 				<img src="<%=request.getContextPath() %>/resources/css/images/company/CEO.jpg">
 				<figcaption>Fun Web CEO Michael</figcaption>
 			</figure>
-			<p>안녕하세요 박보슬의 블로그입니다.</p>
+			<p>ㅎㅇㅎㅇ</p>
 		</article>
 
 
