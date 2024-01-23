@@ -4,15 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.project.BsBlog.vo.PageInfo;
 import com.project.BsBlog.handler.FTPHandler;
@@ -232,15 +225,6 @@ public class InformationController {
 		
 		model.addAttribute("newsDetail", newsDetail);
 		
-		String uploadDir = "/resources/upload"; // 가상의 업로드 경로
-		// => webapp/resources 폴더 내에 upload 폴더 생성 필요
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
-		
-		System.out.println("uploadDir : " + uploadDir);
-		System.out.println("saveDir : " + saveDir);
-		
-		model.addAttribute("saveDir", saveDir);
-		
 		return "information/news_detail";
 	}
 	
@@ -334,7 +318,7 @@ public class InformationController {
 					e.printStackTrace();
 				}
 			}
-			
+			// *리다이렉트 이유
 			return "redirect:/news_detail.in?news_num=" + news.getNews_num() + "&pageNum=" + pageNum;
 		}
 	}
@@ -379,10 +363,14 @@ public class InformationController {
 	}
 	
 	// 	* 글 작성시 wtpwebapps/upload/upload 폴더에 파일이 저장됨
+	//    글 작성시 파일질라에 올라간다
 	//    글 수정시 wtpwebapps/upload 폴더에 파일이 저장됨
+	//    글 수정시 파일질라에 수정한 파일이 올라간다
 	//    파일 다운시 wtpwebapps/upload 폴더에 동일 파일이 있다면 다운되지 않음
 	//                               폴더에 동일 파일이 없다면 wtpwebapps/upload 폴더에 파일이 저장됨
-	// * 파일 수정시 파일질라에는 수정하나 파일은 올라가지 않음		
+	//    파일 다운시 파일질라에 올라간다
+	//    파일 삭제시 파일이 삭제됨
+	//    파일 삭제시 파일질라에 올라간 파일도 삭제가 된다
 	@GetMapping(value = "/newsFileDownload")
 	public String newsFiledownload(@RequestParam String fileName, @RequestParam int news_num, @RequestParam int pageNum, HttpSession session) {
 		// 원본 파일명 추출하기(사용자가 직접 다운로드 하는 경우 필요)
@@ -428,8 +416,6 @@ public class InformationController {
 		
 	}
 	
-	
-
 	
 	// ftpClient.retrieve함수 false 해결
 	// news_detail.jsp 실제 조회할때만 조회수 증가

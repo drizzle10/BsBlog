@@ -13,7 +13,18 @@ public class NewsService {
 
 	@Autowired
 	private NewsMapper mapper;
+	
+	// 글 목록
+	public List<NewsVO> selectNews(int startRow, int listLimit, String searchType, String keyword) {
+		return mapper.selectNews(startRow, listLimit, searchType, keyword);
+	}
 
+	
+	// 글 목록 갯수 조회
+	public int selectNewsCount(String searchType, String keyword) {
+		return mapper.selectNewsCount(searchType, keyword);
+	}
+	
 	// 글 작성
 	public int writeNewsPro(NewsVO news) {
 		System.out.println("여기는 서비스");
@@ -21,16 +32,6 @@ public class NewsService {
 		System.out.println("news.getNews_file() : " + news.getNews_file());
 		System.out.println("news.getNews_realfile() : " + news.getNews_realfile());
 		return mapper.writeNewsPro(news);
-	}
-	
-	// 글 목록
-	public List<NewsVO> selectNews(int startRow, int listLimit, String searchType, String keyword) {
-		return mapper.selectNews(startRow, listLimit, searchType, keyword);
-	}
-
-	// 글 목록 갯수 조회
-	public int selectNewsCount(String searchType, String keyword) {
-		return mapper.selectNewsCount(searchType, keyword);
 	}
 
 	// 글 상세 조회

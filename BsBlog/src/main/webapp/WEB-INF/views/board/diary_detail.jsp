@@ -23,47 +23,46 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="welcome.in">Welcome</a></li>
-				<li><a href="career.in">Career</a></li>
-				<li><a href="news.in">News</a></li>
-				<li><a href="#">Public Policy</a></li>
+				<li><a href="diary.bo">Diary</a></li>
+				<li><a href="note.bo">Note</a></li>
+				<li><a href="etc.bo">Etc</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
 
 		<article>
-			<h1>News Content</h1>
+			<h1>Diary Content</h1>
 			<table id="notice">
 				<tr>
 					<td>글쓴이</td>
-					<td colspan="3">${newsDetail.news_name }</td>
+					<td colspan="3">${diaryDetail.diary_name }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
-					<td>${newsDetail.news_date }</td>
+					<td>${diaryDetail.diary_date }</td>
 					<td>조회수</td>
-					<td>${newsDetail.news_readcount }</td>
+					<td>${diaryDetail.diary_readcount }</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td colspan="3">${newsDetail.news_subject }</td>
+					<td colspan="3">${diaryDetail.diary_subject }</td>
 				</tr>
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="newsFileDownload?fileName=${newsDetail.news_realfile }&news_num=${newsDetail.news_num}&pageNum=${param.pageNum}">${newsDetail.news_file }</a></td>
+					<td colspan="3"><a href="diaryFileDownload?fileName=${diaryDetail.diary_realfile }&diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum}">${diaryDetail.diary_file }</a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td colspan="3">${newsDetail.news_content }</td>
+					<td colspan="3">${diaryDetail.diary_content }</td>
 				</tr>
 			</table>
 
 			<div id="table_search">
 				<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
-				<input type="button" value="글수정" class="btn" onclick="location.href='news_modify.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글삭제" class="btn" onclick="location.href='news_delete.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글목록" class="btn" onclick="location.href='news.in'">
+				<input type="button" value="글수정" class="btn" onclick="location.href='diary_modify.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }'"> 
+				<input type="button" value="글삭제" class="btn" onclick="location.href='diary_delete.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }'"> 
+				<input type="button" value="글목록" class="btn" onclick="location.href='diary.bo'">
 			</div>
 
 			<div class="clear"></div>

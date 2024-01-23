@@ -9,8 +9,6 @@ import com.project.BsBlog.vo.NewsVO;
 // * 인터페이스 쓰는 이유?
 public interface NewsMapper {
 
-	// 글 작성
-	int writeNewsPro(NewsVO news);
 
 	// 글 목록
 	// * 왜 param 쓰는지
@@ -19,6 +17,9 @@ public interface NewsMapper {
 	// 글 목록 갯수 조회
 	int selectNewsCount(@Param("searchType") String searchType, @Param("keyword") String keyword);
 
+	// 글 작성
+	int writeNewsPro(NewsVO news);
+	
 	// 글 상세 조회
 	NewsVO selectNewsDetail(int news_num);
 

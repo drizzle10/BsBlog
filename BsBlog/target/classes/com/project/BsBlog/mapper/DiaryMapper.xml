@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.BsBlog.mapper.DiaryMapper">
+	
+	<!-- 글 목록 조회 -->
+	<select id="selectDiary" resultType="com.project.BsBlog.vo.DiaryVO">
+		SELECT
+			   *
+		  FROM
+		  	   diary
+		 <if test="!keyword.equals('')">
+		 	<choose>
+					<when test="searchType.equals('subject')">
+						WHERE 
+							  diary_subject 
+						 LIKE 
+						 	  '%${keyword}%'
+					</when>
+					<when test="searchType.equals('content')">
+						WHERE 
+							  diary_content 
+						 LIKE 
+						 	  '%${keyword}%' 
+					</when>
+					<when test="searchType.equals('subject_content')">
+						WHERE 
+							  diary_subject 
+						 LIKE 
+						 	  '%${keyword}%' 
+						   OR 
+						   	  diary_content 
+						 LIKE 
+						 	  '%${keyword}%'
+					</when>
+					<when test="searchType.equals('name')">
+						WHERE 
+							  diary_name 
+						 LIKE 
+						 	  '%${keyword}%'
+					</when>
+				</choose>
+		 	</if>
+		 	ORDER BY
+					 diary_num DESC
+			   LIMIT 
+			   		 #{startRow}, #{listLimit} 	   
+	</select>
+	
+	<select id="selectDiaryCount" resultType="integer">
+		SELECT 
+			   COUNT(*)
+		  FROM
+		  	   diary
+		<!-- choose, when, otherwise 태그를 사용하여 복수개의 조건 판별(if ~ else if 문 구조) -->
+			<!-- 1. 검색어(keyword)가 널스트링이 아닐 때 검색 수행 -->
+		<if test="!keyword.equals('')">
+			<!-- 2. 검색타입(search)에 따른 WHERE 변경 -->
+			<choose>
+				<when test="searchType.equals('subject')">
+					WHERE 
+						  diary_subject 
+					 LIKE 
+					 	  '%${keyword}%'
+				</when>
+				<when test="searchType.equals('content')">
+					WHERE 
+						  diary_content 
+					 LIKE 
+					 	  '%${keyword}%' 
+				</when>
+				<when test="searchType.equals('subject_content')">
+					WHERE 
+						  diary_subject 
+					 LIKE 
+					 	  '%${keyword}%' 
+					   OR 
+					   	  diary_content 
+					 LIKE 
+					 	  '%${keyword}%'
+				</when>
+				<when test="searchType.equals('name')">
+					WHERE 
+						  diary_name 
+					 LIKE 
+					 	  '%${keyword}%'
+				</when>
+			</choose>
+		</if>  	   
+	</select>
+	
+	<!-- 글 작성 -->
+	<insert id="writeDiaryPro">
+		INSERT 
+		  INTO
+		  	   diary
+	   VALUES(
+				IFNULL(
+		            	   (SELECT 
+		                		   MAX(diary_num)
+		                	  FROM 
+		                		   diary d
+		               		),0
+		              	  )+1,    
+					#{diary_name},
+					#{diary_password},
+					#{diary_subject},
+					#{diary_content},
+					#{diary_file},
+					#{diary_realfile},
+					#{diary_readcount},
+					0, 
+					0, 
+					0,
+					now()
+		
+			)
+	</insert>
+	
+	<!-- 글 상세 조회 -->
+	<select id="selectDiaryDetail" resultType="com.project.BsBlog.vo.DiaryVO">
+		SELECT
+			   *
+		  FROM
+		  	   diary
+		 WHERE
+		 	   diary_num = #{diary_num}	   
+	</select>
+	
+	<update id="increaseDiaryReadCount">
+		UPDATE
+			   diary
+		   SET
+		       diary_readcount = diary_readcount + 1
+		 WHERE
+		 	   diary_num = #{diary_num}      
+		       
+	</update>
+</mapper>
