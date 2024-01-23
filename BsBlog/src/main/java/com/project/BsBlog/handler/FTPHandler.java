@@ -129,8 +129,15 @@ public class FTPHandler {
 	public void download(File f, String fileName) {
 		// 해당 File 객체를 출력스트림에 연결하기 위해 FileOutputStream 객체 생성
 		// => try ~ resources 구문 활용
+		System.out.println("다운로드 메소드");
 		try (FileOutputStream fos = new FileOutputStream(f)) {
+			System.out.println("f : " + f);
+			System.out.println("fileName : " + fileName);
+			System.out.println("fos : " + fos);
+			ftpClient.setControlEncoding("euc-kr");
 			// FTPClient 객체의 retrieveFile() 메서드를 호출하여 원본파일명, File 객체 전달
+			// * ftpwebapp/upload에 다운은 되는데 isDwonloadSuccess는 false로 뜸.. ㅠ
+			
 			boolean isDownloadSuccess = ftpClient.retrieveFile(fileName, fos);
 			System.out.println("다운로드 결과 : " + isDownloadSuccess);
 		} catch (IOException e) {

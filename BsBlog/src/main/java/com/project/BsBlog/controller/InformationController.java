@@ -338,6 +338,7 @@ public class InformationController {
 		String realFile = service.selectRealFile(news.getNews_num());
 		
 		// 글 삭제
+		// * 글 삭제시 파일질라에 업로드된 파일은 삭제되지 않음
 		int deleteCount = service.deleteNewsPro(news);
 		
 		if(deleteCount == 0) {
@@ -361,7 +362,50 @@ public class InformationController {
 		
 	}
 	
-	
-	
+	// 파일 다운로드
+	@GetMapping(value = "/newsFileDownload")
+	public String newsFiledownload(@RequestParam String fileName, @RequestParam int news_num, @RequestParam int pageNum, HttpSession session) {
+		// 원본 파일명 추출하기(사용자가 직접 다운로드 하는 경우 필요)
+		// => 실제 파일명의 앞부분(UUID) 부분 제거
+		//    ("UUID_파일명" 에서 _ 까지를 제외한 뒷부분의 파일명 부분만 추출)
+		
+		System.out.println("fileName : " + fileName);
+		System.out.println("news_num : " + news_num);
+		System.out.println("pageNum : " + pageNum);
+		
+		// FTP 접속
+		String ftpBaseDir = "/upload";
+		ftp.connect(ftpBaseDir);
+		
+		System.out.println("파일다운 되나");
+//				String saveDir = "D:\\"; // 사용자 PC 에 직접 다운로드 시 경로
+		
+		// 가상 업로드 경로에 대한 실제 업로드 경로 알아내기
+		// => 단, request 객체에 getServletContext() 메서드 대신, session 객체로 동일한 작업 수행
+		//    (request 객체에 해당 메서드 없음)
+		String uploadDir = "/resources/upload"; // 가상의 업로드 경로
+		// => webapp/resources 폴더 내에 upload 폴더 생성 필요
+		String saveDir = session.getServletContext().getRealPath(uploadDir);
+//				System.out.println("실제 업로드 경로 : " + saveDir);
+		
+		System.out.println("파일다운 되나2");
+		// File 객체 생성
+//				File f = new File(saveDir, original_file); // 사용자 PC 에 파일 다운로드 시 원본 파일명 사용
+		File f = new File(saveDir, fileName); // 톰캣 서버에 파일 다운로드 시 실제 파일명 사용
+		System.out.println("f : " + f);
+		
+		System.out.println("파일다운 되나3");
+		// 만약, 톰캣 업로드 폴더에 해당 파일이 존재하지 않을 경우에만 다운로드 작업 수행
+		if(!f.exists()) {
+			// download() 메서드 호출하여 File 객체(다운받아 저장될 파일 정보)와 실제 파일명 전달 
+			System.out.println("f.exists() : " + f.exists());
+			ftp.download(f, fileName);
+		}
+		
+		ftp.disconnect();
+			
+		return "redirect:/news_detail.in?news_num=" + news_num + "&pageNum=" + pageNum;
+		
+	}
 	
 }

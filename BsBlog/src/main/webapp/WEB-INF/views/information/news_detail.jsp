@@ -55,7 +55,7 @@
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="newsFileDownload?fileName=${news.news_realfile }">${newsDetail.news_file }</a></td>
+					<td colspan="3"><a href="newsFileDownload?fileName=${newsDetail.news_realfile }&news_num=${newsDetail.news_num}&pageNum=${param.pageNum}">${newsDetail.news_file }</a></td>
 				</tr>
 			</table>
 
