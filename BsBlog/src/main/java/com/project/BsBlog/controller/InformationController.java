@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.project.BsBlog.vo.PageInfo;
 import com.project.BsBlog.handler.FTPHandler;
@@ -125,7 +131,8 @@ public class InformationController {
 	//   글 수정시 wtpwebapps/upload 폴더에 파일이 저장됨
 	@PostMapping(value = "/news_writePro.in")
 	public String news_writePro(@ModelAttribute NewsVO news, Model model, HttpSession session) {
-
+		System.out.println(news);
+		
 		// 주의! 파일 업로드 기능을 통해 전달받은 파일 객체를 다루기 위해서는
 		// BoardVO 클래스 내에 MultipartFile 타입 변수와 Getter/Setter 정의 필수!
 		// => input type="file" 태그의 name 속성과 동일한 변수명 사용해야함
@@ -181,7 +188,6 @@ public class InformationController {
 				// => MultipartFile 객체의 transferTo() 메서드를 호출하여 파일 업로드 작업 수행
 				//    (파라미터 : new File(업로드 경로, 업로드 할 파일명))
 				File f2 = new File(saveDir, news.getNews_realfile());
-				// * 필수
 				mFile.transferTo(f2);
 
 				System.out.println("톰캣 업로드 완");
@@ -213,14 +219,27 @@ public class InformationController {
 		
 	}
 	
+	
 	// information/news_detail.jsp
 	@GetMapping(value = "/news_detail.in")
-	public String news_detail(@RequestParam int news_num, Model model) {
+	public String news_detail(@RequestParam int news_num, Model model, HttpSession session) {
 		
 		// 글 상세 조회
 		NewsVO newsDetail = service.selectNewsDetail(news_num);
 		
+		// 글 조회시 조회수 증가
+		service.increaseNewsReadCount(news_num);
+		
 		model.addAttribute("newsDetail", newsDetail);
+		
+		String uploadDir = "/resources/upload"; // 가상의 업로드 경로
+		// => webapp/resources 폴더 내에 upload 폴더 생성 필요
+		String saveDir = session.getServletContext().getRealPath(uploadDir);
+		
+		System.out.println("uploadDir : " + uploadDir);
+		System.out.println("saveDir : " + saveDir);
+		
+		model.addAttribute("saveDir", saveDir);
 		
 		return "information/news_detail";
 	}
@@ -229,11 +248,8 @@ public class InformationController {
 	@GetMapping(value = "/news_modify.in")
 	public String news_modify(@RequestParam int news_num, Model model) {
 		
-		// 글 상세 조회
+		// 글 상세 조회 후 원본글 뿌리기
 		NewsVO newsDetail = service.selectNewsDetail(news_num);
-		
-		// 글 조회시 조회수 증가
-		service.increaseNewsReadCount(news_num);
 		
 		model.addAttribute("newsDetail", newsDetail);
 		
@@ -362,7 +378,11 @@ public class InformationController {
 		
 	}
 	
-	// 파일 다운로드
+	// 	* 글 작성시 wtpwebapps/upload/upload 폴더에 파일이 저장됨
+	//    글 수정시 wtpwebapps/upload 폴더에 파일이 저장됨
+	//    파일 다운시 wtpwebapps/upload 폴더에 동일 파일이 있다면 다운되지 않음
+	//                               폴더에 동일 파일이 없다면 wtpwebapps/upload 폴더에 파일이 저장됨
+	// * 파일 수정시 파일질라에는 수정하나 파일은 올라가지 않음		
 	@GetMapping(value = "/newsFileDownload")
 	public String newsFiledownload(@RequestParam String fileName, @RequestParam int news_num, @RequestParam int pageNum, HttpSession session) {
 		// 원본 파일명 추출하기(사용자가 직접 다운로드 하는 경우 필요)
@@ -407,5 +427,11 @@ public class InformationController {
 		return "redirect:/news_detail.in?news_num=" + news_num + "&pageNum=" + pageNum;
 		
 	}
+	
+	
+
+	
+	// ftpClient.retrieve함수 false 해결
+	// news_detail.jsp 실제 조회할때만 조회수 증가
 	
 }

@@ -29,10 +29,32 @@
 		<article>
 			<h1>Carrer</h1>
 			<figure class="ceo">
-				<img src="<%=request.getContextPath() %>/resources/css/images/company/CEO.jpg">
-				<figcaption>Fun Web CEO Michael</figcaption>
+				<img id="carrer_img" src="<%=request.getContextPath() %>/resources/css/images/company/boseul_park.jpg">
+				<figcaption>박보슬</figcaption>
 			</figure>
-			<p>경력란임</p>
+			<p>학력</p>
+			<p>2013.03 ~ 2018.08 영산대학교 경찰행정학과</p>
+			<p>2010.03 ~ 2013.02 김해대청고등학교</p>
+			<br>
+			<P>경력</P>
+			<p>2023.11 ~ 2024.01 (주)미네르바에듀 SW개발팀(인턴/팀원)</p>
+			<p>2021.06 ~ 2022.06 (주)알리아스 총무팀(대리/팀장)</p>
+			<p>2019.02 ~ 2020.09 (주)경동기계 자재관리팀(사원/팀원)</p>
+			<br>
+			<p>교육 및 훈련</p>
+			<p>2022.06 ~ 2022.12 아이티윌 부산교육센터 e커머스 융합 풀스택 개발자를 위한 자바 프로그래밍 과정</p>
+			<p>2018.07 ~ 2018.09 동양캐드전산회계컴퓨터학원 회계사무원양성과정</p>			
+			<br>
+			<p>자격증</p>
+			<p>2023.11 정보처리기사</p>
+			<p>2018.11 TAT 2급</p>
+			<p>2018.09 FAT 1급</p>
+			<p>2018.09 FAT 2급</p>
+			<p>2012.12 컴퓨터활용능력2급</p>
+			<p>2015.02 Microsoft Office Specialist 2007 Master</p>
+			<br>
+			<p>수상</p>
+			<p>아이티윌 부산교육센터 주관 e커머스 융합 풀스택 개발자를 위한 자바 프로그래밍 과정 팀프로젝트 경진대회 최우수상</p>
 		</article>
 
 

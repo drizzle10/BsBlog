@@ -10,6 +10,19 @@
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+/* function setThumbnail(event) {
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+      var img = document.createElement("img");
+      img.setAttribute("src", event.target.result);
+      document.querySelector("div#image_container").appendChild(img);
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  } */
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -51,8 +64,10 @@
 						<!-- 
 						* 주의! BoardVO 객체의 String 타입 파일명(board_file)과 동일한 name 속성이 아니라
 						MultipartFile 객체 타입의 파일명과 동일해야한다! 
+						* onchange="setThumbnail(event);"
 						-->
-						<td><input type="file" name="file"></td>
+						<td><input type="file" name="file" id="image" accept="image/*"></td>
+						<!--  <div id="image_container"></div> -->
 					</tr>
 					<tr>
 						<td>내용</td>

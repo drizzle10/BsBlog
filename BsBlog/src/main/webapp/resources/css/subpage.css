@@ -233,9 +233,14 @@ figure.ceo{
 	float: right;
 	margin: 5px;
 }
+/*
+240123 수정
+*/
 figcaption{
 	text-align: center;
 	color: #39F;
+	font-size: 1.5em; 
+	font-weight: bold;
 }
 
 textarea {
@@ -243,3 +248,10 @@ textarea {
 	height: 300px;
 }
 
+/* 
+240123 추가
+*/
+#carrer_img {
+	width: 200px;
+	height: 200px;
+}
