@@ -28,6 +28,16 @@ public class InformationController {
 	
 	private FTPHandler ftp = new FTPHandler();
 	
+	/*
+	private int pageNum; // 현재 페이지 번호
+	private int listLimit; // 페이지 당 게시물 목록 갯수
+	private int listCount; // 총 게시물 수
+	private int pageListLimit; // 페이지 당 표시할 페이지 번호 수
+	private int maxPage; // 전체 페이지 수
+	private int startPage; // 시작 페이지 번호
+	private int endPage; // 끝 페이지 번호
+	*/
+	
 	// information/welcome.jsp 
 	// * 메소드에선 '/'붙고 html 파일에선 '/' 안 붙는 이유?
 	@GetMapping(value = "/welcome.in")
@@ -47,16 +57,6 @@ public class InformationController {
 						@RequestParam(defaultValue = "") String keyword,
 						@RequestParam(defaultValue = "1") int pageNum,
 						Model model) {
-		
-		/*
-		private int pageNum; // 현재 페이지 번호
-		private int listLimit; // 페이지 당 게시물 목록 갯수
-		private int listCount; // 총 게시물 수
-		private int pageListLimit; // 페이지 당 표시할 페이지 번호 수
-		private int maxPage; // 전체 페이지 수
-		private int startPage; // 시작 페이지 번호
-		private int endPage; // 끝 페이지 번호
-		*/
 		System.out.println("searchType : " + searchType);
 		System.out.println("keyword : " + keyword);
 		System.out.println("pageNum : " + pageNum);
@@ -211,7 +211,6 @@ public class InformationController {
 		}
 		
 	}
-	
 	
 	// information/news_detail.jsp
 	@GetMapping(value = "/news_detail.in")
