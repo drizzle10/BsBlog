@@ -6,8 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import com.project.BsBlog.vo.DiaryVO;
 
-public interface DiaryMapper {
+public interface BoardMapper {
 
+	// ----- diary -----
 	// 글 목록 조회
 	List<DiaryVO> selectDiary(@Param("startRow") int startRow, @Param("listLimit") int listLimit, @Param("searchType") String searchType, @Param("keyword") String keyword);
 
@@ -23,5 +24,15 @@ public interface DiaryMapper {
 	// 글 조회시 조회수 증가
 	void increaseDiaryReadCount(int diary_num);
 
+	// 글 수정
+	int modifyDiaryPro(DiaryVO diary);
+
+	// 글 삭제시 실제 업로드된 파일명 조회
+	String selectDiaryRealFile(int diary_num);
+
+	// 글 삭제
+	int deleteDiaryPro(DiaryVO diary);
+
+	// ----- note -----
 
 }

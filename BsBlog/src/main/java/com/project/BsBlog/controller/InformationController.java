@@ -18,13 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.BsBlog.vo.PageInfo;
 import com.project.BsBlog.handler.FTPHandler;
-import com.project.BsBlog.service.NewsService;
+import com.project.BsBlog.service.InformationService;
 import com.project.BsBlog.vo.NewsVO;
 
 @Controller
 public class InformationController {
 	@Autowired
-	private NewsService service;
+	private InformationService service;
 	
 	private FTPHandler ftp = new FTPHandler();
 	
@@ -329,7 +329,7 @@ public class InformationController {
 		return "information/news_delete";
 	}
 	
-	@PostMapping(value = "/news_deletePro")
+	@PostMapping(value = "/news_deletePro.in")
 	public String news_deletePro(@ModelAttribute NewsVO news, @RequestParam int pageNum, Model model, HttpSession session) {
 		System.out.println("news : " + news);
 		// Service - getRealFile() 메서드를 호출하여 삭제 전 실제 업로드 된 파일명 조회 작업 요청
@@ -371,6 +371,19 @@ public class InformationController {
 	//    파일 다운시 파일질라에 올라간다
 	//    파일 삭제시 파일이 삭제됨
 	//    파일 삭제시 파일질라에 올라간 파일도 삭제가 된다
+	
+	/*
+	 * - 스프링 프로젝트에서 다운, 수정, 삭제
+		만약 프로젝트에서 파일올린걸 다운받는다고 하면
+		다운받고 싶은 파일을 선택하면 파일질라에 바로 다운이 될때도 있지만 아래처럼 서버에 문구가 뜨며 다운이 안될때도 있다
+		[Response] 550 Couldn't open the file or directory
+		이럴 경우 아래의 세션을 kill하고 클라이언트에 다시 들어가 다시 로그인을 해보면 다운되어 있을수도 있다
+		그래도 안뜬다면 클라이언트 보기 > 새로고침을 눌러보면 서버에 아래처럼 문구가 뜨면 정상적으로 다운이 된것이다
+		[Response] 150 Starting data transfer.
+		[Response] 226 Operation successful
+		* 참고 : session 14가 잘돌아감
+		* 프로젝트에 올려놓은 글을 수정하면서 파일을 수정하거나, 글을 삭제하면서 파일을 삭제할때도 위와 같이 파일질라에 테스트를 해본다
+	 * */
 	@GetMapping(value = "/newsFileDownload")
 	public String newsFiledownload(@RequestParam String fileName, @RequestParam int news_num, @RequestParam int pageNum, HttpSession session) {
 		// 원본 파일명 추출하기(사용자가 직접 다운로드 하는 경우 필요)
@@ -415,6 +428,11 @@ public class InformationController {
 		return "redirect:/news_detail.in?news_num=" + news_num + "&pageNum=" + pageNum;
 		
 	}
+	
+	// note 글 작성 수정 삭제 다운로드 완료
+	// 게스트북 공지 상단 고정하기(코드그린 community_main에 board.board_id eq 'admin' 참고)
+	// 게스트북 답글
+	// 게스트북 신고
 	
 	
 	// ftpClient.retrieve함수 false 해결

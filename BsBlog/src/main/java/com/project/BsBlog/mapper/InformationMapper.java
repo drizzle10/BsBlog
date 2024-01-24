@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.project.BsBlog.vo.NewsVO;
 
 // * 인터페이스 쓰는 이유?
-public interface NewsMapper {
+public interface InformationMapper {
 
 
 	// 글 목록

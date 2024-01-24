@@ -28,11 +28,13 @@
 		<!-- 본문 내용 -->
 		<article>
 			<h1>Welcome</h1>
-			<figure class="ceo">
-				<img src="<%=request.getContextPath() %>/resources/css/images/company/CEO.jpg">
-				<figcaption>Fun Web CEO Michael</figcaption>
-			</figure>
-			<p>ㅎㅇㅎㅇ</p>
+			<br>
+			<br>
+			<br>
+			<p>BsBlog에 오신걸 환영합니다!</p>
+			<p>하고 싶은 말이 있으시면 GUESTBOOK에 적어주세요</p>
+			<p>확인하는대로 답글 달아드리겠습니다!</p>
+			<p>기타 문의사항이 있으시면 하단 메일로 보내주세요!</p>
 		</article>
 
 

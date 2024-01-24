@@ -32,7 +32,7 @@
 		<!-- 본문 내용 -->
 		<article>
 			<h1>News Delete</h1>
-			<form action="news_deletePro" method="post">
+			<form action="news_deletePro.in" method="post">
 			<input type="hidden" name="news_num" value="${param.news_num }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 				<table id="notice">

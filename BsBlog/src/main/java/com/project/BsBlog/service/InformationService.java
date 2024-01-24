@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.BsBlog.mapper.NewsMapper;
+import com.project.BsBlog.mapper.InformationMapper;
 import com.project.BsBlog.vo.NewsVO;
 
 @Service
-public class NewsService {
+public class InformationService {
 
 	@Autowired
-	private NewsMapper mapper;
+	private InformationMapper mapper;
 	
 	// 글 목록
 	public List<NewsVO> selectNews(int startRow, int listLimit, String searchType, String keyword) {

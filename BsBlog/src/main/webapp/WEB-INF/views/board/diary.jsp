@@ -25,7 +25,6 @@
 			<ul>
 				<li><a href="diary.bo">Diary</a></li>
 				<li><a href="note.bo">Note</a></li>
-				<li><a href="etc.bo">Etc</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->

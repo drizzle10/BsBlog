@@ -24,7 +24,6 @@
 			<ul>
 				<li><a href="diary.bo">Diary</a></li>
 				<li><a href="note.bo">Note</a></li>
-				<li><a href="etc.bo">Etc</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -52,7 +51,7 @@
 						MultipartFile 객체 타입의 파일명과 동일해야한다! 
 						* onchange="setThumbnail(event);"
 						-->
-						<td><input type="file" name="file" id="image" accept="image/*"></td>
+						<td><input type="file" name="file"></td>
 						<!--  <div id="image_container"></div> -->
 					</tr>
 					<tr>

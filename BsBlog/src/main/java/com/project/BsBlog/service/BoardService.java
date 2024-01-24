@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.BsBlog.mapper.DiaryMapper;
+import com.project.BsBlog.mapper.BoardMapper;
 import com.project.BsBlog.vo.DiaryVO;
 
 @Service
-public class DiaryService {
+public class BoardService {
 	@Autowired
-	public DiaryMapper mapper;
+	public BoardMapper mapper;
 
+	// ----- diary -----
 	// 글 목록 조회
 	public List<DiaryVO> selectDiary(int startRow, int listLimit, String searchType, String keyword) {
 		return mapper.selectDiary(startRow, listLimit, searchType, keyword);
@@ -37,6 +38,25 @@ public class DiaryService {
 	public void increaseDiaryReadCount(int diary_num) {
 		mapper.increaseDiaryReadCount(diary_num);
 	}
+
+	// 글 수정
+	public int modifyDiaryPro(DiaryVO diary) {
+		return mapper.modifyDiaryPro(diary);
+	}
+
+	// 글 삭제시 실제 업로드된 파일명 조회
+	public String selectDiaryRealFile(int diary_num) {
+		return mapper.selectDiaryRealFile(diary_num);
+	}
+
+	// 글 삭제
+	public int deleteDiaryPro(DiaryVO diary) {
+		return mapper.deleteDiaryPro(diary);
+	}
+
+	
+	// ----- note -----
+
 
 	
 }
