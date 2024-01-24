@@ -22,4 +22,12 @@ public interface GuestbookMapper {
 
 	// 글 조회시 조회수 증가
 	void increaseGuestbookReadCount(int guestbook_num);
+
+	// 글 삭제시 실제 업로드된 파일명 조회
+	String selectGuestbookRealFile(int guestbook_num);
+
+	// 글 삭제
+	int deleteGuestbookPro(GuestbookVO guestbook);
+	
+	
 }

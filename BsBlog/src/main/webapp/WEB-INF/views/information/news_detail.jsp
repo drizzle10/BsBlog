@@ -41,8 +41,6 @@
 				<tr>
 					<td>작성일</td>
 					<td>${newsDetail.news_date }</td>
-					<td>조회수</td>
-					<td>${newsDetail.news_readcount }</td>
 				</tr>
 				<tr>
 					<td>제목</td>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board/note_detail.jsp</title>
+<title>guestbook/guestbook_detail.jsp</title>
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
@@ -23,8 +23,7 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo">Diary</a></li>
-				<li><a href="note.bo">Note</a></li>
+				<li><a href="guestbook.gu">Guestbook</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -39,8 +38,6 @@
 				<tr>
 					<td>작성일</td>
 					<td>${guestbookDetail.guestbook_date }</td>
-					<td>조회수</td>
-					<td>${guestbookDetail.guestbook_readcount }</td>
 				</tr>
 				<tr>
 					<td>제목</td>

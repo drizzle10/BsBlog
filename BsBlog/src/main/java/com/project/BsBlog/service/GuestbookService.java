@@ -39,4 +39,16 @@ public class GuestbookService {
 		mapper.increaseGuestbookReadCount(guestbook_num);
 	}
 
+	// 글 삭제시 실제 업로드된 파일명 조회
+	public String selectGuestbookRealFile(int guestbook_num) {
+		return mapper.selectGuestbookRealFile(guestbook_num);
+	}
+
+	// 글 삭제
+	public int deleteGuestbookPro(GuestbookVO guestbook) {
+		return mapper.deleteGuestbookPro(guestbook);
+	}
+	
+	
+
 }

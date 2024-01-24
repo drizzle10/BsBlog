@@ -30,7 +30,7 @@
 		<!-- 본문 내용 -->
 
 		<article>
-			<h1>Note Content</h1>
+			<h1>Diary Content</h1>
 			<table id="notice">
 				<tr>
 					<td>글쓴이</td>
@@ -39,8 +39,6 @@
 				<tr>
 					<td>작성일</td>
 					<td>${diaryDetail.diary_date }</td>
-					<td>조회수</td>
-					<td>${diaryDetail.diary_readcount }</td>
 				</tr>
 				<tr>
 					<td>제목</td>

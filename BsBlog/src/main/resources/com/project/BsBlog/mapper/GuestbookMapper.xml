@@ -149,5 +149,25 @@
 		 	   guestbook_num = #{guestbook_num}  	    	   
 	</update>
 	
+	<!-- 글 삭제 전 실제 업로드된 파일명 조회 -->
+	<select id="selectGuestbookRealFile" resultType="string">
+		SELECT
+			   guestbook_realfile
+		  FROM
+		  	   guestbook
+		 WHERE
+		 	   guestbook_num = #{guestbook_num}	   	   
+	</select>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteGuestbookPro">
+		DELETE
+		  FROM
+			   guestbook
+		 WHERE
+		 	   guestbook_num = #{guestbook_num}
+		   AND
+		   	   guestbook_password = #{guestbook_password}	   	   
+	</delete>
 	
 </mapper>

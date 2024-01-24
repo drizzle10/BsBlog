@@ -20,6 +20,7 @@ import com.project.BsBlog.handler.FTPHandler;
 import com.project.BsBlog.service.GuestbookService;
 import com.project.BsBlog.vo.GuestbookVO;
 import com.project.BsBlog.vo.NewsVO;
+import com.project.BsBlog.vo.NoteVO;
 import com.project.BsBlog.vo.PageInfo;
 
 @Controller
@@ -165,5 +166,37 @@ public class GuestbookController {
 		return "guestbook/guestbook_detail";
 	}
 		
+	// guestbook/guestbook_delete.jsp
+	@GetMapping(value = "/guestbook_delete.gu")
+	public String guestbook_delete() {
+		return "guestbook/guestbook_delete";
+	}
+	
+	@PostMapping(value = "/guestbook_deletePro.gu")
+	public String guestbook_deletePro(@ModelAttribute GuestbookVO guestbook, @RequestParam int pageNum, Model model, HttpSession session) {
+	
+		// 글 삭제시 실제 업로드된 파일명 조회
+		String realFile = service.selectGuestbookRealFile(guestbook.getGuestbook_num());
+		
+		// 글 삭제
+		int deleteCount = service.deleteGuestbookPro(guestbook);
+		
+		if(deleteCount == 0) {
+			model.addAttribute("msg", "패스워드 틀림!");
+			return "board/fail_back";
+		} else {
+			String uploadDir = "/resources/upload";
+			String saveDir = session.getServletContext().getRealPath(uploadDir);
+			System.out.println("실제 업로드 경로 : " + saveDir);
+			
+			File f = new File(saveDir, realFile);
+			if(f.exists()) { 
+				f.delete();
+			}
+			
+			return "redirect:/guestbook.gu?pageNum=" + pageNum;
+		}
+	}
+	
 	
 }

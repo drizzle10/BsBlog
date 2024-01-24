@@ -51,7 +51,6 @@
 					<tr>
 						<td colspan="2"><textarea name="guestbook_content" id="editor"></textarea></td>
 					</tr>
-
 				</table>
 
 				<div id="table_search">
@@ -60,12 +59,14 @@
 			</form>
 			<div class="clear"></div>
 		</article>
+		
+		<!-- ckeditor -->
 		<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 		<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 		<script type="text/javascript">
 			ClassicEditor.create( document.querySelector( '#editor' ), {
 			    language: "ko",
-			    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+			    toolbar: [ 'heading', '|', 'fontFamily', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
 			    placeholder: '내용을 입력해주세요',
 			 } )
 		    .then( editor => {
@@ -76,7 +77,6 @@
 		    } );
 		</script>
 	
-
 		<div class="clear"></div>
 		<!-- 푸터 들어가는곳 -->
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>

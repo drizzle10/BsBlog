@@ -54,8 +54,7 @@
 						<td><input type="file" name="file">기존 파일 : ${noteDetail.note_file }</td>
 					</tr>
 					<tr>
-						<td>내용</td>
-						<td><textarea maxlength="2000" name="note_content">${noteDetail.note_content }</textarea></td>
+						<td colspan="2"><textarea id="editor" name="note_content">${noteDetail.note_content }</textarea></td>
 					</tr>
 				</table>
 
@@ -66,6 +65,22 @@
 			<div class="clear"></div>
 		</article>
 
+		<!-- ckeditor -->
+		<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+		<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+		<script type="text/javascript">
+			ClassicEditor.create( document.querySelector( '#editor' ), {
+			    language: "ko",
+			    toolbar: [ 'heading', '|', 'fontFamily', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+			    placeholder: '내용을 입력해주세요',
+			 } )
+		    .then( editor => {
+		        console.log( editor );
+		    } )
+		    .catch( error => {
+		        console.error( error );
+		    } );
+		</script>
 
 		<div class="clear"></div>
 		<!-- 푸터 들어가는곳 -->

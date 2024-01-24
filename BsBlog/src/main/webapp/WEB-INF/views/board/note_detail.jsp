@@ -39,8 +39,6 @@
 				<tr>
 					<td>작성일</td>
 					<td>${noteDetail.note_date }</td>
-					<td>조회수</td>
-					<td>${noteDetail.note_readcount }</td>
 				</tr>
 				<tr>
 					<td>제목</td>
