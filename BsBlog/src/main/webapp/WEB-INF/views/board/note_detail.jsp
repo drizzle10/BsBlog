@@ -34,34 +34,34 @@
 			<table id="notice">
 				<tr>
 					<td>글쓴이</td>
-					<td colspan="3">${diaryDetail.diary_name }</td>
+					<td colspan="3">${noteDetail.note_name }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
-					<td>${diaryDetail.diary_date }</td>
+					<td>${noteDetail.note_date }</td>
 					<td>조회수</td>
-					<td>${diaryDetail.diary_readcount }</td>
+					<td>${noteDetail.note_readcount }</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td colspan="3">${diaryDetail.diary_subject }</td>
+					<td colspan="3">${noteDetail.note_subject }</td>
 				</tr>
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="diaryFileDownload?fileName=${diaryDetail.diary_realfile }&diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum}">${diaryDetail.diary_file }</a></td>
+					<td colspan="3"><a href="noteFileDownload?fileName=${noteDetail.note_realfile }&note_num=${noteDetail.note_num}&pageNum=${param.pageNum}">${noteDetail.note_file }</a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td colspan="3">${diaryDetail.diary_content }</td>
+					<td colspan="3">${noteDetail.note_content }</td>
 				</tr>
 			</table>
 
 			<div id="table_search">
 				<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
-				<input type="button" value="글수정" class="btn" onclick="location.href='diary_modify.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글삭제" class="btn" onclick="location.href='diary_delete.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글목록" class="btn" onclick="location.href='diary.bo'">
+				<input type="button" value="글수정" class="btn" onclick="location.href='note_modify.bo?note_num=${noteDetail.note_num}&pageNum=${param.pageNum }'"> 
+				<input type="button" value="글삭제" class="btn" onclick="location.href='note_delete.bo?note_num=${noteDetail.note_num}&pageNum=${param.pageNum }'"> 
+				<input type="button" value="글목록" class="btn" onclick="location.href='note.bo'">
 			</div>
 
 			<div class="clear"></div>

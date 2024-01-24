@@ -41,13 +41,13 @@
 					<th class="tread">Read</th>
 				</tr>
 				<c:forEach var="news" items="${news }">
-					<tr>
-						<td>${news.news_num }</td>
-						<td class="left"><a href="news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}">${news.news_subject }</a></td>
-						<td>${news.news_name }</td>
-						<td>${news.news_date }</td>
-						<td>${news.news_readcount }</td>
-					</tr>
+				<tr>
+					<td>${news.news_num }</td>
+					<td class="left"><a href="news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}">${news.news_subject }</a></td>
+					<td>${news.news_name }</td>
+					<td>${news.news_date }</td>
+					<td>${news.news_readcount }</td>
+				</tr>
 				</c:forEach>
 			</table>
 			<div id="table_search">

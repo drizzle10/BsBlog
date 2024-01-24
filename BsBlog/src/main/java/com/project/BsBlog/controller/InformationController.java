@@ -429,6 +429,8 @@ public class InformationController {
 		
 	}
 	
+	
+	
 	// note 글 작성 수정 삭제 다운로드 완료
 	// 게스트북 공지 상단 고정하기(코드그린 community_main에 board.board_id eq 'admin' 참고)
 	// 게스트북 답글

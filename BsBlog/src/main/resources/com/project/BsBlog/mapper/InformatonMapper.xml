@@ -4,15 +4,15 @@
 
 	<!-- 
 	CREATE TABLE news(
-	news_num INT PRIMARY KEY ,
-	news_name VARCHAR(10) NOT NULL,
-	news_password VARCHAR(20) NOT NULL,
-	news_subject VARCHAR(50) NOT NULL,
-	news_content VARCHAR(2000) NOT NULL,
-	news_file VARCHAR(50) NOT NULL,
-	news_realfile VARCHAR(50) NOT NULL,
-	news_readcount INT DEFAULT 0,
-	news_date DATE NOT NULL
+		news_num INT PRIMARY KEY ,
+		news_name VARCHAR(10) NOT NULL,
+		news_password VARCHAR(20) NOT NULL,
+		news_subject VARCHAR(50) NOT NULL,
+		news_content VARCHAR(2000) NOT NULL,
+		news_file VARCHAR(50) NOT NULL,
+		news_realfile VARCHAR(50) NOT NULL,
+		news_readcount INT DEFAULT 0,
+		news_date DATE NOT NULL
 	);
 	 -->
 	 

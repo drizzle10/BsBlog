@@ -38,14 +38,14 @@
 					<th class="tdate">Date</th>
 					<th class="tread">Read</th>
 				</tr>
-					<c:forEach var="diary" items="${diary }">
-					<tr>
-						<td>${diary.diary_num }</td>
-						<td class="left"><a href="diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}">${diary.diary_subject }</a></td>
-						<td>${diary.diary_name }</td>
-						<td>${diary.diary_date }</td>
-						<td>${diary.diary_readcount }</td>
-					</tr>
+				<c:forEach var="diary" items="${diary }">
+				<tr>
+					<td>${diary.diary_num }</td>
+					<td class="left"><a href="diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}">${diary.diary_subject }</a></td>
+					<td>${diary.diary_name }</td>
+					<td>${diary.diary_date }</td>
+					<td>${diary.diary_readcount }</td>
+				</tr>
 				</c:forEach>
 			</table>
 			<div id="table_search">
@@ -67,9 +67,7 @@
 						<input type="submit" value="검색" class="btn">
 				</form>
 			</div>
-			<!-- * 맨 위 임포트 이유? -->
-			<!-- * 밑에 해석(qna_board_list_backup 참고 -->
-			<!-- * 주소 적을때 공백 없어야험!!! -->
+
 			<%PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo"); %>
 			<div class="clear"></div>
 			<div id="page_control">

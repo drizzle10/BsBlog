@@ -38,17 +38,25 @@
 					<th class="tdate">Date</th>
 					<th class="tread">Read</th>
 				</tr>
-				
+				<c:forEach var="note" items="${note }">
+				<tr>
+					<td>${note.note_num }</td>
+					<td class="left"><a href="note_detail.bo?note_num=${note.note_num }&pageNum=${pageInfo.pageNum}">${note.note_subject }</a></td>
+					<td>${note.note_name }</td>
+					<td>${note.note_date }</td>
+					<td>${note.note_readcount }</td>
+				</tr>
+				</c:forEach>
 			</table>
 			<div id="table_search">
 			<!-- * location.href 알아보기 -->
-				<input type="button" value="글쓰기" class="btn" onclick="">
+				<input type="button" value="글쓰기" class="btn" onclick="location.href='note_write.bo'">
 			</div>
 			<!-- 검색 기능 구현을 위한 form 태그 -->
 			<!-- * get인 이유? -->
 			<!-- * 드롭다운 박스 안하고 그냥 해보기 -->
 			<div id="table_search">
-				<form action="news.in" method="get">
+				<form action="note.bo" method="get">
 					<select name="searchType">
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
@@ -59,10 +67,19 @@
 						<input type="submit" value="검색" class="btn">
 				</form>
 			</div>
-			<!-- * 맨 위 임포트 이유? -->
-			<!-- * 밑에 해석(qna_board_list_backup 참고 -->
-			<!-- * 주소 적을때 공백 없어야험!!! -->
 			
+			<%PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo"); %>
+			<div class="clear"></div>
+			<div id="page_control">
+				<%if(pageInfo.getPageNum() > pageInfo.getStartPage()) {%><a href="note.bo?pageNum=${pageInfo.pageNum - 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Prev</a>
+				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
+                   <c:choose>
+                      <c:when test="${i eq pageInfo.pageNum }"><a href="#">${i }</a></c:when>
+                      <c:otherwise><a class="pageLink" href="note.bo?pageNum=${i }&searchType=${searchType}&keyword=${keyword}">${i }</a></c:otherwise>
+                   </c:choose>
+                </c:forEach>
+				<%if(pageInfo.getPageNum() < pageInfo.getMaxPage()) {%><a href="note.bo?pageNum=${pageInfo.pageNum + 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Next</a>
+			</div>
 		</article>
 
 		<div class="clear"></div>

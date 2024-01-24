@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board/diary_modify.jsp</title>
+<title>diary/diary_write.jsp</title>
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
@@ -14,8 +14,7 @@
 <body>
 	<div id="wrap">
 		<!-- 헤더 들어가는곳 -->
-		<jsp:include page="../inc/top.jsp" />
-		<!-- 헤더 들어가는곳 -->
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 
 		<!-- 본문들어가는 곳 -->
 		<!-- 본문 메인 이미지 -->
@@ -29,38 +28,41 @@
 		</nav>
 		<!-- 본문 내용 -->
 		<article>
-			<h1>Diary Update</h1>
-			<form action="diary_modifyPro.bo" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="diary_num" value="${diaryDetail.diary_num }" />
-			<input type="hidden" name="pageNum" value="${param.pageNum }" />
-			<!-- * 기존 파일명도 함께 전달 이유?-->
-			<input type="hidden" name="diary_realfile" value="${diaryDetail.diary_realfile }" />
-			<input type="hidden" name="diary_file" value="${diaryDetail.diary_file }" />
+			<h1>Note Write</h1>
+			<form action="note_writePro.bo" method="post" enctype="multipart/form-data">
 				<table id="notice">
+
 					<tr>
 						<td>글쓴이</td>
-						<td><input type="text" name="diary_name" value="${diaryDetail.diary_name }"></td>
+						<td><input type="text" name="note_name"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input type="password" name="diary_password" value="${diaryDetail.diary_password }"></td>
+						<td><input type="password" name="note_password"></td>
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="diary_subject" value="${diaryDetail.diary_subject }"></td>
+						<td><input type="text" name="note_subject"></td>
 					</tr>
 					<tr>
 						<td>파일</td>
-						<td><input type="file" name="file">기존 파일 : ${diaryDetail.diary_file }</td>
+						<!-- 
+						* 주의! BoardVO 객체의 String 타입 파일명(board_file)과 동일한 name 속성이 아니라
+						MultipartFile 객체 타입의 파일명과 동일해야한다! 
+						* onchange="setThumbnail(event);"
+						-->
+						<td><input type="file" name="file"></td>
+						<!--  <div id="image_container"></div> -->
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea maxlength="2000" name="diary_content">${diaryDetail.diary_content }</textarea></td>
+						<td><textarea maxlength="2000" name="note_content" style="resize: none"></textarea></td>
 					</tr>
+
 				</table>
 
 				<div id="table_search">
-					<input type="submit" value="글수정" class="btn">
+					<input type="submit" value="글쓰기" class="btn">
 				</div>
 			</form>
 			<div class="clear"></div>
@@ -69,8 +71,7 @@
 
 		<div class="clear"></div>
 		<!-- 푸터 들어가는곳 -->
-		<jsp:include page="../inc/bottom.jsp" />
-		<!-- 푸터 들어가는곳 -->
+		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</div>
 </body>
 </html>
