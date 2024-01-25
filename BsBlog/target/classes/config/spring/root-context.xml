@@ -8,6 +8,34 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- * 왜하는거? -->
+	<!-- 이메일 인증 관련 빈 등록 -->
+	<!-- 
+	* 참고
+	https://summerorange.tistory.com/entry/Google-%EB%A9%94%EC%9D%BC-SMTP-%EC%84%A4%EC%A0%95-2%EB%8B%A8%EA%B3%84-%EB%B3%B4%EC%95%88-%EB%B0%8F-%EC%95%B1-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%84%A4%EC%A0%95-20220829
+	1. 구글 계정 관리 > 보안 > Google에 로그인하는 방법 > 2단계 인증
+	2. 앱 비밀번호 설정 > 앱 비밀번호 만들어지면 복사해서 보관하고 있기(다시 안나옴!)
+	3. 아래 코드에서 비밀번호 부분에 앱 비밀번호를 공백빼고 붙여넣기 
+	 -->
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" /> <!-- 500에러뜨면 포트 587로 바꿔보기 -->
+      <property name="username" value="boseul1023@gmail.com" />
+      <property name="password" value="grxordbzjdxxynwm" />
+      <property name="javaMailProperties">
+         <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <!-- gmail의 경우 보안문제 업데이트로 인해 SSLSocketFactory를 추가해야 smtp 사용 가능. -->
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+            </props>
+      </property>
+   </bean>
 </beans>
 
 

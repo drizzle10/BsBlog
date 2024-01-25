@@ -33,16 +33,16 @@
 			<h1>Note Content</h1>
 			<table id="notice">
 				<tr>
+					<td>제목</td>
+					<td colspan="3">${noteDetail.note_subject }</td>
+				</tr>
+				<tr>
 					<td>글쓴이</td>
 					<td colspan="3">${noteDetail.note_name }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
 					<td>${noteDetail.note_date }</td>
-				</tr>
-				<tr>
-					<td>제목</td>
-					<td colspan="3">${noteDetail.note_subject }</td>
 				</tr>
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->

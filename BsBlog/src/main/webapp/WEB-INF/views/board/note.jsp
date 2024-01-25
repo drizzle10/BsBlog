@@ -32,16 +32,14 @@
 			<h1>Note</h1>
 			<table id="notice">
 				<tr>
-					<th class="tno">No.</th>
-					<th class="ttitle">Title</th>
-					<th class="twrite">Write</th>
-					<th class="tdate">Date</th>
-					<th class="tread">Read</th>
+					<th class="ttitle">제목</th>
+					<th class="twrite">작성자</th>
+					<th class="tdate">작성일</th>
+					<th class="tread">조회수</th>
 				</tr>
 				<c:forEach var="note" items="${note }">
 				<tr>
-					<td>${note.note_num }</td>
-					<td class="left"><a href="note_detail.bo?note_num=${note.note_num }&pageNum=${pageInfo.pageNum}">${note.note_subject }</a></td>
+					<td class="left" onclick="location.href='note_detail.bo?note_num=${note.note_num }&pageNum=${pageInfo.pageNum}'">${note.note_subject }</td>
 					<td>${note.note_name }</td>
 					<td>${note.note_date }</td>
 					<td>${note.note_readcount }</td>

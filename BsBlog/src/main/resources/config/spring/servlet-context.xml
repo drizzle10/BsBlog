@@ -31,7 +31,6 @@
 	<context:component-scan base-package="com.project.BsBlog" />
 <!-- 	<context:component-scan base-package="com.itwillbs.mvc_board.controller" /> -->
 <!-- 	<context:component-scan base-package="com.itwillbs.mvc_board.service" /> -->
-
 </beans:beans>
 
 

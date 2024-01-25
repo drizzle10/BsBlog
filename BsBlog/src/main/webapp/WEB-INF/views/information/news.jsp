@@ -34,16 +34,14 @@
 			<h1>News</h1>
 			<table id="notice">
 				<tr>
-					<th class="tno">No.</th>
-					<th class="ttitle">Title</th>
-					<th class="twrite">Write</th>
-					<th class="tdate">Date</th>
-					<th class="tread">Read</th>
+					<th class="ttitle">제목</th>
+					<th class="twrite">작성자</th>
+					<th class="tdate">작성일</th>
+					<th class="tread">조회수</th>
 				</tr>
 				<c:forEach var="news" items="${news }">
 				<tr>
-					<td>${news.news_num }</td>
-					<td class="left"><a href="news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}">${news.news_subject }</a></td>
+					<td class="left" onclick="location.href='news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}'">${news.news_subject }</td>
 					<td>${news.news_name }</td>
 					<td>${news.news_date }</td>
 					<td>${news.news_readcount }</td>

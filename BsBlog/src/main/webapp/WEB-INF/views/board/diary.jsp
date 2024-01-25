@@ -32,16 +32,14 @@
 			<h1>Diary</h1>
 			<table id="notice">
 				<tr>
-					<th class="tno">No.</th>
-					<th class="ttitle">Title</th>
-					<th class="twrite">Write</th>
-					<th class="tdate">Date</th>
-					<th class="tread">Read</th>
+					<th class="ttitle">제목</th>
+					<th class="twrite">작성자</th>
+					<th class="tdate">작성일</th>
+					<th class="tread">조회수</th>
 				</tr>
 				<c:forEach var="diary" items="${diary }">
 				<tr>
-					<td>${diary.diary_num }</td>
-					<td class="left"><a href="diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}">${diary.diary_subject }</a></td>
+					<td class="left" onclick="location.href='diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}'">${diary.diary_subject }</td>
 					<td>${diary.diary_name }</td>
 					<td>${diary.diary_date }</td>
 					<td>${diary.diary_readcount }</td>

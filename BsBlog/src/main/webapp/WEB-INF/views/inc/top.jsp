@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <header>
   <!-- login join -->
-  <div id="login"><a href="#">login</a> | <a href="#">join</a></div>
+  <div id="login"><a href="login.me">login</a> | <a href="join.me">join</a></div>
   <div class="clear"></div>
   <!-- 로고들어가는 곳 -->
   

@@ -31,16 +31,14 @@
 			<h1>Guestbook</h1>
 			<table id="notice">
 				<tr>
-					<th class="tno">No.</th>
-					<th class="ttitle">Title</th>
-					<th class="twrite">Write</th>
-					<th class="tdate">Date</th>
-					<th class="tread">Read</th>
+					<th class="ttitle">제목</th>
+					<th class="twrite">작성자</th>
+					<th class="tdate">작성일</th>
+					<th class="tread">조회수</th>
 				</tr>
 				<c:forEach var="guestbook" items="${guestbook }">
 				<tr>
-					<td>${guestbook.guestbook_num }</td>
-					<td class="left"><a href="guestbook_detail.gu?guestbook_num=${guestbook.guestbook_num }&pageNum=${pageInfo.pageNum}">${guestbook.guestbook_subject }</a></td>
+					<td class="left" onclick="location.href='guestbook_detail.gu?guestbook_num=${guestbook.guestbook_num }&pageNum=${pageInfo.pageNum}'">${guestbook.guestbook_subject }</td>
 					<td>${guestbook.guestbook_name }</td>
 					<td>${guestbook.guestbook_date }</td>
 					<td>${guestbook.guestbook_readcount }</td>

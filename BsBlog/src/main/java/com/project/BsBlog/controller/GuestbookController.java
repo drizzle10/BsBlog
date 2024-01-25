@@ -197,6 +197,10 @@ public class GuestbookController {
 			return "redirect:/guestbook.gu?pageNum=" + pageNum;
 		}
 	}
-	
+	// TODO
+	// 로그인, 가입
+	// 가입시 인증
+	// 네이버, 카카오톡 로그인
+	// 댓글 혹은 답글
 	
 }

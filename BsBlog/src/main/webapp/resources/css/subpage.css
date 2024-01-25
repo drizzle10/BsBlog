@@ -97,8 +97,11 @@ form#join input{
 	border:1px solid #999;
 	background-color: #FCFDEA;
 }
+/*
+240125 수정
+*/
 form#join input.id{
-	width:100px;
+	/* width:100px; */
 	height: 18px;
 }
 form#join input.dup{
@@ -140,6 +143,9 @@ article table#notice{
 	width: 670px;
 	border-collapse: collapse; 
 }
+/*
+240125 수정
+*/
 article table#notice th{
 	height: 20px;
 	font-size: 14px;
@@ -149,6 +155,7 @@ article table#notice th{
 	background-repeat: repeat-x;
 	background-position: center center;
 	color: gray;
+	text-align: center;
 }
 article table#notice td{
 	text-align: center;
@@ -157,8 +164,21 @@ article table#notice td{
 	border-bottom-style: dotted;
 	border-bottom-color: #999;
 }
+/*
+240125 수정
+*/
 article table#notice td.left{
-	text-align: left;
+	text-align: center;
+	color: black;
+	font-size : 1.3em;
+	font-weight: bold;
+	text-decoration: none;
+}
+/*
+240125 추가
+*/
+article table#notice td.left:hover {
+	color: purple;
 }
 article th.tno{
 	width: 50px;
@@ -167,7 +187,6 @@ article th.tno{
 }
 article th.ttitle{
 	width: 400px;
-	letter-spacing: 0.7em;
 }
 article th.twrite{
 	width: 100px;
