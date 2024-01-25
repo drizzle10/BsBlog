@@ -5,12 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>member/login.jsp</title>
-<link href="../css/default.css" rel="stylesheet" type="text/css">
-<link href="../css/subpage.css" rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="wrap">
 		<!-- 헤더 들어가는곳 -->
+		<jsp:include page="../inc/top.jsp" />
 		<!-- 헤더 들어가는곳 -->
 		  
 		<!-- 본문들어가는 곳 -->
@@ -19,8 +20,8 @@
 		  <!-- 왼쪽 메뉴 -->
 		  <nav id="sub_menu">
 		  	<ul>
-		  		<li><a href="#">Join us</a></li>
-		  		<li><a href="#">Privacy policy</a></li>
+		  		<li><a href="join.me">Join</a></li>
+		  		<li><a href="login.me">Login</a></li>
 		  	</ul>
 		  </nav>
 		  <!-- 본문 내용 -->
@@ -47,6 +48,7 @@
 		  
 		<div class="clear"></div>  
 		<!-- 푸터 들어가는곳 -->
+		<jsp:include page="../inc/bottom.jsp" />
 		<!-- 푸터 들어가는곳 -->
 	</div>
 </body>

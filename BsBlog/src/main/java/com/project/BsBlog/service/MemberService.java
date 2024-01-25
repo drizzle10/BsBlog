@@ -10,9 +10,14 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.project.BsBlog.mapper.MemberMapper;
+import com.project.BsBlog.vo.MemberVO;
+
 @Service
 public class MemberService {
 
+	@Autowired
+	MemberMapper mapper;
 	// root-context.xml bean 등록 필수
 	// * 왜?
 	@Autowired
@@ -31,7 +36,7 @@ public class MemberService {
 	}
 	
 	// 이메일 인증 => 인증 메일 양식
-	public String mail_auth_check(String email) {
+	public String mailAuth_check(String email) {
 		// * 정리
 		// 인증 코드 생성 함수 호출
 		makeRandomNumber();
@@ -40,7 +45,7 @@ public class MemberService {
 		String title = "BsBlog - 회원 가입 인증 이메일 입니다."; // 이메일 제목
 		String content = "" + // html 형식으로 작성
 				"<br><br>" + "인증 번호는 " + authNumber + " 입니다." + "<br>" + "가입시 인증번호를 입력해주세요."; // 이메일 내용 삽입
-		mail_auth_send(mailFrom, mailTo, title, content);
+		mailAuth_send(mailFrom, mailTo, title, content);
 		return Integer.toString(authNumber);
 	}
 	
@@ -48,7 +53,7 @@ public class MemberService {
 	// * MimeMessage pom.xml 작성 필요 
 	// * MimeMessageHelper도 마찬가지
 	// * 위 두개 쓰는 이유?
-	public void mail_auth_send(String mailFrom, String mailTo, String title, String content) {
+	public void mailAuth_send(String mailFrom, String mailTo, String title, String content) {
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
@@ -61,6 +66,16 @@ public class MemberService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// 가입
+	public int joinPro(MemberVO member) {
+		return mapper.joinPro(member);
+	}
+
+	// 아이디 중복 체크
+	public int idDup_check(String member_id) {
+		return mapper.idDup_check(member_id);
 	}
 
 }

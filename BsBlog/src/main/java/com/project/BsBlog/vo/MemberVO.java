@@ -6,9 +6,10 @@ public class MemberVO {
 //	CREATE TABLE member(
 //			member_idx INT PRIMARY KEY AUTO_INCREMENT,
 //			member_id VARCHAR(16) UNIQUE NOT NULL,
-//			member_password VARCHAR(20) NOT NULL,
+//			member_password VARCHAR(100) NOT NULL, => 암호화 길이 때문에 100자
 //			member_name VARCHAR(10) NOT NULL,
 //			member_address VARCHAR(100) NOT NULL,
+//			member_postcode VARCHAR(6) NOT NULL,		
 //			member_phone VARCHAR(40) UNIQUE NOT NULL,
 //			member_email VARCHAR(40) UNIQUE NOT NULL,
 //			member_email_auth VARCHAR(1) NOT NULL,
