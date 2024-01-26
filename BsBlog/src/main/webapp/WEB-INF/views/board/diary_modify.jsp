@@ -23,8 +23,8 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo">Diary</a></li>
-				<li><a href="note.bo">Note</a></li>
+				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
+				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -33,13 +33,14 @@
 			<form action="diary_modifyPro.bo" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="diary_num" value="${diaryDetail.diary_num }" />
 			<input type="hidden" name="pageNum" value="${param.pageNum }" />
+			<input type="hidden" name="sId" value="${sessionScope.sId }">	
 			<!-- * 기존 파일명도 함께 전달 이유?-->
 			<input type="hidden" name="diary_realfile" value="${diaryDetail.diary_realfile }" />
 			<input type="hidden" name="diary_file" value="${diaryDetail.diary_file }" />
 				<table id="notice">
 					<tr>
-						<td>글쓴이</td>
-						<td><input type="text" name="diary_name" value="${diaryDetail.diary_name }"></td>
+						<td>작성자</td>
+						<td><input type="text" name="diary_id" value="${diaryDetail.diary_id }"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>

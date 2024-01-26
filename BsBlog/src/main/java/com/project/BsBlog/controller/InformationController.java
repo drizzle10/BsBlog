@@ -71,6 +71,7 @@ public class InformationController {
 		// 글 목록 조회
 		List<NewsVO> news = service.selectNews(startRow, listLimit, searchType, keyword);
 		
+		System.out.println("news : " + news);
 		System.out.println("news 조회 완");
 		// 글 목록 갯수 조회
 		// * searchType과 keyword를 같이 보내야 하는 이유?
@@ -123,8 +124,8 @@ public class InformationController {
 	// * 글 작성시 wtpwebapps/upload/upload 폴더에 파일이 저장됨
 	//   글 수정시 wtpwebapps/upload 폴더에 파일이 저장됨
 	@PostMapping(value = "/news_writePro.in")
-	public String news_writePro(@ModelAttribute NewsVO news, Model model, HttpSession session) {
-		System.out.println(news);
+	public String news_writePro(@ModelAttribute NewsVO news, @RequestParam String sId, Model model, HttpSession session) {
+		System.out.println("news : " + news);
 		
 		// 주의! 파일 업로드 기능을 통해 전달받은 파일 객체를 다루기 위해서는
 		// BoardVO 클래스 내에 MultipartFile 타입 변수와 Getter/Setter 정의 필수!
@@ -204,7 +205,7 @@ public class InformationController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/news.in";
+			return "redirect:/news.in?sId=" + sId;
 		} else {
 			model.addAttribute("msg", "글 쓰기 실패!");
 			return "information/fail_back";
@@ -245,9 +246,9 @@ public class InformationController {
 	// * 파일 수정시 파일질라에는 수정하나 파일은 올라가지 않음	
 	@PostMapping(value = "/news_modifyPro.in")
 	public String news_modifyPro(@ModelAttribute NewsVO news, 
-								@RequestParam int news_num, @RequestParam int pageNum, 
+								@RequestParam int news_num, @RequestParam int pageNum, @RequestParam String sId,
 								Model model, HttpSession session) {
-		
+		System.out.println("news : " + news);
 		System.out.println("pageNum : " + pageNum);
 		
 		// 선택된 수정 업로드 파일명과 기존 파일명 출력
@@ -318,7 +319,7 @@ public class InformationController {
 				}
 			}
 			// *리다이렉트 이유
-			return "redirect:/news_detail.in?news_num=" + news.getNews_num() + "&pageNum=" + pageNum;
+			return "redirect:/news_detail.in?news_num=" + news.getNews_num() + "&pageNum=" + pageNum + "&sId=" + sId;
 		}
 	}
 	
@@ -329,7 +330,7 @@ public class InformationController {
 	}
 	
 	@PostMapping(value = "/news_deletePro.in")
-	public String news_deletePro(@ModelAttribute NewsVO news, @RequestParam int pageNum, Model model, HttpSession session) {
+	public String news_deletePro(@ModelAttribute NewsVO news, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 		System.out.println("news : " + news);
 		// Service - getRealFile() 메서드를 호출하여 삭제 전 실제 업로드 된 파일명 조회 작업 요청
 		
@@ -356,7 +357,7 @@ public class InformationController {
 				f.delete();
 			}
 			
-			return "redirect:/news.in?pageNum=" + pageNum;
+			return "redirect:/news.in?pageNum=" + pageNum + "&sId=" + sId;
 		}
 		
 	}
@@ -384,7 +385,7 @@ public class InformationController {
 		* 프로젝트에 올려놓은 글을 수정하면서 파일을 수정하거나, 글을 삭제하면서 파일을 삭제할때도 위와 같이 파일질라에 테스트를 해본다
 	 * */
 	@GetMapping(value = "/newsFileDownload")
-	public String newsFiledownload(@RequestParam String fileName, @RequestParam int news_num, @RequestParam int pageNum, HttpSession session) {
+	public String newsFiledownload(@RequestParam String fileName, @RequestParam int news_num, @RequestParam int pageNum, @RequestParam String sId, HttpSession session) {
 		// 원본 파일명 추출하기(사용자가 직접 다운로드 하는 경우 필요)
 		// => 실제 파일명의 앞부분(UUID) 부분 제거
 		//    ("UUID_파일명" 에서 _ 까지를 제외한 뒷부분의 파일명 부분만 추출)
@@ -424,7 +425,7 @@ public class InformationController {
 		
 		ftp.disconnect();
 			
-		return "redirect:/news_detail.in?news_num=" + news_num + "&pageNum=" + pageNum;
+		return "redirect:/news_detail.in?news_num=" + news_num + "&pageNum=" + pageNum + "&sId=" + sId;
 		
 	}
 	

@@ -8,7 +8,7 @@ public class NewsVO {
 
 //	CREATE TABLE news(
 //			news_num INT PRIMARY KEY ,
-//			news_name VARCHAR(10) NOT NULL,
+//			news_id VARCHAR(16) NOT NULL,
 //			news_password VARCHAR(20) NOT NULL,
 //			news_subject VARCHAR(50) NOT NULL,
 //			news_content VARCHAR(2000) NOT NULL,
@@ -22,7 +22,7 @@ public class NewsVO {
 //	);
 	
 	private int news_num;
-	private String news_name;
+	private String news_id;
 	private String news_password;
 	private String news_subject;
 	private String news_content;
@@ -41,11 +41,11 @@ public class NewsVO {
 	public void setNews_num(int news_num) {
 		this.news_num = news_num;
 	}
-	public String getNews_name() {
-		return news_name;
+	public String getNews_id() {
+		return news_id;
 	}
-	public void setNews_name(String news_name) {
-		this.news_name = news_name;
+	public void setNews_id(String news_id) {
+		this.news_id = news_id;
 	}
 	public String getNews_password() {
 		return news_password;
@@ -113,15 +113,15 @@ public class NewsVO {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+	
 	@Override
 	public String toString() {
-		return "NewsVO [news_num=" + news_num + ", news_name=" + news_name + ", news_password=" + news_password
+		return "NewsVO [news_num=" + news_num + ", news_id=" + news_id + ", news_password=" + news_password
 				+ ", news_subject=" + news_subject + ", news_content=" + news_content + ", news_file=" + news_file
 				+ ", news_realfile=" + news_realfile + ", news_re_ref=" + news_re_ref + ", news_re_lev=" + news_re_lev
 				+ ", news_re_seq=" + news_re_seq + ", news_readcount=" + news_readcount + ", news_date=" + news_date
 				+ ", file=" + file + "]";
 	}
-	
 	
 	
 }

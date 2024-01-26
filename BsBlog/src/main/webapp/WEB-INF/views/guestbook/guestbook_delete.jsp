@@ -23,7 +23,7 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="guestbook.gu">Guestbook</a></li>
+				<li><a href="guestbook.gu?sId=${sessionScope.sId }">Guestbook</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -32,6 +32,7 @@
 			<form action="guestbook_deletePro.gu" method="post">
 			<input type="hidden" name="guestbook_num" value="${param.guestbook_num }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
+			<input type="hidden" name="sId" value="${sessionScope.sId }">
 				<table id="notice">
 					<tr>
 						<td>패스워드</td>

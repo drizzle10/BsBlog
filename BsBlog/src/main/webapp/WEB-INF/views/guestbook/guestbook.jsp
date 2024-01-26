@@ -23,7 +23,7 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="guestbook.gu">Guestbook</a></li>
+				<li><a href="guestbook.gu?sId=${sessionScope.sId }">Guestbook</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -38,17 +38,19 @@
 				</tr>
 				<c:forEach var="guestbook" items="${guestbook }">
 				<tr>
-					<td class="left" onclick="location.href='guestbook_detail.gu?guestbook_num=${guestbook.guestbook_num }&pageNum=${pageInfo.pageNum}'">${guestbook.guestbook_subject }</td>
-					<td>${guestbook.guestbook_name }</td>
+					<td class="left" onclick="location.href='guestbook_detail.gu?guestbook_num=${guestbook.guestbook_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${guestbook.guestbook_subject }</td>
+					<td>${guestbook.guestbook_id }</td>
 					<td>${guestbook.guestbook_date }</td>
 					<td>${guestbook.guestbook_readcount }</td>
 				</tr>
 				</c:forEach>
 			</table>
-			<div id="table_search">
-			<!-- * location.href 알아보기 -->
-				<input type="button" value="글쓰기" class="btn" onclick="location.href='guestbook_write.gu'">
-			</div>
+			<c:if test="${not empty sessionScope.sId }">	
+				<div id="table_search">
+				<!-- * location.href 알아보기 -->
+					<input type="button" value="글쓰기" class="btn" onclick="location.href='guestbook_write.gu?sId=${sessionScope.sId}'">
+				</div>
+			</c:if>
 			<!-- 검색 기능 구현을 위한 form 태그 -->
 			<!-- * get인 이유? -->
 			<!-- * 드롭다운 박스 안하고 그냥 해보기 -->

@@ -37,7 +37,7 @@
 			<ul>
 				<li><a href="welcome.in">Welcome</a></li>
 				<li><a href="career.in">Career</a></li>
-				<li><a href="news.in">News</a></li>
+				<li><a href="news.in?sId=${sessionScope.sId }">News</a></li>
 				<li><a href="#">Public Policy</a></li>
 			</ul>
 		</nav>
@@ -45,11 +45,11 @@
 		<article>
 			<h1>News Write</h1>
 			<form action="news_writePro.in" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="sId" value="${sessionScope.sId }">	
 				<table id="notice">
-
 					<tr>
-						<td>글쓴이</td>
-						<td><input type="text" name="news_name"></td>
+						<td>작성자</td>
+						<td><input type="text" name="news_id" value="${sessionScope.sId }"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>

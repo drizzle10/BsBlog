@@ -8,21 +8,21 @@ public class NoteVO {
 
 //	CREATE TABLE note(
 //			note_num INT PRIMARY KEY,
-//			note_name VARCHAR(10) not null,
-//			note_password VARCHAR(20) not null,
-//			note_subject VARCHAR(50) not null,
-//			note_content VARCHAR(2000) not null,
-//			note_file VARCHAR(50) not null,
-//			note_realfile VARCHAR(50) not null,
+//			note_id VARCHAR(16) NOT NULL,
+//			note_password VARCHAR(20) NOT NULL,
+//			note_subject VARCHAR(50) NOT NULL,
+//			note_content VARCHAR(2000) NOT NULL,
+//			note_file VARCHAR(50) NOT NULL,
+//			note_realfile VARCHAR(50) NOT NULL,
 //			note_re_ref INT NOT NULL,
 //			note_re_lev INT NOT NULL,
 //			note_re_seq INT NOT NULL,
-//			note_readcount INT default 0,
-//			note_date DATE not null
+//			note_readcount INT DEFAULT 0,
+//			note_date DATE NOT NULL
 //	);
 	
 	private int note_num;
-	private String note_name;
+	private String note_id;
 	private String note_password;
 	private String note_subject;
 	private String note_content;
@@ -41,11 +41,11 @@ public class NoteVO {
 	public void setNote_num(int note_num) {
 		this.note_num = note_num;
 	}
-	public String getNote_name() {
-		return note_name;
+	public String getNote_id() {
+		return note_id;
 	}
-	public void setNote_name(String note_name) {
-		this.note_name = note_name;
+	public void setNote_id(String note_id) {
+		this.note_id = note_id;
 	}
 	public String getNote_password() {
 		return note_password;
@@ -116,12 +116,14 @@ public class NoteVO {
 	
 	@Override
 	public String toString() {
-		return "NoteVO [note_num=" + note_num + ", note_name=" + note_name + ", note_password=" + note_password
+		return "NoteVO [note_num=" + note_num + ", note_id=" + note_id + ", note_password=" + note_password
 				+ ", note_subject=" + note_subject + ", note_content=" + note_content + ", note_file=" + note_file
 				+ ", note_realfile=" + note_realfile + ", note_re_ref=" + note_re_ref + ", note_re_lev=" + note_re_lev
 				+ ", note_re_seq=" + note_re_seq + ", note_readcount=" + note_readcount + ", note_date=" + note_date
 				+ ", file=" + file + "]";
 	}
+	
+	
 	
 	
 	

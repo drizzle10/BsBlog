@@ -23,8 +23,8 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo">Diary</a></li>
-				<li><a href="note.bo">Note</a></li>
+				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
+				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -33,6 +33,7 @@
 			<form action="note_deletePro.bo" method="post">
 			<input type="hidden" name="note_num" value="${param.note_num }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
+			<input type="hidden" name="sId" value="${sessionScope.sId }">	
 				<table id="notice">
 					<tr>
 						<td>패스워드</td>

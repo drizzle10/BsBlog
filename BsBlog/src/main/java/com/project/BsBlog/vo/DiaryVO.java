@@ -8,7 +8,7 @@ public class DiaryVO {
 
 //	CREATE TABLE diary(
 //			diary_num INT PRIMARY KEY,
-//			diary_name VARCHAR(10) NOT NULL,
+//			diary_id VARCHAR(16) NOT NULL,
 //			diary_password VARCHAR(20) NOT NULL,
 //			diary_subject VARCHAR(50) NOT NULL,
 //			diary_content VARCHAR(2000) NOT NULL,
@@ -22,7 +22,7 @@ public class DiaryVO {
 //	);
 	
 	private int diary_num;
-	private String diary_name;
+	private String diary_id;
 	private String diary_password;
 	private String diary_subject;
 	private String diary_content;
@@ -41,11 +41,11 @@ public class DiaryVO {
 	public void setDiary_num(int diary_num) {
 		this.diary_num = diary_num;
 	}
-	public String getDiary_name() {
-		return diary_name;
+	public String getDiary_id() {
+		return diary_id;
 	}
-	public void setDiary_name(String diary_name) {
-		this.diary_name = diary_name;
+	public void setDiary_id(String diary_id) {
+		this.diary_id = diary_id;
 	}
 	public String getDiary_password() {
 		return diary_password;
@@ -116,12 +116,14 @@ public class DiaryVO {
 	
 	@Override
 	public String toString() {
-		return "DiaryVO [diary_num=" + diary_num + ", diary_name=" + diary_name + ", diary_password=" + diary_password
+		return "DiaryVO [diary_num=" + diary_num + ", diary_id=" + diary_id + ", diary_password=" + diary_password
 				+ ", diary_subject=" + diary_subject + ", diary_content=" + diary_content + ", diary_file=" + diary_file
 				+ ", diary_realfile=" + diary_realfile + ", diary_re_ref=" + diary_re_ref + ", diary_re_lev="
 				+ diary_re_lev + ", diary_re_seq=" + diary_re_seq + ", diary_readcount=" + diary_readcount
 				+ ", diary_date=" + diary_date + ", file=" + file + "]";
 	}
+	
+	
 	
 	
 	

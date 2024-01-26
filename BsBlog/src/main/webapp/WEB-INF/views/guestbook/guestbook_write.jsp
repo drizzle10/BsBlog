@@ -23,18 +23,19 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="guestbook.gu">Guestbook</a></li>
+				<li><a href="guestbook.gu?sId=${sessionScope.sId }">Guestbook</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
 		<article>
 			<h1>Guestbook Write</h1>
 			<form action="guestbook_writePro.gu" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="sId" value="${sessionScope.sId }">	
 				<table id="notice">
 
 					<tr>
-						<td>글쓴이</td>
-						<td><input type="text" name="guestbook_name"></td>
+						<td>작성자</td>
+						<td><input type="text" name="guestbook_id" value="${sessionScope.sId }"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>

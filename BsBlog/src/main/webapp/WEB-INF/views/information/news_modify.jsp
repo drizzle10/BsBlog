@@ -25,7 +25,7 @@
 			<ul>
 				<li><a href="welcome.in">Welcome</a></li>
 				<li><a href="career.in">Career</a></li>
-				<li><a href="news.in">News</a></li>
+				<li><a href="news.in?sId=${sessionScope.sId }">News</a></li>
 				<li><a href="#">Public Policy</a></li>
 			</ul>
 		</nav>
@@ -35,13 +35,14 @@
 			<form action="news_modifyPro.in" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="news_num" value="${newsDetail.news_num }" />
 			<input type="hidden" name="pageNum" value="${param.pageNum }" />
+			<input type="hidden" name="sId" value="${sessionScope.sId }" />
 			<!-- * 기존 파일명도 함께 전달 이유?-->
 			<input type="hidden" name="news_realfile" value="${newsDetail.news_realfile }" />
 			<input type="hidden" name="news_file" value="${newsDetail.news_file }" />
 				<table id="notice">
 					<tr>
 						<td>글쓴이</td>
-						<td><input type="text" name="news_name" value="${newsDetail.news_name }"></td>
+						<td><input type="text" name="news_id" value="${newsDetail.news_id }"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>

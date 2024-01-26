@@ -5,7 +5,7 @@
 	<!-- 
 	CREATE TABLE diary(
 		diary_num INT PRIMARY KEY,
-		diary_name VARCHAR(10) NOT NULL,
+		diary_id VARCHAR(16) NOT NULL,
 		diary_password VARCHAR(20) NOT NULL,
 		diary_subject VARCHAR(50) NOT NULL,
 		diary_content VARCHAR(2000) NOT NULL,
@@ -20,18 +20,18 @@
 
 	CREATE TABLE note(
 		note_num INT PRIMARY KEY,
-		note_name VARCHAR(10) not null,
-		note_password VARCHAR(20) not null,
-		note_subject VARCHAR(50) not null,
-		note_content VARCHAR(2000) not null,
-		note_file VARCHAR(50) not null,
-		note_realfile VARCHAR(50) not null,
+		note_id VARCHAR(16) NOT NULL,
+		note_password VARCHAR(20) NOT NULL,
+		note_subject VARCHAR(50) NOT NULL,
+		note_content VARCHAR(2000) NOT NULL,
+		note_file VARCHAR(50) NOT NULL,
+		note_realfile VARCHAR(50) NOT NULL,
 		note_re_ref INT NOT NULL,
 		note_re_lev INT NOT NULL,
 		note_re_seq INT NOT NULL,
-		note_readcount INT default 0,
-		note_date DATE not null
-	); 
+		note_readcount INT DEFAULT 0,
+		note_date DATE NOT NULL
+	);
 	-->
 	
 	<!-- diary -->
@@ -67,7 +67,7 @@
 					</when>
 					<when test="searchType.equals('name')">
 						WHERE 
-							  diary_name 
+							  diary_id 
 						 LIKE 
 						 	  '%${keyword}%'
 					</when>
@@ -111,7 +111,7 @@
 				</when>
 				<when test="searchType.equals('name')">
 					WHERE 
-						  diary_name 
+						  diary_id 
 					 LIKE 
 					 	  '%${keyword}%'
 				</when>
@@ -132,7 +132,7 @@
 	                		   diary d
 	               		),0
 	              	  )+1,    
-				#{diary_name},
+				#{diary_id},
 				#{diary_password},
 				#{diary_subject},
 				#{diary_content},
@@ -173,7 +173,7 @@
 		UPDATE 
 			   diary
 	       SET
-		   	   diary_name = #{diary_name},
+		   	   diary_id = #{diary_id},
 		   	   diary_subject = #{diary_subject},
 		   	   diary_content = #{diary_content},
 		   <if test="!diary_file.equals('')">
@@ -240,7 +240,7 @@
 				</when>
 				<when test="searchType.equals('name')">
 					WHERE 
-						  note_name 
+						  note_id 
 					 LIKE 
 					 	  '%${keyword}%'
 				</when>
@@ -284,7 +284,7 @@
 				</when>
 				<when test="searchType.equals('name')">
 					WHERE 
-						  note_name 
+						  note_id 
 					 LIKE 
 					 	  '%${keyword}%'
 				</when>
@@ -305,7 +305,7 @@
 	                		   note n
 	               		),0
 	              	  )+1,    
-				#{note_name},
+				#{note_id},
 				#{note_password},
 				#{note_subject},
 				#{note_content},
@@ -345,7 +345,7 @@
 		UPDATE 
 			   note
 	       SET
-		   	   note_name = #{note_name},
+		   	   note_id = #{note_id},
 		   	   note_subject = #{note_subject},
 		   	   note_content = #{note_content},
 		   <if test="!note_file.equals('')">

@@ -5,23 +5,23 @@ import java.sql.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 public class GuestbookVO {
-	//	CREATE TABLE guestbook(
-	//	guestbook_num INT PRIMARY KEY,
-	//	guestbook_name VARCHAR(10) NOT NULL,
-	//	guestbook_password VARCHAR(20) NOT NULL,
-	//	guestbook_subject VARCHAR(50) NOT NULL,
-	//	guestbook_content VARCHAR(2000) NOT NULL,
-	//	guestbook_file VARCHAR(50) NOT NULL,
-	//	guestbook_realfile VARCHAR(50) NOT NULL,
-	//	guestbook_re_ref INT NOT NULL,
-	//	guestbook_re_lev INT NOT NULL,
-	//	guestbook_re_seq INT NOT NULL,
-	//	guestbook_readcount INT DEFAULT 0,
-	//	guestbook_date DATE NOT NULL
-	//);
+//	CREATE TABLE guestbook(
+//			guestbook_num INT PRIMARY KEY,
+//			guestbook_id VARCHAR(16) NOT NULL,
+//			guestbook_password VARCHAR(20) NOT NULL,
+//			guestbook_subject VARCHAR(50) NOT NULL,
+//			guestbook_content VARCHAR(2000) NOT NULL,
+//			guestbook_file VARCHAR(50) NOT NULL,
+//			guestbook_realfile VARCHAR(50) NOT NULL,
+//			guestbook_re_ref INT NOT NULL,
+//			guestbook_re_lev INT NOT NULL,
+//			guestbook_re_seq INT NOT NULL,
+//			guestbook_readcount INT DEFAULT 0,
+//			guestbook_date DATE NOT NULL
+//	);
 	
 	private int guestbook_num;
-	private String guestbook_name;
+	private String guestbook_id;
 	private String guestbook_password;
 	private String guestbook_subject;
 	private String guestbook_content;
@@ -40,11 +40,11 @@ public class GuestbookVO {
 	public void setGuestbook_num(int guestbook_num) {
 		this.guestbook_num = guestbook_num;
 	}
-	public String getGuestbook_name() {
-		return guestbook_name;
+	public String getGuestbook_id() {
+		return guestbook_id;
 	}
-	public void setGuestbook_name(String guestbook_name) {
-		this.guestbook_name = guestbook_name;
+	public void setGuestbook_id(String guestbook_id) {
+		this.guestbook_id = guestbook_id;
 	}
 	public String getGuestbook_password() {
 		return guestbook_password;
@@ -115,12 +115,16 @@ public class GuestbookVO {
 	
 	@Override
 	public String toString() {
-	return "GuestbookVO [guestbook_num=" + guestbook_num + ", guestbook_name=" + guestbook_name
-			+ ", guestbook_password=" + guestbook_password + ", guestbook_subject=" + guestbook_subject
-			+ ", guestbook_content=" + guestbook_content + ", guestbook_file=" + guestbook_file
-			+ ", guestbook_realfile=" + guestbook_realfile + ", guestbook_re_ref=" + guestbook_re_ref
-			+ ", guestbook_re_lev=" + guestbook_re_lev + ", guestbook_re_seq=" + guestbook_re_seq
-			+ ", guestbook_readcount=" + guestbook_readcount + ", guestbook_date=" + guestbook_date + ", file="
-			+ file + "]";
+		return "GuestbookVO [guestbook_num=" + guestbook_num + ", guestbook_id=" + guestbook_id
+				+ ", guestbook_password=" + guestbook_password + ", guestbook_subject=" + guestbook_subject
+				+ ", guestbook_content=" + guestbook_content + ", guestbook_file=" + guestbook_file
+				+ ", guestbook_realfile=" + guestbook_realfile + ", guestbook_re_ref=" + guestbook_re_ref
+				+ ", guestbook_re_lev=" + guestbook_re_lev + ", guestbook_re_seq=" + guestbook_re_seq
+				+ ", guestbook_readcount=" + guestbook_readcount + ", guestbook_date=" + guestbook_date + ", file="
+				+ file + "]";
 	}
+	
+	
+	
+	
 }

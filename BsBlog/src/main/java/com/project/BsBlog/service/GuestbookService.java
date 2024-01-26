@@ -14,10 +14,6 @@ public class GuestbookService {
 	@Autowired
 	GuestbookMapper mapper;
 	
-	// 글 작성
-	public int writeGuestbookPro(GuestbookVO guestbook) {
-		return mapper.writeGuestbookPro(guestbook);
-	}
 
 	// 글 목록 조회
 	public List<GuestbookVO> selectGuestbook(int startRow, int listLimit, String searchType, String keyword) {
@@ -27,6 +23,11 @@ public class GuestbookService {
 	// 글 목록 갯수 조회
 	public int selectGuestbookCount(String searchType, String keyword) {
 		return mapper.selectGuestbookCount(searchType, keyword);
+	}
+
+	// 글 작성
+	public int writeGuestbookPro(GuestbookVO guestbook) {
+		return mapper.writeGuestbookPro(guestbook);
 	}
 
 	// 글 상세 조회
@@ -43,12 +44,17 @@ public class GuestbookService {
 	public String selectGuestbookRealFile(int guestbook_num) {
 		return mapper.selectGuestbookRealFile(guestbook_num);
 	}
+	
+	// 글 수정
+	public int modifyGuestbookPro(GuestbookVO guestbook) {
+		return mapper.modifyGuestbookPro(guestbook);
+	}
 
 	// 글 삭제
 	public int deleteGuestbookPro(GuestbookVO guestbook) {
 		return mapper.deleteGuestbookPro(guestbook);
 	}
-	
+
 	
 
 }

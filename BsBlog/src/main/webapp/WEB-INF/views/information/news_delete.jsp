@@ -25,7 +25,7 @@
 			<ul>
 				<li><a href="welcome.in">Welcome</a></li>
 				<li><a href="career.in">Career</a></li>
-				<li><a href="news.in">News</a></li>
+				<li><a href="news.in?sId=${sessionScope.sId }">News</a></li>
 				<li><a href="#">Public Policy</a></li>
 			</ul>
 		</nav>
@@ -35,6 +35,7 @@
 			<form action="news_deletePro.in" method="post">
 			<input type="hidden" name="news_num" value="${param.news_num }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
+			<input type="hidden" name="sId" value="${sessionScope.sId }">
 				<table id="notice">
 					<tr>
 						<td>패스워드</td>

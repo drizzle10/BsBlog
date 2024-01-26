@@ -67,6 +67,7 @@ public class BoardController {
 		
 		// 글 목록 조회
 		List<DiaryVO> diary = service.selectDiary(startRow, listLimit, searchType, keyword);
+		System.out.println("diary : " + diary);
 		
 		// 글 갯수 조회
 		listCount = service.selectDiaryCount(searchType, keyword);
@@ -99,9 +100,9 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/diary_writePro.bo")
-	public String diary_writePro(@ModelAttribute DiaryVO diary, Model model, HttpSession session) {
+	public String diary_writePro(@ModelAttribute DiaryVO diary, @RequestParam String sId, Model model, HttpSession session) {
 		
-		System.out.println(diary);
+		System.out.println("diary : " + diary);
 		
 		String uploadDir = "/resources/upload"; 
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
@@ -154,7 +155,7 @@ public class BoardController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/diary.bo";
+			return "redirect:/diary.bo?sId=" + sId;
 		} else {
 			model.addAttribute("msg", "글 쓰기 실패!");
 			return "board/fail_back";
@@ -189,8 +190,10 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/diary_modifyPro.bo")
-	public String diary_modifyPro(@ModelAttribute DiaryVO diary, @RequestParam int diary_num, @RequestParam int pageNum,
+	public String diary_modifyPro(@ModelAttribute DiaryVO diary, 
+								@RequestParam int diary_num, @RequestParam int pageNum, @RequestParam String sId,
 									Model model, HttpSession session) {
+		System.out.println("diary : " + diary);
 		System.out.println("diary_num : " + diary_num);
 		System.out.println("pageNum : " + pageNum);
 		System.out.println("기존 파일명 : " + diary.getDiary_file());
@@ -247,7 +250,7 @@ public class BoardController {
 					e.printStackTrace();
 				}
 			}
-			return "redirect:/diary_detail.bo?diary_num=" + diary.getDiary_num() + "&pageNum=" + pageNum;
+			return "redirect:/diary_detail.bo?diary_num=" + diary.getDiary_num() + "&pageNum=" + pageNum + "&sId=" + sId;
 		}
 	}
 	
@@ -258,7 +261,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/diary_deletePro.bo")
-	public String diary_deletePro(@ModelAttribute DiaryVO diary, @RequestParam int pageNum, Model model, HttpSession session) {
+	public String diary_deletePro(@ModelAttribute DiaryVO diary, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 	
 		// 글 삭제시 실제 업로드된 파일명 조회
 		String realFile = service.selectDiaryRealFile(diary.getDiary_num());
@@ -279,12 +282,12 @@ public class BoardController {
 				f.delete();
 			}
 			
-			return "redirect:/diary.bo?pageNum=" + pageNum;
+			return "redirect:/diary.bo?pageNum=" + pageNum + "&sId=" + sId;
 		}
 	}
 	
 	@GetMapping(value = "/diaryFileDownload")
-	public String diaryFiledownload(@RequestParam String fileName, @RequestParam int diary_num, @RequestParam int pageNum, HttpSession session) {
+	public String diaryFiledownload(@RequestParam String fileName, @RequestParam int diary_num, @RequestParam int pageNum, @RequestParam String sId, HttpSession session) {
 		System.out.println("fileName : " + fileName);
 		System.out.println("diary_num : " + diary_num);
 		System.out.println("pageNum : " + pageNum);
@@ -304,7 +307,7 @@ public class BoardController {
 		
 		ftp.disconnect();
 			
-		return "redirect:/diary_detail.bo?diary_num=" + diary_num + "&pageNum=" + pageNum;
+		return "redirect:/diary_detail.bo?diary_num=" + diary_num + "&pageNum=" + pageNum + "sId=" + sId;
 		
 	}
 	
@@ -326,6 +329,7 @@ public class BoardController {
 		
 		// 글 목록 조회
 		List<NoteVO> note = service.selectNote(startRow, listLimit, searchType, keyword);
+		System.out.println("note : " + note);
 		
 		// 글 목록 갯수 조회
 		listCount = service.selectNoteCount(searchType, keyword);
@@ -359,7 +363,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/note_writePro.bo")
-	public String note_writePro(@ModelAttribute NoteVO note, Model model, HttpSession session) {
+	public String note_writePro(@ModelAttribute NoteVO note, @RequestParam String sId, Model model, HttpSession session) {
 		
 		System.out.println(note);
 		
@@ -414,7 +418,7 @@ public class BoardController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/note.bo";
+			return "redirect:/note.bo?&sId=" + sId;
 		} else {
 			model.addAttribute("msg", "글 쓰기 실패!");
 			return "board/fail_back";
@@ -450,8 +454,9 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/note_modifyPro.bo")
-	public String note_modifyPro(@ModelAttribute NoteVO note, @RequestParam int note_num, @RequestParam int pageNum,
+	public String note_modifyPro(@ModelAttribute NoteVO note, @RequestParam int note_num, @RequestParam int pageNum, @RequestParam String sId,
 									Model model, HttpSession session) {
+		System.out.println("note : " + note);
 		System.out.println("diary_num : " + note_num);
 		System.out.println("pageNum : " + pageNum);
 		System.out.println("기존 파일명 : " + note.getNote_file());
@@ -508,7 +513,7 @@ public class BoardController {
 					e.printStackTrace();
 				}
 			}
-			return "redirect:/note_detail.bo?note_num=" + note.getNote_num() + "&pageNum=" + pageNum;
+			return "redirect:/note_detail.bo?note_num=" + note.getNote_num() + "&pageNum=" + pageNum + "&sId=" + sId;
 		}
 	}
 
@@ -519,7 +524,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/note_deletePro.bo")
-	public String note_deletePro(@ModelAttribute NoteVO note, @RequestParam int pageNum, Model model, HttpSession session) {
+	public String note_deletePro(@ModelAttribute NoteVO note, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 	
 		// 글 삭제시 실제 업로드된 파일명 조회
 		String realFile = service.selectNoteRealFile(note.getNote_num());
@@ -540,12 +545,12 @@ public class BoardController {
 				f.delete();
 			}
 			
-			return "redirect:/note.bo?pageNum=" + pageNum;
+			return "redirect:/note.bo?pageNum=" + pageNum + "&sId" + sId;
 		}
 	}
 	
 	@GetMapping(value = "/noteFileDownload")
-	public String noteFiledownload(@RequestParam String fileName, @RequestParam int note_num, @RequestParam int pageNum, HttpSession session) {
+	public String noteFiledownload(@RequestParam String fileName, @RequestParam int note_num, @RequestParam int pageNum, @RequestParam String sId, HttpSession session) {
 		System.out.println("fileName : " + fileName);
 		System.out.println("note_num : " + note_num);
 		System.out.println("pageNum : " + pageNum);
@@ -565,7 +570,7 @@ public class BoardController {
 		
 		ftp.disconnect();
 			
-		return "redirect:/note_detail.bo?note_num=" + note_num + "&pageNum=" + pageNum;
+		return "redirect:/note_detail.bo?note_num=" + note_num + "&pageNum=" + pageNum + "sId" + sId;
 		
 	}
 }

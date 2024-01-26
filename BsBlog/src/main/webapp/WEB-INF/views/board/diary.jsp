@@ -23,8 +23,8 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo">Diary</a></li>
-				<li><a href="note.bo">Note</a></li>
+				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
+				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -40,16 +40,18 @@
 				<c:forEach var="diary" items="${diary }">
 				<tr>
 					<td class="left" onclick="location.href='diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}'">${diary.diary_subject }</td>
-					<td>${diary.diary_name }</td>
+					<td>${diary.diary_id }</td>
 					<td>${diary.diary_date }</td>
 					<td>${diary.diary_readcount }</td>
 				</tr>
 				</c:forEach>
 			</table>
-			<div id="table_search">
-			<!-- * location.href 알아보기 -->
-				<input type="button" value="글쓰기" class="btn" onclick="location.href='diary_write.bo'">
-			</div>
+			<c:if test="${sessionScope.sId eq 'admin' }">
+				<div id="table_search">
+				<!-- * location.href 알아보기 -->
+					<input type="button" value="글쓰기" class="btn" onclick="location.href='diary_write.bo?sId=${sessionScope.sId }'">
+				</div>
+			</c:if>
 			<!-- 검색 기능 구현을 위한 form 태그 -->
 			<!-- * get인 이유? -->
 			<!-- * 드롭다운 박스 안하고 그냥 해보기 -->

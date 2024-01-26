@@ -58,6 +58,7 @@ public class GuestbookController {
 		
 		// 글 목록 조회
 		List<GuestbookVO> guestbook = service.selectGuestbook(startRow, listLimit, searchType, keyword);
+		System.out.println("guestbook : " + guestbook);
 		
 		// 글 목록 갯수 조회
 		int listCount = service.selectGuestbookCount(searchType, keyword);
@@ -91,8 +92,8 @@ public class GuestbookController {
 	}
 	
 	@PostMapping(value = "/guestbook_writePro.gu")
-	public String news_writePro(@ModelAttribute GuestbookVO guestbook, Model model, HttpSession session) {
-		System.out.println(guestbook);
+	public String news_writePro(@ModelAttribute GuestbookVO guestbook, @RequestParam String sId, Model model, HttpSession session) {
+		System.out.println("guestbook : " + guestbook);
 		
 		String uploadDir = "/resources/upload"; 
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
@@ -143,7 +144,7 @@ public class GuestbookController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/guestbook.gu";
+			return "redirect:/guestbook.gu?sId=" + sId;
 		} else {
 			model.addAttribute("msg", "글 쓰기 실패!");
 			return "guestbook/fail_back";
@@ -165,6 +166,83 @@ public class GuestbookController {
 		
 		return "guestbook/guestbook_detail";
 	}
+	
+	// guestbook/guestbook_modify.jsp
+	@GetMapping(value = "/guestbook_modify.gu")
+	public String guestbook_modify(@RequestParam int guestbook_num, Model model) {
+		
+		// 글 수정시 원본글 뿌리기
+		GuestbookVO guestbookDetail = service.selectGuestbookDetail(guestbook_num);
+		
+		model.addAttribute("guestbookDetail", guestbookDetail);
+
+		return "guestbook/guestbook_modify";
+	}
+	
+	@PostMapping(value = "/guestbook_modifyPro.gu")
+	public String guestbook_modifyPro(@ModelAttribute GuestbookVO guestbook, @RequestParam int guestbook_num, @RequestParam int pageNum, @RequestParam String sId,
+									Model model, HttpSession session) {
+		System.out.println("guestbook : " + guestbook);
+		System.out.println("diary_num : " + guestbook_num);
+		System.out.println("pageNum : " + pageNum);
+		System.out.println("기존 파일명 : " + guestbook.getGuestbook_file());
+		System.out.println("기존 실제 파일명 : " + guestbook.getGuestbook_realfile());
+		System.out.println("새 파일 객체 : " + guestbook.getFile());
+		System.out.println("새 파일명 : " + guestbook.getFile().getOriginalFilename());
+		
+		String oldRealFile = guestbook.getGuestbook_realfile();
+		
+		String uploadDir = "/resources/upload";
+		
+		String saveDir = session.getServletContext().getRealPath(uploadDir);
+		System.out.println("실제 업로드 경로 : " + saveDir);
+		
+		File f = new File(saveDir);
+		
+		if(!f.exists()) { 
+			f.mkdirs();
+		}
+		
+		MultipartFile mFile = guestbook.getFile();
+		
+		String originalFileName = mFile.getOriginalFilename();
+		long fileSize = mFile.getSize();
+		System.out.println("파일명 : " + originalFileName);
+		System.out.println("파일크기 : " + fileSize + " Byte");
+		
+		String uuid = UUID.randomUUID().toString();
+		System.out.println("업로드 될 파일명 : " + uuid + "_" + originalFileName);
+		
+		guestbook.setGuestbook_file(originalFileName);
+		guestbook.setGuestbook_realfile(uuid + "_" + originalFileName);
+		
+		// 글 수정
+		int updateCount = service.modifyGuestbookPro(guestbook);
+		System.out.println("updateCount : " + updateCount);
+		
+		if(updateCount == 0) { // 수정 실패 시
+			model.addAttribute("msg", "패스워드 틀림!");
+			return "board/fail_back";
+		} else { // 수정 성공 시
+			if(!originalFileName.equals("")) {
+				try {
+					mFile.transferTo(new File(saveDir, guestbook.getGuestbook_realfile()));
+					
+					File f2 = new File(saveDir, oldRealFile);
+					if(f2.exists()) {
+						f2.delete();
+					}
+				} catch (IllegalStateException e) {
+					System.out.println("IllegalStateException");
+					e.printStackTrace();
+				} catch (IOException e) {
+					System.out.println("IOException");
+					e.printStackTrace();
+				}
+			}
+			return "redirect:/guestbook_detail.gu?guestbook_num=" + guestbook.getGuestbook_num() + "&pageNum=" + pageNum + "&sId=" + sId;
+		}
+	}
 		
 	// guestbook/guestbook_delete.jsp
 	@GetMapping(value = "/guestbook_delete.gu")
@@ -173,7 +251,7 @@ public class GuestbookController {
 	}
 	
 	@PostMapping(value = "/guestbook_deletePro.gu")
-	public String guestbook_deletePro(@ModelAttribute GuestbookVO guestbook, @RequestParam int pageNum, Model model, HttpSession session) {
+	public String guestbook_deletePro(@ModelAttribute GuestbookVO guestbook, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 	
 		// 글 삭제시 실제 업로드된 파일명 조회
 		String realFile = service.selectGuestbookRealFile(guestbook.getGuestbook_num());
@@ -194,7 +272,7 @@ public class GuestbookController {
 				f.delete();
 			}
 			
-			return "redirect:/guestbook.gu?pageNum=" + pageNum;
+			return "redirect:/guestbook.gu?pageNum=" + pageNum + "&sId=" + sId;
 		}
 	}
 	// TODO

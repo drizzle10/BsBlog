@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board/note_modify.jsp</title>
+<title>guestbook/guestbook_modify.jsp</title>
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
@@ -23,39 +23,38 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
-				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
+				<li><a href="guestbook.gu?sId=${sessionScope.sId }">Guestbook</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
 		<article>
-			<h1>Note Update</h1>
-			<form action="note_modifyPro.bo" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="note_num" value="${noteDetail.note_num }" />
+			<h1>Guestbook Update</h1>
+			<form action="guestbook_modifyPro.gu" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="guestbook_num" value="${guestbookDetail.guestbook_num }" />
 			<input type="hidden" name="pageNum" value="${param.pageNum }" />
 			<input type="hidden" name="sId" value="${sessionScope.sId }">	
 			<!-- * 기존 파일명도 함께 전달 이유?-->
-			<input type="hidden" name="note_realfile" value="${noteDetail.note_realfile }" />
-			<input type="hidden" name="note_file" value="${noteDetail.note_file }" />
-				<table id="notice">
+			<input type="hidden" name="guestbook_realfile" value="${guestbookDetail.guestbook_realfile }" />
+			<input type="hidden" name="guestbook_file" value="${guestbookDetail.guestbook_file }" />
+				<table id="notice">	
 					<tr>
 						<td>작성자</td>
-						<td><input type="text" name="note_id" value="${noteDetail.note_id }"></td>
+						<td><input type="text" name="guestbook_id" value="${guestbookDetail.guestbook_id }"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input type="password" name="note_password" value="${noteDetail.note_password }"></td>
+						<td><input type="password" name="guestbook_password" value="${guestbookDetail.guestbook_password }"></td>
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="note_subject" value="${noteDetail.note_subject }"></td>
+						<td><input type="text" name="guestbook_subject" value="${guestbookDetail.guestbook_subject }"></td>
 					</tr>
 					<tr>
 						<td>파일</td>
-						<td><input type="file" name="file">기존 파일 : ${noteDetail.note_file }</td>
+						<td><input type="file" name="file">기존 파일 : ${guestbookDetail.guestbook_file }</td>
 					</tr>
 					<tr>
-						<td colspan="2"><textarea id="editor" name="note_content">${noteDetail.note_content }</textarea></td>
+						<td colspan="2"><textarea id="editor" name="guestbook_content">${guestbookDetail.guestbook_content }</textarea></td>
 					</tr>
 				</table>
 

@@ -25,7 +25,7 @@
 			<ul>
 				<li><a href="welcome.in">Welcome</a></li>
 				<li><a href="career.in">Career</a></li>
-				<li><a href="news.in">News</a></li>
+				<li><a href="news.in?sId=${sessionScope.sId }">News</a></li>
 				<li><a href="#">Public Policy</a></li>
 			</ul>
 		</nav>
@@ -41,17 +41,19 @@
 				</tr>
 				<c:forEach var="news" items="${news }">
 				<tr>
-					<td class="left" onclick="location.href='news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}'">${news.news_subject }</td>
-					<td>${news.news_name }</td>
+					<td class="left" onclick="location.href='news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${news.news_subject }</td>
+					<td>${news.news_id }</td>
 					<td>${news.news_date }</td>
 					<td>${news.news_readcount }</td>
 				</tr>
 				</c:forEach>
 			</table>
-			<div id="table_search">
-			<!-- * location.href 알아보기 -->
-				<input type="button" value="글쓰기" class="btn" onclick="location.href='news_write.in'">
-			</div>
+			<c:if test="${sessionScope.sId eq 'admin' }">
+				<div id="table_search">
+				<!-- * location.href 알아보기 -->
+					<input type="button" value="글쓰기" class="btn" onclick="location.href='news_write.in?sId=${sessionScope.sId}'">
+				</div>
+			</c:if>
 			<!-- 검색 기능 구현을 위한 form 태그 -->
 			<!-- * get인 이유? -->
 			<!-- * 드롭다운 박스 안하고 그냥 해보기 -->

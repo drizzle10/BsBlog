@@ -22,19 +22,19 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo">Diary</a></li>
-				<li><a href="note.bo">Note</a></li>
+				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
+				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
 		<article>
 			<h1>Note Write</h1>
 			<form action="note_writePro.bo" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="sId" value="${sessionScope.sId }">	
 				<table id="notice">
-
 					<tr>
-						<td>글쓴이</td>
-						<td><input type="text" name="note_name"></td>
+						<td>작성자</td>
+						<td><input type="text" name="note_id" value="${sessionScope.sId }"></td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
@@ -56,7 +56,7 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea maxlength="2000" name="note_content" style="resize: none"></textarea></td>
+						<td colspan="2"><textarea name="note_content" id="editor"></textarea></td>
 					</tr>
 
 				</table>
@@ -68,6 +68,23 @@
 			<div class="clear"></div>
 		</article>
 
+		<!-- ckeditor -->
+		<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+		<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+		<script type="text/javascript">
+			ClassicEditor.create( document.querySelector( '#editor' ), {
+			    language: "ko",
+			    toolbar: [ 'heading', '|', 'fontFamily', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+			    placeholder: '내용을 입력해주세요',
+			 } )
+		    .then( editor => {
+		        console.log( editor );
+		    } )
+		    .catch( error => {
+		        console.error( error );
+		    } );
+		</script>
+		
 
 		<div class="clear"></div>
 		<!-- 푸터 들어가는곳 -->

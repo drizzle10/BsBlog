@@ -3,17 +3,20 @@
 <mapper namespace="com.project.BsBlog.mapper.InformationMapper">
 
 	<!-- 
-	CREATE TABLE news(
-		news_num INT PRIMARY KEY ,
-		news_name VARCHAR(10) NOT NULL,
-		news_password VARCHAR(20) NOT NULL,
-		news_subject VARCHAR(50) NOT NULL,
-		news_content VARCHAR(2000) NOT NULL,
-		news_file VARCHAR(50) NOT NULL,
-		news_realfile VARCHAR(50) NOT NULL,
-		news_readcount INT DEFAULT 0,
-		news_date DATE NOT NULL
-	);
+		CREATE TABLE news(
+			news_num INT PRIMARY KEY ,
+			news_id VARCHAR(16) NOT NULL,
+			news_password VARCHAR(20) NOT NULL,
+			news_subject VARCHAR(50) NOT NULL,
+			news_content VARCHAR(2000) NOT NULL,
+			news_file VARCHAR(50) NOT NULL,
+			news_realfile VARCHAR(50) NOT NULL,
+			news_re_ref INT NOT NULL,
+			news_re_lev INT NOT NULL,
+			news_re_seq INT NOT NULL,
+			news_readcount INT DEFAULT 0,
+			news_date DATE NOT NULL
+		);
 	 -->
 	 
 	<select id="selectNews" resultType="com.project.BsBlog.vo.NewsVO">
@@ -57,7 +60,7 @@
 						</when>
 						<when test="searchType.equals('name')">
 							WHERE 
-								  news_name
+								  news_id
 							 LIKE 
 							 	  '%${keyword}%'
 						</when>
@@ -105,7 +108,7 @@
 					</when>
 					<when test="searchType.equals('name')">
 						WHERE 
-							  news_name
+							  news_id
 						 LIKE 
 						 	  '%${keyword}%'
 					</when>
@@ -150,7 +153,7 @@
                 		   news n
                		),0
               	  )+1,    
-			#{news_name},
+			#{news_id},
 			#{news_password},
 			#{news_subject},
 			#{news_content},
@@ -190,7 +193,7 @@
 		UPDATE
 			   news
 		   SET
-		   	   news_name = #{news_name},
+		   	   news_id = #{news_id},
 		   	   news_subject = #{news_subject},
 		   	   news_content = #{news_content},
 		   <if test="!news_file.equals('')">

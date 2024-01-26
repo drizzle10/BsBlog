@@ -23,8 +23,8 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo">Diary</a></li>
-				<li><a href="note.bo">Note</a></li>
+				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
+				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -37,8 +37,8 @@
 					<td colspan="3">${diaryDetail.diary_subject }</td>
 				</tr>
 				<tr>
-					<td>글쓴이</td>
-					<td colspan="3">${diaryDetail.diary_name }</td>
+					<td>작성자</td>
+					<td colspan="3">${diaryDetail.diary_id }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
@@ -47,7 +47,7 @@
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="diaryFileDownload?fileName=${diaryDetail.diary_realfile }&diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum}">${diaryDetail.diary_file }</a></td>
+					<td colspan="3"><a href="diaryFileDownload?fileName=${diaryDetail.diary_realfile }&diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId}">${diaryDetail.diary_file }</a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
@@ -56,10 +56,12 @@
 			</table>
 
 			<div id="table_search">
+				<c:if test="${sessionScope.sId eq 'admin' }">
 				<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
-				<input type="button" value="글수정" class="btn" onclick="location.href='diary_modify.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글삭제" class="btn" onclick="location.href='diary_delete.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글목록" class="btn" onclick="location.href='diary.bo'">
+					<input type="button" value="글수정" class="btn" onclick="location.href='diary_modify.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
+					<input type="button" value="글삭제" class="btn" onclick="location.href='diary_delete.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
+				</c:if>
+				<input type="button" value="글목록" class="btn" onclick="location.href='diary.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 			</div>
 
 			<div class="clear"></div>

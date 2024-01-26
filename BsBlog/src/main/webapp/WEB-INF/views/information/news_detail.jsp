@@ -25,7 +25,7 @@
 			<ul>
 				<li><a href="welcome.in">Welcome</a></li>
 				<li><a href="career.in">Career</a></li>
-				<li><a href="news.in">News</a></li>
+				<li><a href="news.in?sId=${sessionScope.sId }">News</a></li>
 				<li><a href="#">Public Policy</a></li>
 			</ul>
 		</nav>
@@ -39,8 +39,8 @@
 					<td colspan="3">${newsDetail.news_subject }</td>
 				</tr>
 				<tr>
-					<td>글쓴이</td>
-					<td colspan="3">${newsDetail.news_name }</td>
+					<td>작성자</td>
+					<td colspan="3">${newsDetail.news_id }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
@@ -49,7 +49,7 @@
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="newsFileDownload?fileName=${newsDetail.news_realfile }&news_num=${newsDetail.news_num}&pageNum=${param.pageNum}">${newsDetail.news_file }</a></td>
+					<td colspan="3"><a href="newsFileDownload?fileName=${newsDetail.news_realfile }&news_num=${newsDetail.news_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId}">${newsDetail.news_file }</a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
@@ -58,10 +58,12 @@
 			</table>
 
 			<div id="table_search">
+				<c:if test="${sessionScope.sId eq 'admin' }">
 				<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
-				<input type="button" value="글수정" class="btn" onclick="location.href='news_modify.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글삭제" class="btn" onclick="location.href='news_delete.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }'"> 
-				<input type="button" value="글목록" class="btn" onclick="location.href='news.in'">
+					<input type="button" value="글수정" class="btn" onclick="location.href='news_modify.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
+					<input type="button" value="글삭제" class="btn" onclick="location.href='news_delete.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
+				</c:if>
+				<input type="button" value="글목록" class="btn" onclick="location.href='news.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'">
 			</div>
 
 			<div class="clear"></div>
