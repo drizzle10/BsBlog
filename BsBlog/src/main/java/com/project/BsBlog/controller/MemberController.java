@@ -27,12 +27,6 @@ public class MemberController {
 	public String join() {
 		return "member/join";
 	}
-	
-	// member/login.jsp
-	@GetMapping(value = "/login.me")
-	public String login() {
-		return "member/login";
-	}
 
 	@PostMapping(value = "/joinPro.me")
 	public String joinPro(@ModelAttribute MemberVO member, Model model) {
@@ -84,8 +78,44 @@ public class MemberController {
 		return idDup_checkCount;
 	}
 	
+	
+	// member/login.jsp
+	@GetMapping(value = "/login.me")
+	public String login() {
+		return "member/login";
+	}
+
+	@PostMapping(value = "/loginPro.me")
+	public String loginPro(@ModelAttribute MemberVO member, Model model, HttpSession session) {
+		// 1. BCryptPasswordEncoder 객체 생성
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		// 2. member 테이블에서 id 에 해당하는 패스워드 조회 후 리턴값 저장(getPasswd())
+		String member_password = service.select_memberPassword(member.getMember_id());
+		
+		// 3. 조회 결과를 활용하여 로그인 성공 여부 판별
+		//    1) 아이디가 없을 경우(passwd 값이 null) 실패
+		//    2) 패스워드 비교(BCryptPasswordEncoder 객체의 matches() 메서드 활용)
+		//       2-1) 다를 경우 실패
+		//       2-2) 같을 경우 성공
+		
+		if(member_password == null || !encoder.matches(member.getMember_password(), member_password)) {
+			model.addAttribute("msg", "로그인에 실패하였습니다. 다시 시도해주세요.");
+			return "member/fail_back";
+		} else {
+			session.setAttribute("sId", member.getMember_id());
+			return "redirect:/";
+		}
+	}
+	
+	// 로그아웃
+	@GetMapping(value = "/logout.me")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 	// TODO
-	// 로그인
 	// 마이페이지
 	// 관리자
 	// 댓글

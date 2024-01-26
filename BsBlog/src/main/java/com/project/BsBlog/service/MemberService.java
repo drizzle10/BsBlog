@@ -78,4 +78,9 @@ public class MemberService {
 		return mapper.idDup_check(member_id);
 	}
 
+	// 로그인 전 비밀번호 조회
+	public String select_memberPassword(String member_id) {
+		return mapper.select_memberPassword(member_id);
+	}
+
 }

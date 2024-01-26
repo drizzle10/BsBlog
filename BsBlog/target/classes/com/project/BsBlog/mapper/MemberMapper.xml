@@ -17,17 +17,16 @@
 -->	
 	
 	<insert id="joinPro">
-		<selectKey keyProperty="member_idx" resultType="integer" order="BEFORE">
-			SELECT 
-					MAX(member_idx) 
-			  FROM 
-			  		member
-		</selectKey>
-	
 	INSERT INTO 
 				member
 		VALUES (
-				#{member_idx} + 1, 
+				IFNULL(
+            	   (SELECT 
+                		   MAX(member_idx)
+                	  FROM 
+                		   member m
+               		),0
+              	  )+1,
 				#{member_id},		
 				#{member_password},		
 				#{member_name},
@@ -48,5 +47,14 @@
   		  		member 
   		 WHERE 
   		 		member_id = #{member_id}
+  	</select>
+  	
+  	<select id="select_memberPassword" resultType="string">
+  		SELECT 
+  				member_password
+  		  FROM
+  		  		member
+  		 WHERE
+  		 		member_id = #{member_id}	
   	</select>
 </mapper>

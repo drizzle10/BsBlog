@@ -10,4 +10,7 @@ public interface MemberMapper {
 	// 아이디 중복 확인
 	int idDup_check(String member_id);
 
+	// 로그인 전 비밀번호 조회
+	String select_memberPassword(String member_id);
+
 }

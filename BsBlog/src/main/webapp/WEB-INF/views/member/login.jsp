@@ -27,14 +27,14 @@
 		  <!-- 본문 내용 -->
 		  <article>
 		  	<h1>Login</h1>
-		  	<form action="loginPro.jsp" method="post" id="join">
+		  	<form action="loginPro.me" method="post" id="join">
 		  		<fieldset>
 		  			<legend>Login Info</legend>
-		  			<label>User Id</label>
-		  			<input type="text" name="id"><br>
+		  			<label>Id</label>
+		  			<input type="text" name="member_id"><br>
 		  			
 		  			<label>Password</label>
-		  			<input type="password" name="pass"><br>
+		  			<input type="password" name="member_password"><br>
 		  		</fieldset>
 		
 		  		<div class="clear"></div>
