@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.project.BsBlog.vo.NewsVO;
+import com.project.BsBlog.vo.ReplyVO;
 
 // * 인터페이스 쓰는 이유?
 public interface InformationMapper {
@@ -34,6 +35,9 @@ public interface InformationMapper {
 
 	// 글 삭제
 	int deleteNewsPro(NewsVO news);
+
+	// 댓글 작성
+	int writeReplyPro(ReplyVO reply);
 
 	
 

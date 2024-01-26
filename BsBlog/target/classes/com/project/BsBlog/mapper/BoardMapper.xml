@@ -175,10 +175,10 @@
 	       SET
 		   	   diary_id = #{diary_id},
 		   	   diary_subject = #{diary_subject},
-		   	   diary_content = #{diary_content},
+		   	   diary_content = #{diary_content}
 		   <if test="!diary_file.equals('')">
-			   diary_file = #{diary_file},
-			   diary_realfile = #{diary_realfile}
+			   , diary_file = #{diary_file}
+			   , diary_realfile = #{diary_realfile}
 		   </if>
 	 	WHERE
 		   	   diary_num = #{diary_num}
@@ -347,10 +347,10 @@
 	       SET
 		   	   note_id = #{note_id},
 		   	   note_subject = #{note_subject},
-		   	   note_content = #{note_content},
+		   	   note_content = #{note_content}
 		   <if test="!note_file.equals('')">
-			   note_file = #{note_file},
-			   note_realfile = #{note_realfile}
+			   , note_file = #{note_file}
+			   , note_realfile = #{note_realfile}
 		   </if>
 	 	WHERE
 		   	   note_num = #{note_num}

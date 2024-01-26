@@ -2,7 +2,9 @@ package com.project.BsBlog.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.BsBlog.vo.PageInfo;
+import com.project.BsBlog.vo.ReplyVO;
 import com.project.BsBlog.handler.FTPHandler;
 import com.project.BsBlog.service.InformationService;
 import com.project.BsBlog.vo.NewsVO;
@@ -429,9 +433,44 @@ public class InformationController {
 		
 	}
 	
+	// information/news_detail.jsp 댓글
+	// * responsebody 이유?
+	@ResponseBody
+	@PostMapping(value = "/reply_writePro.re")
+	public Map<String, Object> reply_writePro(@RequestParam int reply_ne_ref,
+											@RequestParam String reply_id, 
+											@RequestParam String reply_content){
+		System.out.println("reply_ne_ref : " + reply_ne_ref);
+		System.out.println("reply_id : " + reply_id);
+		System.out.println("reply_content : " + reply_content);
+		
+		
+		ReplyVO reply = new ReplyVO();
+		
+		reply.setReply_ne_ref(reply_ne_ref);
+		reply.setReply_id(reply_id);
+		reply.setReply_content(reply_content);
+		
+		System.out.println("reply : " + reply);
+		
+		// 댓글 작성
+		int insertCount = service.writeReplyPro(reply);
+
+		System.out.println("insertCount : " + insertCount);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(insertCount > 0) {
+			map.put("result", "success");
+		} else {
+			map.put("result", "fail");
+		}
+		
+		return map;
+	}
+	
+	// information/news.jsp 댓글 목록
 	
 	
-	// note 글 작성 수정 삭제 다운로드 완료
 	// 게스트북 공지 상단 고정하기(코드그린 community_main에 board.board_id eq 'admin' 참고)
 	// 게스트북 답글
 	// 게스트북 신고

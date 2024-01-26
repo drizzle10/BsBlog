@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.BsBlog.mapper.InformationMapper;
 import com.project.BsBlog.vo.NewsVO;
+import com.project.BsBlog.vo.ReplyVO;
 
 @Service
 public class InformationService {
@@ -55,9 +56,14 @@ public class InformationService {
 		return mapper.selectRealFile(news_num);
 	}
 
-	// 글 삭제 삭제
+	// 글 삭제
 	public int deleteNewsPro(NewsVO news) {
 		return mapper.deleteNewsPro(news);
+	}
+
+	// 댓글 작성
+	public int writeReplyPro(ReplyVO reply) {
+		return mapper.writeReplyPro(reply);
 	}
 
 	

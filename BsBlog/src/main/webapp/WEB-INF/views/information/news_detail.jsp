@@ -10,6 +10,41 @@
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+	// 만약 함수가 작동 않는다면 프로젝트 클린, 톰캣 클린하고 인터넷 개시 삭제 해보기
+	// pom.xml json 파싱 필수
+	function reply_write() {
+		alert("되니");
+		if(${sessionScope.sId == null}){
+			alert("로그인 후 댓글 작성이 가능합니다.");
+			location.href = "login.me";
+		} else {
+			if($("#reply_content").val() == '' || $("#reply_content").val() == null){
+				alert("댓글을 입력해주세요.");
+			} else {
+				$.ajax({
+					url: "reply_writePro.re",
+					type: "POST",
+					dataType: "json",
+					data: {
+						reply_content: $("#reply_content").val(),
+						reply_id: '${sessionScope.sId}',
+						reply_ne_ref: ${newsDetail.news_num}
+					},
+					success: function (result) {
+						alert("댓글 작성이 완료되었습니다.");
+						$("#reply_content").val("댓글은 1000자 이상 작성할 수 없습니다.");
+					}, 
+					error: function (result) {
+						alert("댓글 작성이 실패되었습니다. 다시 시도해주세요.");
+						console.log("에러 : " + result);
+					}
+					
+				})
+			}
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -65,8 +100,15 @@
 				</c:if>
 				<input type="button" value="글목록" class="btn" onclick="location.href='news.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'">
 			</div>
-
-			<div class="clear"></div>
+			
+			<!-- 댓글 -->
+			<div class="clear">
+				<div>댓글</div>
+				<textarea maxlength="1000" id="reply_content" style="resize: none; width: 670px; height: 200px;">댓글은 1000자 이상 작성할 수 없습니다.</textarea>
+				<div>
+					<input type="button" value="작성" onclick="reply_write()">
+				</div>
+			</div>
 		</article>
 
 		<div class="clear"></div>

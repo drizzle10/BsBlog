@@ -168,10 +168,10 @@
 	       SET
 		   	   guestbook_id = #{guestbook_id},
 		   	   guestbook_subject = #{guestbook_subject},
-		   	   guestbook_content = #{guestbook_content},
+		   	   guestbook_content = #{guestbook_content}
 		   <if test="!guestbook_file.equals('')">
-			   guestbook_file = #{guestbook_file},
-			   guestbook_realfile = #{guestbook_realfile}
+			   , guestbook_file = #{guestbook_file}
+			   , guestbook_realfile = #{guestbook_realfile}
 		   </if>
 	 	WHERE
 		   	   guestbook_num = #{guestbook_num}

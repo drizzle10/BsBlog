@@ -189,16 +189,17 @@
 	</update>
 	
 	<!-- 글 수정 -->
+	<!-- if절 안에 쉽표를 넣어야 파일 수정 안했을때도 내용만 수정됨 -->
 	<update id="modifyNewsPro">
 		UPDATE
 			   news
 		   SET
 		   	   news_id = #{news_id},
 		   	   news_subject = #{news_subject},
-		   	   news_content = #{news_content},
+		   	   news_content = #{news_content}
 		   <if test="!news_file.equals('')">
-			   news_file = #{news_file},
-			   news_realfile = #{news_realfile}
+			   , news_file = #{news_file}
+			   , news_realfile = #{news_realfile}
 		   </if>
 		 WHERE
 			   news_num = #{news_num}
@@ -226,4 +227,55 @@
 		   AND
 		       news_password = #{news_password} 	   
 	</delete>
+
+<!--  	
+CREATE TABLE reply(
+	reply_idx INT PRIMARY KEY, 
+	reply_id VARCHAR(16) NOT NULL,
+	reply_content VARCHAR(1000) NOT NULL,
+	reply_re_ref INT NOT NULL,
+	reply_re_lev INT NOT NULL,
+	reply_re_seq INT NOT NULL,
+	reply_ne_ref INT NOT NULL,
+	reply_date DATE NOT NULL,
+	FOREIGN KEY(reply_ne_ref) REFERENCES news(news_num) ON DELETE CASCADE
+);
+-->	
+	
+	<!-- 댓글 작성 -->
+	<insert id="writeReplyPro">
+		INSERT INTO
+					reply
+			 VALUES(
+					IFNULL(
+							(SELECT 
+									MAX(reply_idx)
+							   FROM
+							   		reply r
+							),0
+						) + 1,
+					#{reply_id},
+					#{reply_content},
+					IFNULL(
+							(SELECT 
+									MAX(reply_idx)
+							   FROM
+							   		reply r
+							),0
+						) + 1,
+					0,
+					0,
+					#{reply_ne_ref},
+					date_format(now(), '%Y-%m-%d %H:%i:%s')			 
+			 )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
