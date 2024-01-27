@@ -39,6 +39,21 @@ public interface InformationMapper {
 	// 댓글 작성
 	int writeReplyPro(ReplyVO reply);
 
+	// 댓글 조회
+	List<ReplyVO> selectReply(int reply_ne_ref);
+
+	// 댓글 갯수 조회
+	int selectReplyCount(int reply_ne_ref);
+
+	// 대댓글 순서번호 조정(reply_re_seq)
+	void increaseReReplyReSeq(ReplyVO reply);
+
+	// 대댓글 작성
+	int reReplyWritePro(ReplyVO reply);
+
+	// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
+	int replyDeletePro(int reply_idx);
+
 	
 
 }

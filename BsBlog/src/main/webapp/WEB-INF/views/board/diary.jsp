@@ -38,12 +38,12 @@
 					<th class="tread">조회수</th>
 				</tr>
 				<c:forEach var="diary" items="${diary }">
-				<tr>
-					<td class="left" onclick="location.href='diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}'">${diary.diary_subject }</td>
-					<td>${diary.diary_id }</td>
-					<td>${diary.diary_date }</td>
-					<td>${diary.diary_readcount }</td>
-				</tr>
+					<tr>
+						<td class="left" onclick="location.href='diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}'">${diary.diary_subject }</td>
+						<td>${diary.diary_id }</td>
+						<td>${diary.diary_date }</td>
+						<td>${diary.diary_readcount }</td>
+					</tr>
 				</c:forEach>
 			</table>
 			<c:if test="${sessionScope.sId eq 'admin' }">

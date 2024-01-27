@@ -66,6 +66,36 @@ public class InformationService {
 		return mapper.writeReplyPro(reply);
 	}
 
+
+	// 댓글 조회
+	public List<ReplyVO> selectReply(int reply_ne_ref) {
+		return mapper.selectReply(reply_ne_ref);
+	}
+
+	// 댓글 갯수 조회
+	public int selectReplyCount(int reply_ne_ref) {
+		return mapper.selectReplyCount(reply_ne_ref);
+	}
+
+
+	// 대댓글 순서번호(reply_re_seq) 조정
+	public void increaseReReplyReSeq(ReplyVO reply) {
+		mapper.increaseReReplyReSeq(reply);
+	}
+
+
+	// 대댓글 등록
+	public int reReplyWritePro(ReplyVO reply) {
+		return mapper.reReplyWritePro(reply);
+	}
+
+	// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
+	public int replyDeletePro(int reply_idx) {
+		return mapper.replyDeletePro(reply_idx);
+	}
+
+	
+
 	
 
 }
