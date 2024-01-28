@@ -131,7 +131,7 @@ public class InformationController {
 	// * 글 작성시 wtpwebapps/upload/upload 폴더에 파일이 저장됨
 	//   글 수정시 wtpwebapps/upload 폴더에 파일이 저장됨
 	@PostMapping(value = "/news_writePro.in")
-	public String news_writePro(@ModelAttribute NewsVO news, @RequestParam String sId, Model model, HttpSession session) {
+	public String news_writePro(@ModelAttribute NewsVO news, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 		System.out.println("news : " + news);
 		
 		// 주의! 파일 업로드 기능을 통해 전달받은 파일 객체를 다루기 위해서는
@@ -212,9 +212,9 @@ public class InformationController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/news.in?sId=" + sId;
+			return "redirect:/news.in?pageNum=" + pageNum + "&sId=" + sId;
 		} else {
-			model.addAttribute("msg", "글 쓰기 실패!");
+			model.addAttribute("msg", "글 작성이 실패되었습니다. 다시 시도해 주세요.");
 			return "information/fail_back";
 		}
 		
@@ -304,7 +304,7 @@ public class InformationController {
 		if(updateCount == 0) { // 수정 실패 시
 			// 임시 폴더에 업로드 파일이 저장되어 있으며
 			// transferTo() 메서드를 호출하지 않으면 임시 폴더의 파일은 자동 삭제됨
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "member/fail_back";
 		} else { // 수정 성공 시
 			// 수정 작업 성공 시 새 파일이 존재할 경우에만 실제 폴더 위치에 파일 업로드 수행
@@ -351,7 +351,7 @@ public class InformationController {
 		int deleteCount = service.deleteNewsPro(news);
 		
 		if(deleteCount == 0) {
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "information/fail_back";
 		} else { // 삭제 성공 시
 			// File 객체의 delete() 메서드를 활용하여 실제 업로드 된 파일 삭제
@@ -558,22 +558,25 @@ public class InformationController {
 		if(deleteCount > 0) {
 			msg += "댓글이 삭제되었습니다.";
 		} else {
-			msg += "댓글 삭제에 실패하였습니다. 다시 시도해 주세요.";
+			msg += "댓글 삭제가 실패되었습니다. 다시 시도해 주세요.";
 		}
 		
 	}
 	
 	// TODO
-	// 대댓글 수정(원본글 뿌리기)
 	// 댓글 없을때 댓글 없다는 내용 적기
-	// 본인 댓글에만 수정, 삭제 보이게 하는 방법...... ㅠ
+	// 댓글 작성하거나 대댓글 작성하고 완료 알림창 안뜨는듯 확인필요
+	// 댓글 조회시 시분초 다 나오게
+	// 댓글 페이징
+	// 글 삭제시 confirm 확인 눌러야 삭제되게 하는 방법? => 컨트롤러 msg에 띄우면 될듯
 	// 게스트북 공지 상단 고정하기(코드그린 community_main에 board.board_id eq 'admin' 참고)
-	// 게스트북 답글
 	// 게스트북 신고
 	// 마이페이지
 	// 관리자 페이지
 	// 메인페이지 게시판 목록 불러오기
 	// 썸네일
+	// sns로그인
+	// 무한 스크롤?
 	
 	// ftpClient.retrieve함수 false 해결
 	// news_detail.jsp 실제 조회할때만 조회수 증가

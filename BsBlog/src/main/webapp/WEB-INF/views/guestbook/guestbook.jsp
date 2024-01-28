@@ -48,7 +48,7 @@
 			<c:if test="${not empty sessionScope.sId }">	
 				<div id="table_search">
 				<!-- * location.href 알아보기 -->
-					<input type="button" value="글쓰기" class="btn" onclick="location.href='guestbook_write.gu?sId=${sessionScope.sId}'">
+					<input type="button" value="글쓰기" class="btn" onclick="location.href='guestbook_write.gu?pageNum=${pageInfo.pageNum }&sId=${sessionScope.sId}'">
 				</div>
 			</c:if>
 			<!-- 검색 기능 구현을 위한 form 태그 -->

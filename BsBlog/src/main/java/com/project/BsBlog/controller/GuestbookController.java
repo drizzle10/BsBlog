@@ -92,7 +92,7 @@ public class GuestbookController {
 	}
 	
 	@PostMapping(value = "/guestbook_writePro.gu")
-	public String news_writePro(@ModelAttribute GuestbookVO guestbook, @RequestParam String sId, Model model, HttpSession session) {
+	public String news_writePro(@ModelAttribute GuestbookVO guestbook, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 		System.out.println("guestbook : " + guestbook);
 		
 		String uploadDir = "/resources/upload"; 
@@ -144,9 +144,9 @@ public class GuestbookController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/guestbook.gu?sId=" + sId;
+			return "redirect:/guestbook.gu?pageNum=" + pageNum + "&sId=" + sId;
 		} else {
-			model.addAttribute("msg", "글 쓰기 실패!");
+			model.addAttribute("msg", "글 작성이 실패되었습니다. 다시 시도해 주세요.");
 			return "guestbook/fail_back";
 		}
 		
@@ -221,7 +221,7 @@ public class GuestbookController {
 		System.out.println("updateCount : " + updateCount);
 		
 		if(updateCount == 0) { // 수정 실패 시
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else { // 수정 성공 시
 			if(!originalFileName.equals("")) {
@@ -260,7 +260,7 @@ public class GuestbookController {
 		int deleteCount = service.deleteGuestbookPro(guestbook);
 		
 		if(deleteCount == 0) {
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else {
 			String uploadDir = "/resources/upload";
@@ -289,7 +289,7 @@ public class GuestbookController {
 			model.addAttribute("guestbook", guestbook);
 			return "guestbook/guestbook_reply";
 		} else {
-			model.addAttribute("msg", "조회 실패");
+			model.addAttribute("msg", "답글을 위해 기존 글을 조회하는데 실패하였습니다.");
 			return "guestbook/fail_back";
 		}
 	}
@@ -352,9 +352,9 @@ public class GuestbookController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/guestbook.gu?sId=" + sId;
+			return "redirect:/guestbook.gu?pageNum=" + pageNum + "sId=" + sId;
 		} else {
-			model.addAttribute("msg", "글 쓰기 실패!");
+			model.addAttribute("msg", "답글 작성이 실패되었습니다. 다시 시도해 주세요.");
 			return "guestbook/fail_back";
 		}
 		

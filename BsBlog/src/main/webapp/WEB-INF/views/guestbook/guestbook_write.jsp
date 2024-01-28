@@ -31,6 +31,7 @@
 			<h1>Guestbook Write</h1>
 			<form action="guestbook_writePro.gu" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="sId" value="${sessionScope.sId }">	
+			<input type="hidden" name="pageNum" value="${param.pageNum }">	
 				<table id="notice">
 
 					<tr>

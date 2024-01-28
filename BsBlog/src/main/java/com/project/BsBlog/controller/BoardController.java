@@ -100,7 +100,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/diary_writePro.bo")
-	public String diary_writePro(@ModelAttribute DiaryVO diary, @RequestParam String sId, Model model, HttpSession session) {
+	public String diary_writePro(@ModelAttribute DiaryVO diary, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 		
 		System.out.println("diary : " + diary);
 		
@@ -155,9 +155,9 @@ public class BoardController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/diary.bo?sId=" + sId;
+			return "redirect:/diary.bo?pageNum=" + pageNum + "&sId=" + sId;
 		} else {
-			model.addAttribute("msg", "글 쓰기 실패!");
+			model.addAttribute("msg", "글 작성이 실패되었습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		}
 		
@@ -231,7 +231,7 @@ public class BoardController {
 		int updateCount = service.modifyDiaryPro(diary);
 		
 		if(updateCount == 0) { // 수정 실패 시
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else { // 수정 성공 시
 			if(!originalFileName.equals("")) {
@@ -270,7 +270,7 @@ public class BoardController {
 		int deleteCount = service.deleteDiaryPro(diary);
 		
 		if(deleteCount == 0) {
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else {
 			String uploadDir = "/resources/upload";
@@ -363,7 +363,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "/note_writePro.bo")
-	public String note_writePro(@ModelAttribute NoteVO note, @RequestParam String sId, Model model, HttpSession session) {
+	public String note_writePro(@ModelAttribute NoteVO note, @RequestParam int pageNum, @RequestParam String sId, Model model, HttpSession session) {
 		
 		System.out.println(note);
 		
@@ -418,9 +418,9 @@ public class BoardController {
 				ftp.disconnect();
 			}
 			
-			return "redirect:/note.bo?&sId=" + sId;
+			return "redirect:/note.bo?pageNum=" + pageNum + "&sId=" + sId;
 		} else {
-			model.addAttribute("msg", "글 쓰기 실패!");
+			model.addAttribute("msg", "글 작성이 실패되었습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		}
 		
@@ -494,7 +494,7 @@ public class BoardController {
 		int updateCount = service.modifyNotePro(note);
 		
 		if(updateCount == 0) { // 수정 실패 시
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else { // 수정 성공 시
 			if(!originalFileName.equals("")) {
@@ -533,7 +533,7 @@ public class BoardController {
 		int deleteCount = service.deleteNotePro(note);
 		
 		if(deleteCount == 0) {
-			model.addAttribute("msg", "패스워드 틀림!");
+			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else {
 			String uploadDir = "/resources/upload";

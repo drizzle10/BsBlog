@@ -39,7 +39,7 @@
 				</tr>
 				<c:forEach var="diary" items="${diary }">
 					<tr>
-						<td class="left" onclick="location.href='diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}'">${diary.diary_subject }</td>
+						<td class="left" onclick="location.href='diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${diary.diary_subject }</td>
 						<td>${diary.diary_id }</td>
 						<td>${diary.diary_date }</td>
 						<td>${diary.diary_readcount }</td>
@@ -49,7 +49,7 @@
 			<c:if test="${sessionScope.sId eq 'admin' }">
 				<div id="table_search">
 				<!-- * location.href 알아보기 -->
-					<input type="button" value="글쓰기" class="btn" onclick="location.href='diary_write.bo?sId=${sessionScope.sId }'">
+					<input type="button" value="글쓰기" class="btn" onclick="location.href='diary_write.bo?pageNum=${pageInfo.pageNum }&sId=${sessionScope.sId }'">
 				</div>
 			</c:if>
 			<!-- 검색 기능 구현을 위한 form 태그 -->

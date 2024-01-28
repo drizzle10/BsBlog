@@ -31,6 +31,7 @@
 			<h1>Note Write</h1>
 			<form action="note_writePro.bo" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="sId" value="${sessionScope.sId }">	
+			<input type="hidden" name="pageNum" value="${param.pageNum }">	
 				<table id="notice">
 					<tr>
 						<td>작성자</td>
