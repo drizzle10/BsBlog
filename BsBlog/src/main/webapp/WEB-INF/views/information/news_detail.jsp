@@ -51,25 +51,47 @@
 		}
 	};
 	
-	// ---------- 댓글 삭제 ---------
-	function reply_delete(reply_idx){
-		var deleteCheck = confirm("댓글을 삭제하시겠습니까?");
+
 		
-		if (deleteCheck) {
-			$.ajax({
-				url: "reply_DeletePro.re",
-				type: "GET",
-				data: {
-						reply_idx : reply_idx
-				},
-				success: function(msg){
-					alert("댓글이 삭제되었습니다.");
-					reply();			
-				},
-			})
-		} 
+		
+	/* 	
+		$.ajax({
+			url: "reply_modifyPro.re",
+			type: "POST",
+			data: {
+				
+			},
+			success: function () {
+				alert("댓글 수정이 완료 되었습니다.");
+				reply();
+			}
+		})
+		
+	} */
 	
-	};
+	
+	// ---------- 댓글 삭제 ---------
+ 	function reply_delete(reply_idx, reply_id){
+		if(('${sessionScope.sId}' != reply_id) || ('${sessionScope.sId}' != 'admin') ){
+			alert("삭제 권한이 없습니다.");
+		} else {
+			var deleteCheck = confirm("댓글을 삭제하시겠습니까?");
+			if (deleteCheck) {
+				$.ajax({
+					url: "reply_deletePro.re",
+					type: "GET",
+					data: {
+							reply_idx : reply_idx
+					},
+					success: function(msg){
+						alert("댓글이 삭제되었습니다.");
+						reply();			
+					},
+				})
+			}
+		}
+	
+	}; 
 	
 	// 대댓글 토글
 	// 댓글 토글에서 이 함수를 호출하므로 댓글 토글보다 위에 있어야함
@@ -106,7 +128,6 @@
 
 	// 댓글 토글
 	function reply(){
-
 		$.ajax({
 			url: "reply.re",
 			type: "POST",
@@ -136,8 +157,7 @@
 								+  '<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply('+ idNum +')" style="cursor: pointer" > <br> 답글 </a></span>'
 								<!-- 로그인한 사람과 댓글작성자가 같을 경우 삭제버튼, 수정버튼 표시 -->
 		                       // if(('${sessionScope.sId}' == reply.reply_id) || ('${sessionScope.sId}' == 'admin') ){
-		                    	   	+  '<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify('+ reply.reply_idx +');return false;" style="text-decoration: none; cursor: pointer;"> 수정 </a></span>'
-			                        +  '<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete('+ reply.reply_idx +');return false;" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span><hr>'
+			                    +  '<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete('+ reply.reply_idx + ',' + '\'' + reply.reply_id + '\'' +')" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span><hr>'
 			                   //  }
 		                        + '<div id="reReplyBox'+ idNum++ +'" style="display:none">'
 								+ '<form action="#" method="post" id="reReply_form'+ idNum +'">'
@@ -148,8 +168,9 @@
 								+ '<input type="hidden" name="reply_id" value="${sessionScope.sId}">'
 								+ '<input type="hidden" name="pageNum" value="${param.pageNum}">'
 								+ '<textarea id ="rereBox" name="reply_content" style="width: 670px; height: 200px; resize: none;">댓글을 입력하세요.</textarea>&nbsp;&nbsp;'
-								+ '<input type="button" id="goReReply" value="작성" onclick="reReply_write('+ idNum +')"></form></div>';
+								+ '<input type="button" id="go_reply_wri_btn" value="작성" onclick="reReply_write('+ idNum +')"></form></div>';
 		                    
+								// 수정!!!!!!!!!!!!!!!
 								// append로 해야 들어가짐
 		                        $("#replyList").append(result);
 				}
@@ -160,7 +181,6 @@
 		});
 	}				
 				
-	
 </script>
 </head>
 <body>

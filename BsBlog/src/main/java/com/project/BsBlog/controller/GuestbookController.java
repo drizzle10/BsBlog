@@ -19,8 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.BsBlog.handler.FTPHandler;
 import com.project.BsBlog.service.GuestbookService;
 import com.project.BsBlog.vo.GuestbookVO;
-import com.project.BsBlog.vo.NewsVO;
-import com.project.BsBlog.vo.NoteVO;
 import com.project.BsBlog.vo.PageInfo;
 
 @Controller
@@ -40,6 +38,8 @@ public class GuestbookController {
 	private int endPage; // 끝 페이지 번호
 	*/
 	
+	// guestbook/guestbook.jsp
+
 	// guestbook/guestbook.jsp
 	@GetMapping(value = "/guestbook.gu")
 	public String guestbook(@RequestParam(defaultValue = "") String searchType,
@@ -183,7 +183,7 @@ public class GuestbookController {
 	public String guestbook_modifyPro(@ModelAttribute GuestbookVO guestbook, @RequestParam int guestbook_num, @RequestParam int pageNum, @RequestParam String sId,
 									Model model, HttpSession session) {
 		System.out.println("guestbook : " + guestbook);
-		System.out.println("diary_num : " + guestbook_num);
+		System.out.println("guestbook_num : " + guestbook_num);
 		System.out.println("pageNum : " + pageNum);
 		System.out.println("기존 파일명 : " + guestbook.getGuestbook_file());
 		System.out.println("기존 실제 파일명 : " + guestbook.getGuestbook_realfile());
@@ -275,10 +275,91 @@ public class GuestbookController {
 			return "redirect:/guestbook.gu?pageNum=" + pageNum + "&sId=" + sId;
 		}
 	}
+	
+
+	// guestbook/guestbook_reply.jsp
+	@GetMapping(value = "/guestbook_reply_write.gu")
+	public String guestbook_reply_write(@RequestParam int guestbook_num, Model model) {
+		
+		GuestbookVO guestbook = service.selectGuestbookDetail(guestbook_num);
+		
+		System.out.println("guestbook : " + guestbook);
+		
+		if(guestbook != null) {
+			model.addAttribute("guestbook", guestbook);
+			return "guestbook/guestbook_reply";
+		} else {
+			model.addAttribute("msg", "조회 실패");
+			return "guestbook/fail_back";
+		}
+	}
+	
+	
+	@PostMapping(value = "/guestbook_reply_writePro.gu")
+	public String guestbook_replyWritePro(@ModelAttribute GuestbookVO guestbook, @RequestParam int guestbook_num, @RequestParam int pageNum, @RequestParam String sId, HttpSession session, Model model) {
+		
+		System.out.println("guestbook : " + guestbook);
+		
+		service.increaseGuestbookReSeq(guestbook);
+		
+		String uploadDir = "/resources/upload"; 
+		String saveDir = session.getServletContext().getRealPath(uploadDir);
+		
+		File f = new File(saveDir); 
+		if(!f.exists()) { 
+			f.mkdirs();
+		}
+		
+		MultipartFile mFile = guestbook.getFile();
+		
+		String originalFileName = mFile.getOriginalFilename();
+		long fileSize = mFile.getSize();
+		System.out.println("파일명 : " + originalFileName);
+		System.out.println("파일크기 : " + fileSize + " Byte");
+		
+		String uuid = UUID.randomUUID().toString();
+		System.out.println("업로드 될 파일명 : " + uuid + "_" + originalFileName);
+		
+		guestbook.setGuestbook_file(originalFileName); // 실제로는 불필요한 컬럼
+		guestbook.setGuestbook_realfile(uuid + "_" + originalFileName);
+		
+		int insertCount = service.writeGuestbookReplyPro(guestbook);
+		
+		System.out.println("@@@@@@guestbook : " + guestbook);
+		if(insertCount > 0) {
+			try {
+				String ftpBaseDir = "/upload";
+				ftp.connect(ftpBaseDir);
+				
+				System.out.println("ftp접속 완");
+				
+				File f2 = new File(saveDir, guestbook.getGuestbook_realfile());
+				mFile.transferTo(f2);
+
+				System.out.println("톰캣 업로드 완");
+				ftp.upload(f2, guestbook.getGuestbook_realfile());
+				
+				System.out.println("ftp업로드 완");
+				
+				if(f2.exists()) {
+					f2.delete();
+				}
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				ftp.disconnect();
+			}
+			
+			return "redirect:/guestbook.gu?sId=" + sId;
+		} else {
+			model.addAttribute("msg", "글 쓰기 실패!");
+			return "guestbook/fail_back";
+		}
+		
+	}
 	// TODO
-	// 로그인, 가입
-	// 가입시 인증
 	// 네이버, 카카오톡 로그인
-	// 댓글 혹은 답글
 	
 }

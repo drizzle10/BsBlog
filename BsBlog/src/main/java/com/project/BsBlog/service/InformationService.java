@@ -94,6 +94,7 @@ public class InformationService {
 		return mapper.replyDeletePro(reply_idx);
 	}
 
+
 	
 
 	

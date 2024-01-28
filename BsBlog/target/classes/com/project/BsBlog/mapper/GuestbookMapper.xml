@@ -59,7 +59,8 @@
 				</choose>
 		 	</if>
 		 	ORDER BY
-					 guestbook_num DESC
+					 guestbook_re_ref DESC,
+					 guestbook_re_seq ASC
 			   LIMIT 
 			   		 #{startRow}, #{listLimit} 	   
 	</select>
@@ -105,6 +106,9 @@
 	</select>
 
 	<!-- 글 작성 -->
+	<!-- 
+	* guestbook_re_ref 부분은 guestbook_num과 같이 IFNULL 써야함
+	 -->
 	<insert id="writeGuestbookPro">
 	INSERT 
 	  INTO 
@@ -123,9 +127,15 @@
 			#{guestbook_content},
 			#{guestbook_file},
 			#{guestbook_realfile},
-			#{guestbook_readcount},
+			IFNULL(
+            	   (SELECT 
+                		   MAX(guestbook_num)
+                	  FROM 
+                		   guestbook g
+               		),0
+              	  )+1, 
 			0, 
-			0, 
+			0,
 			0,
 			now()
 		)
@@ -189,5 +199,43 @@
 		   AND
 		   	   guestbook_password = #{guestbook_password}	   	   
 	</delete>
+	
+	<update id="increaseGuestbookReSeq">
+		UPDATE
+			   guestbook
+		   SET
+		   	   guestbook_re_seq = guestbook_re_seq + 1
+		 WHERE
+		 	   guestbook_re_ref = #{guestbook_re_ref}
+		   AND
+		   	   guestbook_re_seq > #{guestbook_re_seq} 	   
+	</update>
+	
+	<insert id="writeGuestbookReplyPro">
+		INSERT 
+	  INTO 
+	  	   guestbook
+	VALUES(
+			IFNULL(
+            	   (SELECT 
+                		   MAX(guestbook_num)
+                	  FROM 
+                		   guestbook g
+               		),0
+              	  )+1,    
+			#{guestbook_id},
+			#{guestbook_password},
+			#{guestbook_subject},
+			#{guestbook_content},
+			#{guestbook_file},
+			#{guestbook_realfile},
+			#{guestbook_re_ref}, 
+			#{guestbook_re_lev} + 1,
+			#{guestbook_re_seq} + 1,
+			#{guestbook_readcount},
+			now()
+		)
+		
+	</insert>
 	
 </mapper>

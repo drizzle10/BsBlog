@@ -55,6 +55,15 @@ public class GuestbookService {
 		return mapper.deleteGuestbookPro(guestbook);
 	}
 
-	
+	public void increaseGuestbookReSeq(GuestbookVO guestbook) {
+		mapper.increaseGuestbookReSeq(guestbook);
+		
+	}
+
+	// 답글 작성
+	public int writeGuestbookReplyPro(GuestbookVO guestbook) {
+		return mapper.writeGuestbookReplyPro(guestbook);
+	}
+
 
 }

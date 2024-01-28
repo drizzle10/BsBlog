@@ -37,12 +37,12 @@
 					<th class="tread">조회수</th>
 				</tr>
 				<c:forEach var="guestbook" items="${guestbook }">
-				<tr>
-					<td class="left" onclick="location.href='guestbook_detail.gu?guestbook_num=${guestbook.guestbook_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${guestbook.guestbook_subject }</td>
-					<td>${guestbook.guestbook_id }</td>
-					<td>${guestbook.guestbook_date }</td>
-					<td>${guestbook.guestbook_readcount }</td>
-				</tr>
+					<tr>
+						<td class="left" onclick="location.href='guestbook_detail.gu?guestbook_num=${guestbook.guestbook_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${guestbook.guestbook_subject }</td>
+						<td>${guestbook.guestbook_id }</td>
+						<td>${guestbook.guestbook_date }</td>
+						<td>${guestbook.guestbook_readcount }</td>
+					</tr>
 				</c:forEach>
 			</table>
 			<c:if test="${not empty sessionScope.sId }">	

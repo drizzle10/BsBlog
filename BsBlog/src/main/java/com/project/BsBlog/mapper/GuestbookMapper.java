@@ -33,6 +33,11 @@ public interface GuestbookMapper {
 	// 글 삭제
 	int deleteGuestbookPro(GuestbookVO guestbook);
 
+	void increaseGuestbookReSeq(GuestbookVO guestbook);
+
+	// 답글 작성
+	int writeGuestbookReplyPro(GuestbookVO guestbook);
+
 	
 	
 }

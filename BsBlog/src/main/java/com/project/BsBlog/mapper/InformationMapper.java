@@ -54,6 +54,7 @@ public interface InformationMapper {
 	// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
 	int replyDeletePro(int reply_idx);
 
+
 	
 
 }

@@ -473,30 +473,30 @@ public class InformationController {
 		JSONArray jsonArray = new JSONArray();
 		
 		// 1. List 객체 크기만큼 반복
-				for(ReplyVO reply : replyList) {
-					// 2. JSONObject 클래스 인스턴스 생성
-					//    => 파라미터 : VO 객체(Getter/Setter, 기본생성자 필요)
-					JSONObject jsonObject = new JSONObject(reply);
+			for(ReplyVO reply : replyList) {
+				// 2. JSONObject 클래스 인스턴스 생성
+				//    => 파라미터 : VO 객체(Getter/Setter, 기본생성자 필요)
+				JSONObject jsonObject = new JSONObject(reply);
 //					System.out.println(jsonObject);
-					
-					// 3. JSONArray 객체의 put() 메서드를 호출하여 JSONObject 객체 추가
-					jsonArray.put(jsonObject);
-				}
 				
-//				System.out.println(jsonArray);
-				
-				try {
-					// 응답 데이터를 직접 생성하여 웹페이지에 출력
-					// HttpSertvletResponse 객체의 getWriter() 메서드를 통해 PrintWriter 객체를 리턴받아
-					// 해당 객체의 print() 메서드를 호출하여 응답데이터 출력
-					// => 단, 객체 데이터 출력 전 한글 인코딩 처리 필수!
-					response.setCharacterEncoding("UTF-8");
-					response.getWriter().print(jsonArray);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
+				// 3. JSONArray 객체의 put() 메서드를 호출하여 JSONObject 객체 추가
+				jsonArray.put(jsonObject);
 			}
+			
+//				System.out.println(jsonArray);
+			
+			try {
+				// 응답 데이터를 직접 생성하여 웹페이지에 출력
+				// HttpSertvletResponse 객체의 getWriter() 메서드를 통해 PrintWriter 객체를 리턴받아
+				// 해당 객체의 print() 메서드를 호출하여 응답데이터 출력
+				// => 단, 객체 데이터 출력 전 한글 인코딩 처리 필수!
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().print(jsonArray);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	
 	// information/news_detail.jsp 댓글
 	// * responsebody 이유?
@@ -546,27 +546,34 @@ public class InformationController {
 		
 	}
 	
+	
 	// 댓글 삭제
 	@ResponseBody
-	@GetMapping("/reply_DeletePro.re")
+	@GetMapping("/reply_deletePro.re")
 	public void reply_deletePro(@RequestParam int reply_idx) {
 		// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
 		int deleteCount = service.replyDeletePro(reply_idx);
 		
 		String msg = "";
 		if(deleteCount > 0) {
-			msg += "선택한 댓글이 삭제되었습니다.";
+			msg += "댓글이 삭제되었습니다.";
 		} else {
 			msg += "댓글 삭제에 실패하였습니다. 다시 시도해 주세요.";
 		}
 		
 	}
 	
-	
+	// TODO
+	// 대댓글 수정(원본글 뿌리기)
+	// 댓글 없을때 댓글 없다는 내용 적기
+	// 본인 댓글에만 수정, 삭제 보이게 하는 방법...... ㅠ
 	// 게스트북 공지 상단 고정하기(코드그린 community_main에 board.board_id eq 'admin' 참고)
 	// 게스트북 답글
 	// 게스트북 신고
-	
+	// 마이페이지
+	// 관리자 페이지
+	// 메인페이지 게시판 목록 불러오기
+	// 썸네일
 	
 	// ftpClient.retrieve함수 false 해결
 	// news_detail.jsp 실제 조회할때만 조회수 증가

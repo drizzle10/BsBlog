@@ -59,6 +59,9 @@
 				<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
 				<input type="button" value="글수정" class="btn" onclick="location.href='guestbook_modify.gu?guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 				<input type="button" value="글삭제" class="btn" onclick="location.href='guestbook_delete.gu?guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
+			</c:if>
+			<c:if test="${sessionScope.sId eq 'admin' }">	
+				<input type="button" value="답변" class="btn" onclick="location.href='guestbook_reply_write.gu?guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 			</c:if>	
 				<input type="button" value="글목록" class="btn" onclick="location.href='guestbook.gu?sId=${sessionScope.sId }'">
 			</div>
