@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.project.BsBlog.mapper.GuestbookMapper;
 import com.project.BsBlog.vo.GuestbookVO;
 import com.project.BsBlog.vo.NewsVO;
+import com.project.BsBlog.vo.ReportVO;
 
 @Service
 public class GuestbookService {
@@ -63,6 +64,11 @@ public class GuestbookService {
 	// 답글 작성
 	public int writeGuestbookReplyPro(GuestbookVO guestbook) {
 		return mapper.writeGuestbookReplyPro(guestbook);
+	}
+
+	// 게스트북 신고
+	public int writeReport(ReportVO report) {
+		return mapper.writeReport(report);
 	}
 
 

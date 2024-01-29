@@ -20,6 +20,8 @@ import com.project.BsBlog.handler.FTPHandler;
 import com.project.BsBlog.service.GuestbookService;
 import com.project.BsBlog.vo.GuestbookVO;
 import com.project.BsBlog.vo.PageInfo;
+import com.project.BsBlog.vo.ReplyVO;
+import com.project.BsBlog.vo.ReportVO;
 
 @Controller
 public class GuestbookController {
@@ -359,6 +361,23 @@ public class GuestbookController {
 		}
 		
 	}
+	
+	// guestbook/guestbook_detail.jsp
+	@PostMapping(value = "/report.re")
+	public String report(@ModelAttribute ReportVO report, @RequestParam int pageNum, @RequestParam String sId, Model model) {
+		
+		System.out.println("report : " + report);
+		
+		// 게스트북 게시판 신고
+		int insertCount = service.writeReport(report);
+		if(insertCount > 0) {
+			return "redirect:/guestbook_detail.gu?guestbook_num=" + report.getReport_guestbook_num() + "&pageNum=" + pageNum + "&sId=" + sId;
+		}
+		
+		model.addAttribute("msg", "신고가 실패되었습니다. 다시 시도해 주세요.");
+		return "guestbook/fail_back";
+	}
+	
 	// TODO
 	// 네이버, 카카오톡 로그인
 	

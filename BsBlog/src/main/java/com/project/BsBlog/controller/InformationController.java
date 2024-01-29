@@ -365,7 +365,6 @@ public class InformationController {
 			if(f.exists()) { // 해당 경로에 파일이 존재할 경우
 				f.delete();
 			}
-			
 			return "redirect:/news.in?pageNum=" + pageNum + "&sId=" + sId;
 		}
 		
@@ -539,7 +538,7 @@ public class InformationController {
 		
 		String msg = "";
 		if(insertCount > 0) {
-			msg += "댓글 작성이 완료되었습니다.";
+			msg += "댓글이 작성되었습니다.";
 		} else {
 			msg += "댓글 작성이 실패되었습니다. 다시 시도해 주세요.";
 		}
@@ -568,8 +567,6 @@ public class InformationController {
 	// 댓글 작성하거나 대댓글 작성하고 완료 알림창 안뜨는듯 확인필요
 	// 댓글 조회시 시분초 다 나오게
 	// 댓글 페이징
-	// 글 삭제시 confirm 확인 눌러야 삭제되게 하는 방법? => 컨트롤러 msg에 띄우면 될듯
-	// 게스트북 공지 상단 고정하기(코드그린 community_main에 board.board_id eq 'admin' 참고)
 	// 게스트북 신고
 	// 마이페이지
 	// 관리자 페이지

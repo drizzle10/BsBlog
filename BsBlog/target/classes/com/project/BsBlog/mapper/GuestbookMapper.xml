@@ -238,4 +238,39 @@
 		
 	</insert>
 	
+	<!-- CREATE TABLE report(
+		report_idx INT PRIMARY KEY,
+		report_guestbook_num INT NOT NULL,
+		report_guestbook_id VARCHAR(16) NOT NULL,
+		report_guestbook_subject VARCHAR(50) NOT NULL,
+		report_guestbook_content VARCHAR(5000) NOT NULL,
+		report_id VARCHAR(16) NOT NULL,
+		report_content VARCHAR(1000) NOT NULL,
+		report_status VARCHAR(5) NOT NULL,
+		report_date DATE NOT NULL
+	); -->
+	
+	<!-- 게시트북 게시판 신고 -->
+	<insert id="writeReport">
+		INSERT 
+		  INTO 
+		  		report
+		VALUES (
+				IFNULL(
+						(SELECT 
+								MAX(report_idx) 
+						   FROM 
+						   		report r
+						 ),0
+				) + 1,   
+				#{report_guestbook_num}, 
+				#{report_guestbook_id}, 
+				#{report_guestbook_subject}, 
+				#{report_guestbook_content}, 
+				#{report_content}, 
+				#{report_id}, 
+				'처리대기', 				
+				now()
+				)	
+	</insert>
 </mapper>

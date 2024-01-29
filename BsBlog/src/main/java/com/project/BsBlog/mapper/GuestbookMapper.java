@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.project.BsBlog.vo.GuestbookVO;
+import com.project.BsBlog.vo.ReportVO;
 
 public interface GuestbookMapper {
 
@@ -38,6 +39,8 @@ public interface GuestbookMapper {
 	// 답글 작성
 	int writeGuestbookReplyPro(GuestbookVO guestbook);
 
+	// 게스트북 게시판 신고
+	int writeReport(ReportVO report);
 	
 	
 }

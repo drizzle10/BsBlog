@@ -62,12 +62,69 @@
 			</c:if>
 			<c:if test="${sessionScope.sId eq 'admin' }">	
 				<input type="button" value="답변" class="btn" onclick="location.href='guestbook_reply_write.gu?guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
-			</c:if>	
+			</c:if>
+				<button class="btn" id="report_btn">신고</button>
+				<div id="modal">
+				   <div id="modal_content">
+				   	  <button type="button" id="modal_close_btn">X</button><br>
+				   	   <h1>신고</h1>
+				   	  <form action="report.re" method="post" onsubmit="report()">
+				   	  	<input type="hidden" value="${param.pageNum }" name="pageNum" id="pageNum">
+				   	  	<input type="hidden" value="${guestbookDetail.guestbook_num }" name="report_guestbook_num" id="report_guestbook_num">
+				   	  	<input type="hidden" value="${guestbookDetail.guestbook_subject }" name="report_guestbook_subject" id="report_guestbook_subject">
+				   	  	<input type="hidden" value="${guestbookDetail.guestbook_content }" name="report_guestbook_content" id="report_guestbook_content">
+				   	  	<input type="hidden" value="${guestbookDetail.guestbook_id }" name="report_guestbook_id" id="report_guestbook_id">
+				   	  	<input type="hidden" value="${sessionScope.sId }" name="sId" id="sId">
+				   	  	<table>
+				   	  		<tr>
+				   	  			<td>신고자</td>
+				   	  			<td><input type="text" value="${sessionScope.sId }" name="report_id" id="report_id" readonly="readonly"></td>
+				   	  		</tr>
+				   	  		<tr>
+				   	  			<td>신고사유</td>
+				   	  			<td><textarea name="report_content" id="report_content" cols="30" rows="3" placeholder="신고사유를 입력해주세요."></textarea></td>
+				   	  		</tr>
+				   	  		<tr>
+				   	  			<td colspan="2"><input type="submit" value="신고"></td>
+				   	  		</tr>
+					   	  </table>
+				   	  </form>
+				   </div>	
+				</div>				
 				<input type="button" value="글목록" class="btn" onclick="location.href='guestbook.gu?sId=${sessionScope.sId }'">
 			</div>
 
 			<div class="clear"></div>
 		</article>
+
+		<script type="text/javascript">
+			/* 신고 모달창 */
+			const modal = document.querySelector('#modal');
+			const btnOpenModal = document.querySelector('#report_btn');
+		
+			btnOpenModal.addEventListener("click", ()=>{
+				/* 가입한 회원만 신고 가능*/
+				if(${sessionScope.sId == null}){
+					alert("로그인 후 사용 가능합니다.");
+					location.href = "login.me";
+				/* 본인의 글엔 신고 불가능*/	
+				} else if(${sessionScope.sId == guestbookDetail.guestbook_id}) {
+					alert("본인의 글에는 신고를 할 수 없습니다.");
+					history.back();
+				}
+		    	modal.style.display = "flex";
+		  	});
+		
+			/* 신고 모달창 x버튼 누르면 종료*/
+			$("#modal_close_btn").click(function () {
+				$("#modal").fadeOut();
+			});
+			
+			/* 신고 완료 */
+			function report() {
+				alert("신고가 완료되었습니다.\n관리자의 확인 후 처리됩니다.");
+			}
+		</script>
 
 		<div class="clear"></div>
 		<!-- 푸터 들어가는곳 -->
