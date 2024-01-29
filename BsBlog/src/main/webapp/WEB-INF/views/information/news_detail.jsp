@@ -208,11 +208,11 @@
 			<table id="notice">
 				<tr>
 					<td>제목</td>
-					<td colspan="3">${newsDetail.news_subject }</td>
+					<td>${newsDetail.news_subject }</td>
 				</tr>
 				<tr>
 					<td>작성자</td>
-					<td colspan="3">${newsDetail.news_id }</td>
+					<td>${newsDetail.news_id }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
@@ -221,11 +221,11 @@
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="newsFileDownload?fileName=${newsDetail.news_realfile }&news_num=${newsDetail.news_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId}">${newsDetail.news_file }</a></td>
+					<td><a href="newsFileDownload?fileName=${newsDetail.news_realfile }&news_num=${newsDetail.news_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId}">${newsDetail.news_file }</a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td colspan="3">${newsDetail.news_content }</td>
+					<td>${newsDetail.news_content }</td>
 				</tr>
 			</table>
 
@@ -235,7 +235,7 @@
 					<input type="button" value="글수정" class="btn" onclick="location.href='news_modify.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 					<input type="button" value="글삭제" class="btn" onclick="location.href='news_delete.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 				</c:if>
-				<input type="button" value="글목록" class="btn" onclick="location.href='news.in?news_num=${newsDetail.news_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'">
+				<input type="button" value="글목록" class="btn" onclick="location.href='news.in?news_num?pageNum=${param.pageNum }&sId=${sessionScope.sId }'">
 			</div>
 			
 			<!-- 댓글 -->

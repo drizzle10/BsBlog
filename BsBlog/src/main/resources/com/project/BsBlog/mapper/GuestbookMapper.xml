@@ -267,8 +267,8 @@
 				#{report_guestbook_id}, 
 				#{report_guestbook_subject}, 
 				#{report_guestbook_content}, 
-				#{report_content}, 
 				#{report_id}, 
+				#{report_content}, 
 				'처리대기', 				
 				now()
 				)	

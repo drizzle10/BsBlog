@@ -34,11 +34,11 @@
 			<table id="notice">
 				<tr>
 					<td>제목</td>
-					<td colspan="3">${diaryDetail.diary_subject }</td>
+					<td>${diaryDetail.diary_subject }</td>
 				</tr>
 				<tr>
 					<td>작성자</td>
-					<td colspan="3">${diaryDetail.diary_id }</td>
+					<td>${diaryDetail.diary_id }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
@@ -47,11 +47,11 @@
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="diaryFileDownload?fileName=${diaryDetail.diary_realfile }&diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId}">${diaryDetail.diary_file }</a></td>
+					<td><a href="diaryFileDownload?fileName=${diaryDetail.diary_realfile }&diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId}">${diaryDetail.diary_file }</a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td colspan="3">${diaryDetail.diary_content }</td>
+					<td>${diaryDetail.diary_content }</td>
 				</tr>
 			</table>
 
@@ -61,7 +61,7 @@
 					<input type="button" value="글수정" class="btn" onclick="location.href='diary_modify.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 					<input type="button" value="글삭제" class="btn" onclick="location.href='diary_delete.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 				</c:if>
-				<input type="button" value="글목록" class="btn" onclick="location.href='diary.bo?diary_num=${diaryDetail.diary_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
+				<input type="button" value="글목록" class="btn" onclick="location.href='diary.bo?pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 			</div>
 
 			<div class="clear"></div>

@@ -114,12 +114,6 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-	// TODO
-	// 마이페이지
-	// 관리자
-	// 댓글
-	// 게시판에 아이디 넣을지?
-	// 게시판 신고기능
+
 	
 }

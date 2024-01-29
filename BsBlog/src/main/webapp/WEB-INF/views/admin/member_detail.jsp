@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board/note_detail.jsp</title>
+<title>admin/member_detail.jsp</title>
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
@@ -30,38 +30,44 @@
 		<!-- 본문 내용 -->
 
 		<article>
-			<h1>Note Content</h1>
+			<h1>Member Detail</h1>
 			<table id="notice">
 				<tr>
-					<td>제목</td>
-					<td colspan="3">${noteDetail.note_subject }</td>
+					<td>회원번호</td>
+					<td>${memberDetail.member_idx }</td>
 				</tr>
 				<tr>
-					<td>작성자</td>
-					<td colspan="3">${noteDetail.note_id }</td>
+					<td>아이디</td>
+					<td>${memberDetail.member_id }</td>
 				</tr>
 				<tr>
-					<td>작성일</td>
-					<td>${noteDetail.note_date }</td>
+					<td>이름</td>
+					<td>${memberDetail.member_name }</td>
 				</tr>
 				<tr>
-				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
-					<td>파일</td>
-					<td colspan="3"><a href="noteFileDownload?fileName=${noteDetail.note_realfile }&note_num=${noteDetail.note_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId}">${noteDetail.note_file }</a></td>
+					<td>주소</td>
+					<td>${memberDetail.member_address }</td>
 				</tr>
 				<tr>
-					<td>내용</td>
-					<td colspan="3">${noteDetail.note_content }</td>
+					<td>우편번호</td>
+					<td>${memberDetail.member_postcode }</td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td>${memberDetail.member_email }</td>
+				</tr>
+				<tr>
+					<td>이메일 인증 여부</td>
+					<td>${memberDetail.member_email_auth }</td>
+				</tr>
+				<tr>
+					<td>가입일</td>
+					<td>${memberDetail.member_date }</td>
 				</tr>
 			</table>
 
 			<div id="table_search">
-				<c:if test="${sessionScope.sId eq 'admin' }">
-					<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
-					<input type="button" value="글수정" class="btn" onclick="location.href='note_modify.bo?note_num=${noteDetail.note_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
-					<input type="button" value="글삭제" class="btn" onclick="location.href='note_delete.bo?note_num=${noteDetail.note_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
-				</c:if>	
-					<input type="button" value="글목록" class="btn" onclick="location.href='note.bo?pageNum=${param.pageNum }&sId=${sessionScope.sId }'">
+				<input type="button" value="회원목록" class="btn" onclick="location.href='member.ad?pageNum=${param.pageNum }&sId=${sessionScope.sId }'">
 			</div>
 
 			<div class="clear"></div>

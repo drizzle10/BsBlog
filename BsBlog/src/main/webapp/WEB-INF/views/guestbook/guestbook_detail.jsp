@@ -33,7 +33,7 @@
 			<table id="notice">
 				<tr>
 					<td>작성자</td>
-					<td colspan="3">${guestbookDetail.guestbook_id }</td>
+					<td>${guestbookDetail.guestbook_id }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
@@ -41,16 +41,16 @@
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td colspan="3">${guestbookDetail.guestbook_subject }</td>
+					<td>${guestbookDetail.guestbook_subject }</td>
 				</tr>
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td colspan="3"><a href="guestbookFileDownload?fileName=${guestbookDetail.guestbook_realfile }&guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId }">${guestbookDetail.guestbook_file }</a></td>
+					<td><a href="guestbookFileDownload?fileName=${guestbookDetail.guestbook_realfile }&guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId }">${guestbookDetail.guestbook_file }</a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td colspan="3">${guestbookDetail.guestbook_content }</td>
+					<td>${guestbookDetail.guestbook_content }</td>
 				</tr>
 			</table>
 
@@ -82,7 +82,7 @@
 				   	  		</tr>
 				   	  		<tr>
 				   	  			<td>신고사유</td>
-				   	  			<td><textarea name="report_content" id="report_content" cols="30" rows="3" placeholder="신고사유를 입력해주세요."></textarea></td>
+				   	  			<td><textarea name="report_content" id="report_content" cols="30" rows="3" placeholder="신고사유는 1000자 미만으로 입력해주세요."></textarea></td>
 				   	  		</tr>
 				   	  		<tr>
 				   	  			<td colspan="2"><input type="submit" value="신고"></td>
@@ -91,7 +91,7 @@
 				   	  </form>
 				   </div>	
 				</div>				
-				<input type="button" value="글목록" class="btn" onclick="location.href='guestbook.gu?sId=${sessionScope.sId }'">
+				<input type="button" value="글목록" class="btn" onclick="location.href='guestbook.gu?pageNum=${param.pageNum}&sId=${sessionScope.sId }'">
 			</div>
 
 			<div class="clear"></div>
