@@ -109,4 +109,9 @@ public class MemberService {
 		return mapper.selectMyReportDetail(sId);
 	}
 
+	// 탈퇴
+	public int deleteMyInfoPro(int member_idx) {
+		return mapper.deleteMyInfoPro(member_idx);
+	}
+
 }

@@ -28,6 +28,11 @@ public class AdminService {
 	public MemberVO selectMemberDetail(int member_idx) {
 		return mapper.selectMemberDetail(member_idx);
 	}
+	
+	// 멤버 강제 탈퇴
+	public int deleteMemberPro(int member_idx) {
+		return mapper.deleteMemberPro(member_idx);
+	}
 
 	// 신고 전체 목록 조회
 	public List<ReportVO> selectReport(String searchType, String keyword, int startRow, int listLimit) {
@@ -68,6 +73,8 @@ public class AdminService {
 	public int modifyReportStatus(String report_status, int report_idx) {
 		return mapper.modifyReportStatus(report_status, report_idx);
 	}
+
+	
 
 
 

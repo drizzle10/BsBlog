@@ -166,6 +166,22 @@ public class MemberController {
 		}
 	}
 	
+	@GetMapping(value = "/my_info_delete.me")
+	public String my_info_delete(@RequestParam int member_idx, Model model, HttpSession session) {
+		
+		// 탈퇴
+		int deleteCount = service.deleteMyInfoPro(member_idx);
+		
+		if (deleteCount > 0) {
+			session.invalidate();
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg", "탈퇴에 실패하였습니다. 다시 시도해 주세요.");
+			return "member/fail_back";
+		}
+		
+	}
+	
 	// member/my_report
 	@GetMapping(value = "/my_report.me")
 	public String my_report(@RequestParam String sId, @RequestParam(defaultValue = "") String searchType,
@@ -220,4 +236,7 @@ public class MemberController {
 		
 		return "member/my_report_detail";
 	}
+	
+
+	
 }

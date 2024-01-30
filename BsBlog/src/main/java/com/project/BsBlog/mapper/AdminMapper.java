@@ -17,6 +17,9 @@ public interface AdminMapper {
 
 	// 회원 상세 조회
 	MemberVO selectMemberDetail(int member_idx);
+	
+	// 멤버 강제 탈퇴
+	int deleteMemberPro(int member_idx);
 
 	// 신고 전체 목록 조회
 	List<ReportVO> selectReport(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit);
@@ -41,6 +44,8 @@ public interface AdminMapper {
 
 	// 신고 관련 처리 상태 변경
 	int modifyReportStatus(@Param("report_status") String report_status, @Param("report_idx") int report_idx);
+
+	
 
 
 

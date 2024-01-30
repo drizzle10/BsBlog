@@ -79,6 +79,20 @@ public class AdminController {
 		return "admin/member_detail";
 	}
 	
+	@GetMapping(value = "/member_delete.ad")
+	public String member_delete(@RequestParam int member_idx, Model model, HttpSession session) {
+		
+		// 멤버 강제 탈퇴
+		int deleteCount = service.deleteMemberPro(member_idx);
+		
+		if (deleteCount > 0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg", "강제 탈퇴에 실패하였습니다. 다시 시도해 주세요.");
+			return "member/fail_back";
+		}
+	}
+	
 	// admin/report.jsp
 	@GetMapping(value = "/report.ad")
 	public String report(@RequestParam(defaultValue = "") String searchType,
@@ -190,8 +204,6 @@ public class AdminController {
 		return "admin/report_complete";
 	}
 	
-	
-
 	// admin/report_detail.jsp
 	@GetMapping(value = "/report_detail.ad")
 	public String report_detail(@RequestParam int report_idx, Model model,  HttpSession session) {

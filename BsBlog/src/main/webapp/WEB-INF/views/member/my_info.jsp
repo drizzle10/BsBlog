@@ -10,6 +10,15 @@
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+	function my_info_delete(member_idx) {
+		let result = confirm("탈퇴하시겠습니까?\n탈퇴 후에는 복구가 불가능합니다.");
+		
+		if(result) {
+			location.href = "my_info_delete.me?member_idx=" + member_idx;
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -65,7 +74,7 @@
 			<div id="table_search">
 				<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
 				<input type="button" value="정보수정" class="btn" onclick="location.href='my_info_modify.me?sId=${sessionScope.sId }'"> 
-				<input type="button" value="탈퇴" class="btn" onclick="location.href='my_info_delete?sId=${sessionScope.sId }'"> 
+				<input type="button" value="탈퇴" class="btn" onclick="my_info_delete(${member.member_idx})"> 
 			</div>
 
 			<div class="clear"></div>

@@ -10,6 +10,15 @@
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+	function member_delete(member_idx) {
+		let result = confirm("강제 탈퇴시키겠습니까?\n탈퇴 후에는 복구가 불가능합니다.");
+		
+		if(result) {
+			location.href = "member_delete.ad?member_idx=" + member_idx;
+		}
+}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -67,6 +76,7 @@
 			</table>
 
 			<div id="table_search">
+				<input type="button" value="회원탈퇴" class="btn" onclick="member_delete(${memberDetail.member_idx})">
 				<input type="button" value="회원목록" class="btn" onclick="location.href='member.ad?pageNum=${param.pageNum }&sId=${sessionScope.sId }'">
 			</div>
 

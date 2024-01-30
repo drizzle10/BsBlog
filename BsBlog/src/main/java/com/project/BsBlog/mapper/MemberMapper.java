@@ -31,4 +31,7 @@ public interface MemberMapper {
 	// 나의 신고 상세 조회
 	ReportVO selectMyReportDetail(String sId);
 
+	// 탈퇴
+	int deleteMyInfoPro(int member_idx);
+
 }
