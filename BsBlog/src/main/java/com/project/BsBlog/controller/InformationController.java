@@ -144,15 +144,21 @@ public class InformationController {
 		//    (request 객체에 해당 메서드 없음)
 		String uploadDir = "/resources/upload"; // 가상의 업로드 경로
 		// => webapp/resources 폴더 내에 upload 폴더 생성 필요
+		System.out.println("uploadDir : " + uploadDir);
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
+		System.out.println("saveDir : " + saveDir);
 //		System.out.println("실제 업로드 경로 : " + saveDir);
 		
 		File f = new File(saveDir); // 실제 경로를 갖는 File 객체 생성
+		System.out.println("@!#$!%%#@f : " + f);
+		System.out.println("f.exists() : " + f.exists());
 		// 만약, 해당 경로 상에 디렉토리(폴더)가 존재하지 않을 경우 생성
 		if(!f.exists()) { // 해당 경로가 존재하지 않을 경우
 			// 경로 상의 존재하지 않는 모든 경로 생성
 			f.mkdirs();
 		}
+		
+		System.out.println("새 파일 객체 : " + news.getFile());
 		
 //		// BoardVO 객체에 전달된 MultipartFile 객체 꺼내기
 		MultipartFile mFile = news.getFile();
@@ -196,9 +202,9 @@ public class InformationController {
 				// FileInputStream 객체를 생성하여 File 객체(f2) 입력스트림에 연결
 				// => 톰캣 폴더에 업로드 된 파일을 입력스트림에 연결하여 FTP 서버로 전송(= 출력)
 				ftp.upload(f2, news.getNews_realfile());
-				
+				System.out.println("!#$@^f2 : " + f2);
 				System.out.println("ftp업로드 완");
-				
+				System.out.println("f2.exist() : " + f2.exists());
 				// ------------- FTP 업로드 후 톰캣 업로드 파일 삭제 시 ------------
 				if(f2.exists()) {
 					f2.delete();
@@ -272,12 +278,16 @@ public class InformationController {
 		// 가상 업로드 경로에 대한 실제 업로드 경로 알아내기
 		// => 단, request 객체에 getServletContext() 메서드 대신, session 객체로 동일한 작업 수행
 		//    (request 객체에 해당 메서드 없음)
-		String uploadDir = "/resources/upload"; // 가상의 업로드 경로
+		//************** 중요 *************
+		// 아래 경로대로 해야 업로드, 수정시 파일이 한군데로 모임
+		String uploadDir = "/resources/upload/upload"; // 가상의 업로드 경로
+		System.out.println("uploadDir : " + uploadDir);
 		// => webapp/resources 폴더 내에 upload 폴더 생성 필요
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		System.out.println("실제 업로드 경로 : " + saveDir);
 		
 		File f = new File(saveDir); // 실제 경로를 갖는 File 객체 생성
+		System.out.println("f.exists() : " + f.exists());
 		// 만약, 해당 경로 상에 디렉토리(폴더)가 존재하지 않을 경우 생성
 		if(!f.exists()) { // 해당 경로가 존재하지 않을 경우
 			// 경로 상의 존재하지 않는 모든 경로 생성
@@ -569,11 +579,11 @@ public class InformationController {
 	// 댓글 페이징
 	// 다이어리나 노트에 좋아요 기능
 	// 알림 기능(소켓?
-	// 마이페이지
 	// 메인페이지 게시판 목록 불러오기
 	// 썸네일
 	// sns로그인
 	// 무한 스크롤?
+	// 댓글 모델로 받아오는걸로 수정?
 	
 	// ftpClient.retrieve함수 false 해결
 	// news_detail.jsp 실제 조회할때만 조회수 증가

@@ -156,8 +156,6 @@ public class MemberController {
 		// 정보 수정
 		int updateCount = service.modifyMyInfoPro(member);
 		
-		// 정보수정 페이지 다음 주소 api , 이메일 타입 이메일로 , 유효성 검사 다시
-		
 		if(updateCount > 0) {
 			return "redirect:/my_info.me?sId=" + sId;
 		} else {

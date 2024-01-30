@@ -72,8 +72,11 @@ public class FTPHandler {
 			ftpClient.setFileTransferMode(FTP.BINARY_FILE_TYPE); // 파일 타입 설정
 //			ftpClient.enterLocalPassiveMode(); // FTP 접속 모드를 Passive 모드로 설정
 			// * 패시브모드 해제해야 파일질라에 업로드됨
+			System.out.println("workingDirectory : " + ftpClient.printWorkingDirectory());
 			boolean existsDir = ftpClient.changeWorkingDirectory(baseDir); // 기본 디렉토리 변경
+			System.out.println("existsDir : " + existsDir);
 			// 만약, 기본 디렉토리가 존재하지 않을 경우 해당 디렉토리 생성 후 다시 변경
+			System.out.println("!existDir : " + !existsDir);
 			if(!existsDir) {
 				ftpClient.makeDirectory(baseDir); // 경로 생성
 				ftpClient.changeWorkingDirectory(baseDir); // 경로 변경
@@ -105,6 +108,7 @@ public class FTPHandler {
 		// 해당 File 객체를 입력스트림에 연결하기 위해 FileInputStream 객체 생성
 		// => try ~ resources 구문 활용
 		try(FileInputStream fis = new FileInputStream(f)) {
+			System.out.println("fis : " + fis);
 			// FTPClient 객체의 storeFile() 메서드를 호출하여 파일 업로드 작업 수행
 			// => 파라미터 : 업로드 할 파일명, 실제 파일이 연결된 입력스트림
 			boolean isUploadSuccess = ftpClient.storeFile(real_file, fis);

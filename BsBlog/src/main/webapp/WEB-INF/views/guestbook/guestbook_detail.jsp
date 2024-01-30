@@ -63,7 +63,9 @@
 			<c:if test="${sessionScope.sId eq 'admin' }">	
 				<input type="button" value="답변" class="btn" onclick="location.href='guestbook_reply_write.gu?guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 			</c:if>
+			<c:if test="${not empty sessionScope.sId }">
 				<button class="btn" id="report_btn">신고</button>
+			</c:if>	
 				<div id="modal">
 				   <div id="modal_content">
 				   	  <button type="button" id="modal_close_btn">X</button><br>
