@@ -41,8 +41,8 @@
 		  			</div>
 		  			
 		  			<label>비밀번호</label>
-		  			<input type="password" name="member_password" id="member_passward" placeholder="비밀번호를 입력해주세요." required="required" onkeyup="Password_check(this.value)"><br> 			
-		  			<span id="Password_check_result"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></span><br> 
+		  			<input type="password" name="member_password" id="member_passward" placeholder="비밀번호를 입력해주세요." required="required" onkeyup="password_check(this.value)"><br> 			
+		  			<span id="password_check_result"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></span><br> 
 		  			
 		  			<label>이름</label>
 		  			<input type="text" name="member_name" id="member_name" placeholder="이름을 입력해주세요." required="required" onkeyup="name_check(this.value)"><br>

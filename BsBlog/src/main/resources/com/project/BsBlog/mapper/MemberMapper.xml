@@ -15,28 +15,29 @@
 			member_date DATE NOT NULL
 	);
 -->	
-	
+
+	<!-- 가입 -->
 	<insert id="joinPro">
-	INSERT INTO 
-				member
-		VALUES (
-				IFNULL(
-            	   (SELECT 
-                		   MAX(member_idx)
-                	  FROM 
-                		   member m
-               		),0
-              	  )+1,
-				#{member_id},		
-				#{member_password},		
-				#{member_name},
-				#{member_address},
-				#{member_postcode},			
-				#{member_phone},	
-				#{member_email},  
-				'Y',				
-				now()
-				)
+		INSERT INTO 
+					member
+			VALUES (
+					IFNULL(
+	            	   (SELECT 
+	                		   MAX(member_idx)
+	                	  FROM 
+	                		   member m
+	               		),0
+	              	  )+1,
+					#{member_id},		
+					#{member_password},		
+					#{member_name},
+					#{member_address},
+					#{member_postcode},			
+					#{member_phone},	
+					#{member_email},  
+					'Y',				
+					now()
+					)
 	</insert>
 	
 	<!-- 아이디 중복 확인 -->
@@ -49,6 +50,7 @@
   		 		member_id = #{member_id}
   	</select>
   	
+  	<!-- 로그인 전 비밀번호 조회 -->
   	<select id="select_memberPassword" resultType="string">
   		SELECT 
   				member_password
@@ -57,4 +59,30 @@
   		 WHERE
   		 		member_id = #{member_id}	
   	</select>
+  	
+  	<!-- 나의 정보 조회 -->
+  	<select id="selectMyInfo" resultType="com.project.BsBlog.vo.MemberVO">
+  		SELECT
+  				*
+  		  FROM
+  		  		member
+  		 WHERE
+  		 		member_id = #{sId}
+  	</select>
+  	
+  	<!-- 정보 수정 -->
+  	<update id="modifyMyInfoPro">
+  		UPDATE
+  				member
+  		   SET
+  		   		member_id = #{member_id},
+  		   		member_password = #{member_password},
+  		   		member_name = #{member_name},
+  		   		member_address = #{member_address},
+  		   		member_postcode = #{member_postcode},
+  		   		member_phone = #{member_phone},
+  		   		member_email = #{member_email}
+  		 WHERE
+  		 		member_id = #{member_id}  		
+  	</update>
 </mapper>

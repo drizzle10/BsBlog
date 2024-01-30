@@ -13,4 +13,10 @@ public interface MemberMapper {
 	// 로그인 전 비밀번호 조회
 	String select_memberPassword(String member_id);
 
+	// 나의 정보 조회
+	MemberVO selectMyInfo(String sId);
+
+	// 정보 수정
+	int modifyMyInfoPro(MemberVO member);
+
 }

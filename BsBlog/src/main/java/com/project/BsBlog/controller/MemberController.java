@@ -115,5 +115,50 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	// member/my_info.jsp
+	@GetMapping(value = "/my_info.me")
+	public String my_info(@RequestParam String sId, Model model) {
+		
+		// 나의 정보 조회
+		MemberVO member = service.selectMyInfo(sId);
+		
+		model.addAttribute("member", member);
+		
+		return "member/my_info";
+	}
 	
+	// member/my_info_modify.jsp
+	@GetMapping(value = "/my_info_modify.me")
+	public String my_info_modify(@RequestParam String sId, Model model) {
+		
+		MemberVO member= service.selectMyInfo(sId);
+	
+		model.addAttribute("member", member);
+		
+		return "member/my_info_modify";
+	}
+	
+	@PostMapping(value = "/my_info_modifyPro.me")
+	public String my_info_modifyPro(@ModelAttribute MemberVO member, @RequestParam String sId, Model model) {
+		
+		System.out.println("member : " + member);
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		// BCryptPasswordEncoder 객체의 encode() 메서드를 호출하여 해싱 결과 리턴
+		String securePasswd = encoder.encode(member.getMember_password());
+		// MemberVO 객체의 패스워드에 암호문 저장
+		member.setMember_password(securePasswd);
+		
+		// 정보 수정
+		int updateCount = service.modifyMyInfoPro(member);
+		
+		// 정보수정 페이지 다음 주소 api , 이메일 타입 이메일로 , 유효성 검사 다시
+		
+		if(updateCount > 0) {
+			return "redirect:/my_info.me?sId=" + sId;
+		} else {
+			model.addAttribute("msg", "정보 수정이 실패되었습니다. 다시 시도해 주세요.");
+			return "member/fail_back";
+		}
+	}
 }

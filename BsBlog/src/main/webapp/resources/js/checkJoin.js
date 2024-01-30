@@ -61,7 +61,7 @@ var idDup_check_result = false;
 function id_check(id) {
 	let regex = /^[\w-.]{4,16}$/;
 	if(!regex.exec(id)) {
-		$("#id_check_result").html("4 ~ 16자리 영문자, 숫자, 특수문자(-_.) 필수입니다.");
+		$("#id_check_result").html("영문자(4 ~ 16자), 숫자, 특수문자(-_.) 필수입니다.");
 		$("#id_check_result").css("color", "red");
 		id_check_result = false;
 	} else {
@@ -72,11 +72,11 @@ function id_check(id) {
 }
 
 // 2. 패스워드에 대한 입력값 검증 : 8 ~ 20자리 영문자, 숫자, 특수문자(!@#$%^&*) 조합
-function Password_check(password) {
+function password_check(password) {
 	let regex = /^[A-Za-z0-9!@#$%^&*]{8,20}$/;
 	if(!regex.exec(password)) {
-		$("#Password_check_result").html("8 ~ 20자리 영문자, 숫자, 특수문자(!@#$%^&*) 필수입니다.");
-		$("#Password_check_result").css("color", "red");
+		$("#password_check_result").html("영문자(8 ~ 20자), 숫자, 특수문자(!@#$%^&*) 필수입니다.");
+		$("#password_check_result").css("color", "red");
 		password_check_result = false;
 	} else {
 
@@ -115,23 +115,23 @@ function Password_check(password) {
 		// => 1점 이하 : "사용 불가능한 패스워드" 출력(red)
 		switch(count) {
 			case 4 : 
-				$("#Password_check_result").html("위험도가 낮은 비밀번호입니다.");
-				$("#Password_check_result").css("color", "blue");
+				$("#password_check_result").html("위험도가 낮은 비밀번호입니다.");
+				$("#password_check_result").css("color", "blue");
 				password_check_result = true;
 				break;
 			case 3 : 
-				$("#Password_check_result").html("위험도가 보통인 비밀번호입니다.");
-				$("#Password_check_result").css("color", "green");
+				$("#password_check_result").html("위험도가 보통인 비밀번호입니다.");
+				$("#password_check_result").css("color", "green");
 				password_check_result = true;
 				break;
 			case 2 : 
-				$("#Password_check_result").html("위험도가 높은 비밀번호입니다.");
-				$("#Password_check_result").css("color", "orange");
+				$("#password_check_result").html("위험도가 높은 비밀번호입니다.");
+				$("#password_check_result").css("color", "orange");
 				password_check_result = true;
 				break;
 			default :
-				$("#Password_check_result").html("사용 불가능한 비밀번호입니다. 다른 비밀번호를 사용하세요.");
-				$("#Password_check_result").css("color", "red");
+				$("#password_check_result").html("사용 불가능한 비밀번호입니다.<br>다른 비밀번호를 사용하세요.");
+				$("#password_check_result").css("color", "red");
 				password_check_result = false;
 		}
 	}
@@ -142,7 +142,7 @@ function Password_check(password) {
 function name_check(name) {
 	let regex = /^[가-힣]{2,10}$/;
 	if(!regex.exec(name)) {
-		$("#name_check_result").html("이름이 형식에 맞지 않습니다. 형식에 맞게 이름을 입력하세요.");
+		$("#name_check_result").html("이름이 형식에 맞지 않습니다.<br>형식에 맞게 이름을 입력하세요.");
 		$("#name_check_result").css("color", "red");
 		$("#member_name").select();
 		name_check_result = false;
@@ -168,7 +168,7 @@ function form_check() {
 		$("#member_pass").select();
 		return false; // 현재 폼의 submit 동작을 중단하기 위해 false 리턴
 	} else if(!mailAuth_check) { // * 인증번호 일치 여부 공부
-		alert("이메일 인증번호가 일치하지 않습니다. 다시 확인하여 입력하세요.");
+		alert("이메일 인증번호가 일치하지 않습니다.<br>다시 확인하여 입력하세요.");
 		$("#member_email_auth").select();
 		return false; // 현재 폼의 submit 동작을 중단하기 위해 false 리턴
 	} else if(!idDup_check_result) {

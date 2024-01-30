@@ -111,6 +111,9 @@
 				} else if(${sessionScope.sId == guestbookDetail.guestbook_id}) {
 					alert("본인의 글에는 신고를 할 수 없습니다.");
 					history.back();
+				} else if(${guestbookDetail.guestbook_id eq 'admin'}){
+					alert("관리자의 글에는 신고를 할 수 없습니다.");
+					history.back();
 				}
 		    	modal.style.display = "flex";
 		  	});

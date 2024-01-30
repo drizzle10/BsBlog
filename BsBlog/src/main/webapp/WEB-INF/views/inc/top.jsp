@@ -17,10 +17,10 @@
   		 <div id="login"><a href="login.me">Login</a> | <a href="join.me">Join</a></div>
   	</c:when>
   	<c:when test="${sessionScope.sId eq 'admin' }">
-	 	 <div id="login"><a href="member.ad?member_id=${sessionScope.sId }">${sessionScope.sId }님</a> | <a href="javascript:logout()">Logout</a></div> 
+	 	 <div id="login"><a href="member.ad?sId=${sessionScope.sId }">${sessionScope.sId }님</a> | <a href="javascript:logout()">Logout</a></div> 
   	</c:when>
 	 <c:otherwise>
-  		 <div id="login"><a href="member_info.me?member_id=${sessionScope.sId }">${sessionScope.sId }님</a> | <a href="javascript:logout()">Logout</a></div>
+  		 <div id="login"><a href="my_info.me?sId=${sessionScope.sId }">${sessionScope.sId }님</a> | <a href="javascript:logout()">Logout</a></div>
 	 </c:otherwise>
   </c:choose>
   <div class="clear"></div>

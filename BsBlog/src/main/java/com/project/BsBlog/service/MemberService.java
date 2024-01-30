@@ -83,4 +83,14 @@ public class MemberService {
 		return mapper.select_memberPassword(member_id);
 	}
 
+	// 나의 정보 조회
+	public MemberVO selectMyInfo(String sId) {
+		return mapper.selectMyInfo(sId);
+	}
+
+	// 정보 수정
+	public int modifyMyInfoPro(MemberVO member) {
+		return mapper.modifyMyInfoPro(member);
+	}
+
 }
