@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.BsBlog.service.MemberService;
 import com.project.BsBlog.vo.MemberVO;
+import com.project.BsBlog.vo.PageInfo;
+import com.project.BsBlog.vo.ReportVO;
 
 @Controller
 public class MemberController {
@@ -36,9 +38,9 @@ public class MemberController {
 		// 1. BCryptPasswordEncoder 객체 생성
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		// 2. BCryptPasswordEncoder 객체의 encode() 메서드를 호출하여 해싱 결과 리턴
-		String securePasswd = encoder.encode(member.getMember_password());
+		String securePassword = encoder.encode(member.getMember_password());
 		// 3. MemberVO 객체의 패스워드에 암호문 저장
-		member.setMember_password(securePasswd);
+		member.setMember_password(securePassword);
 
 		int insertCount = service.joinPro(member);
 
@@ -108,6 +110,8 @@ public class MemberController {
 		}
 	}
 	
+	// 내가 신고한 글과 신고 받은 글 조회
+	
 	// 로그아웃
 	@GetMapping(value = "/logout.me")
 	public String logout(HttpSession session) {
@@ -145,9 +149,9 @@ public class MemberController {
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		// BCryptPasswordEncoder 객체의 encode() 메서드를 호출하여 해싱 결과 리턴
-		String securePasswd = encoder.encode(member.getMember_password());
+		String securePassword = encoder.encode(member.getMember_password());
 		// MemberVO 객체의 패스워드에 암호문 저장
-		member.setMember_password(securePasswd);
+		member.setMember_password(securePassword);
 		
 		// 정보 수정
 		int updateCount = service.modifyMyInfoPro(member);
@@ -160,5 +164,60 @@ public class MemberController {
 			model.addAttribute("msg", "정보 수정이 실패되었습니다. 다시 시도해 주세요.");
 			return "member/fail_back";
 		}
+	}
+	
+	// member/my_report
+	@GetMapping(value = "/my_report.me")
+	public String my_report(@RequestParam String sId, @RequestParam(defaultValue = "") String searchType,
+			@RequestParam(defaultValue = "") String keyword, 
+			@RequestParam(defaultValue = "1") int pageNum, Model model) {
+		
+		System.out.println(searchType);
+		System.out.println(keyword);
+		System.out.println(sId);
+		
+		int listLimit = 10; 
+		
+		int pageListLimit = 10; 
+
+		int startRow = (pageNum - 1) * listLimit;
+		
+		// 나의 신고 조회
+		ReportVO report = service.selectMyReport(sId, searchType, keyword, startRow, listLimit);
+		
+		// 나의 신고 목록 갯수 조회
+		int listCount = service.selectMyReportCount(sId, searchType, keyword);
+		
+		int maxPage = (int)Math.ceil((double)listCount / listLimit);
+		
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+
+		int endPage = startPage + pageListLimit - 1;
+
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pageInfo = new PageInfo(
+				pageNum, listLimit, listCount, pageListLimit, maxPage, startPage, endPage);
+		model.addAttribute("report", report);
+		model.addAttribute("pageInfo", pageInfo);
+		
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("keyword", keyword);
+		
+		return "member/my_report";
+	}
+	
+	// member/my_report_detail.jsp
+	@GetMapping(value = "/my_report_detail.me")
+	public String my_report_detail(@RequestParam String sId, Model model) {
+		
+		// 나의 신고 상세 조회
+		ReportVO reportDetail = service.selectMyReportDetail(sId);
+		
+		model.addAttribute("reportDetail", reportDetail);
+		
+		return "member/my_report_detail";
 	}
 }

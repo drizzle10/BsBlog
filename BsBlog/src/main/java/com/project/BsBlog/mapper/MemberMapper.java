@@ -1,6 +1,9 @@
 package com.project.BsBlog.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.project.BsBlog.vo.MemberVO;
+import com.project.BsBlog.vo.ReportVO;
 
 public interface MemberMapper {
 
@@ -18,5 +21,14 @@ public interface MemberMapper {
 
 	// 정보 수정
 	int modifyMyInfoPro(MemberVO member);
+
+	// 나의 신고 조회
+	ReportVO selectMyReport(@Param("sId") String sId, @Param("searchType") String searchType, @Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit);
+
+	// 나의 신고 목록 갯수 조회
+	int selectMyReportCount(@Param("sId") String sId, @Param("searchType") String searchType, @Param("keyword") String keyword);
+
+	// 나의 신고 상세 조회
+	ReportVO selectMyReportDetail(String sId);
 
 }

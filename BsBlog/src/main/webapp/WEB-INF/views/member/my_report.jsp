@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board/note.jsp</title>
+<title>member/my_report.jsp</title>
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
@@ -23,45 +23,31 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
-				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
+				<li><a href="my_info.me?sId=${sessionScope.sId }">My Info</a></li>
+				<li><a href="my_report.me?sId=${sessionScope.sId }">My Report</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
 		<article>
-			<h1>Note</h1>
+			<h1>My Report</h1>
 			<table id="notice">
 				<tr>
-					<th class="ttitle">제목</th>
-					<th class="twrite">작성자</th>
-					<th class="tdate">작성일</th>
-					<th class="tread">조회수</th>
+					<th class="twrite">신고상태</th>
+					<th class="ttitle">신고 번호</th>
+					<th class="ttitle">신고일</th>
 				</tr>
-				<c:forEach var="note" items="${note }">
-					<tr>
-						<td class="left" onclick="location.href='note_detail.bo?note_num=${note.note_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${note.note_subject }</td>
-						<td>${note.note_id }</td>
-						<td>${note.note_date }</td>
-						<td>${note.note_readcount }</td>
-					</tr>
-				</c:forEach>
+				<tr>
+					<td>${report.report_status } </td>
+					<td class="left" onclick="location.href='my_report_detail.me?report_idx=${report.report_idx }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${report.report_idx }</td>
+					<td>${report.report_date }</td>
+				</tr>
 			</table>
-			<c:if test="${sessionScope.sId eq 'admin' }">
-				<div id="table_search">
-				<!-- * location.href 알아보기 -->
-					<input type="button" value="글쓰기" class="btn" onclick="location.href='note_write.bo?pageNum=${pageInfo.pageNum }&sId=${sessionScope.sId}'">
-				</div>
-			</c:if>
-			<!-- 검색 기능 구현을 위한 form 태그 -->
-			<!-- * get인 이유? -->
-			<!-- * 드롭다운 박스 안하고 그냥 해보기 -->
 			<div id="table_search">
-				<form action="note.bo" method="get">
+				<form action="my_report.me" method="get">
+				<input type="hidden" name="sId" value="${sessionScope.sId }">
 					<select name="searchType">
-						<option value="subject">제목</option>
 						<option value="content">내용</option>
-						<option value="subject_content">제목&내용</option>
-						<option value="name">작성자</option>
+						<option value="status">상태</option>
 					</select>
 						<input type="text" name="keyword" class="input_box">
 						<input type="submit" value="검색" class="btn">
@@ -71,14 +57,14 @@
 			<%PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo"); %>
 			<div class="clear"></div>
 			<div id="page_control">
-				<%if(pageInfo.getPageNum() > pageInfo.getStartPage()) {%><a href="note.bo?pageNum=${pageInfo.pageNum - 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Prev</a>
+				<%if(pageInfo.getPageNum() > pageInfo.getStartPage()) {%><a href="my_report.me?pageNum=${pageInfo.pageNum - 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Prev</a>
 				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
                    <c:choose>
                       <c:when test="${i eq pageInfo.pageNum }"><a href="#">${i }</a></c:when>
-                      <c:otherwise><a class="pageLink" href="note.bo?pageNum=${i }&searchType=${searchType}&keyword=${keyword}">${i }</a></c:otherwise>
+                      <c:otherwise><a class="pageLink" href="my_report.me?pageNum=${i }&searchType=${searchType}&keyword=${keyword}">${i }</a></c:otherwise>
                    </c:choose>
                 </c:forEach>
-				<%if(pageInfo.getPageNum() < pageInfo.getMaxPage()) {%><a href="note.bo?pageNum=${pageInfo.pageNum + 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Next</a>
+				<%if(pageInfo.getPageNum() < pageInfo.getMaxPage()) {%><a href="my_report.me?pageNum=${pageInfo.pageNum + 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Next</a>
 			</div>
 		</article>
 

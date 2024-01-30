@@ -85,4 +85,66 @@
   		 WHERE
   		 		member_id = #{member_id}  		
   	</update>
+  	
+  	<!-- 나의 신고 조회 -->
+  	<select id="selectMyReport" resultType="com.project.BsBlog.vo.ReportVO">
+  		SELECT 
+			   * 
+		  FROM 
+		  	   report
+		 WHERE 
+		 	   report_id = #{sId} 	   
+			<if test="!keyword.equals('')">
+					<choose>
+						<when test="searchType.equals('content')">
+							AND 
+								  report_content 
+							 LIKE 
+							 	  '%${keyword}%' 
+						</when>
+						<when test="searchType.equals('status')">
+							AND 
+								  report_status 
+							 LIKE 
+							 	  '%${keyword}%' 
+						</when>
+					</choose>
+				</if>
+  	</select>
+  	
+  	<!-- 나의 신고 목록 갯수 조회 -->
+  	<select id="selectMyReportCount" resultType="integer">
+  		SELECT 
+			   COUNT(*) 
+		  FROM 
+		  	   report
+		 WHERE 
+		 	   report_id = #{sId}	   
+			<if test="!keyword.equals('')">
+					<choose>
+						<when test="searchType.equals('content')">
+							AND 
+								  report_content 
+							 LIKE 
+							 	  '%${keyword}%' 
+						</when>
+						<when test="searchType.equals('status')">
+							AND 
+								  report_status 
+							 LIKE 
+							 	  '%${keyword}%' 
+						</when>
+					</choose>
+				</if>
+  	</select>
+  	
+  	<!-- 나의 신고 상세 조회 -->
+  	<select id="selectMyReportDetail" resultType="com.project.BsBlog.vo.ReportVO">
+  		SELECT 
+  				*
+  		  FROM
+  		  		report
+  		 WHERE
+  		 		report_id = #{report_id} 		
+  	</select>
 </mapper>

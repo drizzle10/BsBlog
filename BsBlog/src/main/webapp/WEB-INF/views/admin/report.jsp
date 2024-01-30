@@ -51,7 +51,7 @@
 				<form action="report.ad" method="get">
 					<select name="searchType">
 						<option value="id">아이디</option>
-						<option value="content">신고내용</option>
+						<option value="content">내용</option>
 					</select>
 						<input type="text" name="keyword" class="input_box">
 						<input type="submit" value="검색" class="btn">

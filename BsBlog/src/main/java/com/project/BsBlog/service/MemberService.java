@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.BsBlog.mapper.MemberMapper;
 import com.project.BsBlog.vo.MemberVO;
+import com.project.BsBlog.vo.ReportVO;
 
 @Service
 public class MemberService {
@@ -91,6 +92,21 @@ public class MemberService {
 	// 정보 수정
 	public int modifyMyInfoPro(MemberVO member) {
 		return mapper.modifyMyInfoPro(member);
+	}
+
+	// 나의 신고 조회
+	public ReportVO selectMyReport(String sId, String searchType, String keyword, int startRow, int listLimit) {
+		return mapper.selectMyReport(sId, searchType, keyword, startRow, listLimit);
+	}
+
+	// 나의 신고 목록 갯수 조회
+	public int selectMyReportCount(String sId, String searchType, String keyword) {
+		return mapper.selectMyReportCount(sId, searchType, keyword);
+	}
+
+	// 나의 신고 상세 조회
+	public ReportVO selectMyReportDetail(String sId) {
+		return mapper.selectMyReportDetail(sId);
 	}
 
 }
