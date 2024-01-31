@@ -166,4 +166,16 @@
   		 WHERE
   		 		report_id = #{report_id} 		
   	</select>
+  	
+  	<!-- 이메일 이용하여 아이디 찾기 -->
+	<select id="selectMemberEmail" resultType="com.project.BsBlog.vo.MemberVO">
+		SELECT 
+				* 
+		  FROM 
+		  		member
+		 WHERE 
+		 		member_email = #{member_email}
+	</select>
+
+
 </mapper>

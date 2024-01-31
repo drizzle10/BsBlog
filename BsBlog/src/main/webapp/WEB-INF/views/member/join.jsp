@@ -24,6 +24,8 @@
 		  	<ul>
 		  		<li><a href="join.me">Join</a></li>
 		  		<li><a href="login.me">Login</a></li>
+		  		<li><a href="id_find.me">Id Find</a></li>
+		  		<li><a href="password_find.me">Password Find</a></li>
 		  	</ul>
 		  </nav>
 		  <!-- 본문 내용 -->
@@ -34,7 +36,7 @@
 		  			<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">
 			  			<label>아이디</label>
 			  			<input type="button" value="중복확인" class="btn" id="idDup_checkBtn" onclick="idDup_check()"><br>
-			  			<input type="text" name="member_id" class="id" id="member_id" placeholder="아이디를 입력해주세요." required="required" onkeyup="id_check(this.value)" style="margin-left: 140px"><br>
+			  			<input type="text" name="member_id" class="id" id="member_id" placeholder="아이디를 입력해주세요." required="required" onkeyup="id_check(this.value)" style="margin-left: 140px">
 			  			<div id="id_check_result" style="margin-left: 140px;"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></div>
 		  			</div>
 		  			

@@ -245,17 +245,53 @@ public class MemberController {
 	}
 	
 	// member/id_find.jsp
-	@GetMapping(value = "/member_id_find.me")
-	public String member_id_find() {
-		return "member/member_id_find";
+	@GetMapping(value = "/id_find.me")
+	public String id_find() {
+		return "member/id_find";
 	}
 
 	// member/password_find.jsp
-	@GetMapping(value = "/member_password_find.me")
-	public String member_password_find() {
-		return "member/member_password_find";
+	@GetMapping(value = "/password_find.me")
+	public String password_find() {
+		return "member/password_find";
 	}
 	
+	@PostMapping(value = "/id_findPro.me")
+	public String id_FindPro(@RequestParam String member_email, Model model) {
+		// 이메일 이용하여 아이디 찾기
+		String result = service.id_findPro(member_email);
+		
+		if (result == null) {
+			model.addAttribute("msg", "아이디 찾기가 실패되었습니다. 다시 시도해 주세요.");
+			return "member/fail_back";
+		}
+		
+		return "redirect:/id_find_success.me";
+	}
 	
+	@PostMapping(value = "/password_findPro.me")
+	public String password_FindPro(@RequestParam String member_email, Model model) {
+		// 이메일 이용하여 비밀번호 찾기
+		int updateCount = service.password_findPro(member_email);
+		
+		if (updateCount == 0) {
+			model.addAttribute("msg", "비밀번호 찾기가 실패되었습니다. 다시 시도해 주세요.");
+			return "member/fail_back";
+		}
+		
+		return "redirect:/password_find_success.me";
+	}
+	
+	// member/id_find_success.jsp
+	@GetMapping(value = "/id_find_success.me")
+	public String id_find_success() {
+		return "member/id_find_success";
+	}
+
+	// member/password_find_success.jsp
+	@GetMapping(value = "/password_find_success.me")
+	public String password_find_success() {
+		return "member/password_find_success";
+	}
 	
 }

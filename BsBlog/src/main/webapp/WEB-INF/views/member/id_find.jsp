@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>member/login.jsp</title>
+<title>member/id_find.jsp</title>
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 </head>
@@ -28,21 +28,18 @@
 		  </nav>
 		  <!-- 본문 내용 -->
 		  <article>
-		  	<h1>Login</h1>
-		  	<form action="loginPro.me" method="post" id="join">
+		  	<h1>Id Find</h1>
+		  	<form action="id_findPro.me" method="post" id="join">
 		  		<fieldset>
-		  			<legend>Login Info</legend>
-		  			<label>Id</label>
-		  			<input type="text" name="member_id"><br>
-		  			
-		  			<label>Password</label>
-		  			<input type="password" name="member_password"><br>
+		  			<legend>Id Find</legend><br>
+		  			<label>User Email</label><br>
+		  			<input type="text" name="member_email" placeholder="가입시 사용한 이메일을 입력하세요. 입력하신 이메일로 아이디가 전송됩니다." style="width: 600px; height: 100px;">
 		  		</fieldset>
 		
 		  		<div class="clear"></div>
 		  		<div id="buttons">
-		  			<input type="submit" value="로그인" class="submit">
-		  			<input type="reset" value="취소" class="cancel">
+		  			<input type="submit" value="아이디찾기" class="submit">
+		  			<input type="reset" value="취소" class="cancel" onclick="history.go(-1)">
 		  		</div>
 		  	</form>
 		  </article>

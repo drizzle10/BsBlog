@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.BsBlog.mapper.MemberMapper;
@@ -41,8 +42,8 @@ public class MemberService {
 		// * 정리
 		// 인증 코드 생성 함수 호출
 		makeRandomNumber();
-		String mailFrom = "bsblog@bsblog.com";
-		String mailTo = email;
+		String mailFrom = "bsblog@bsblog.com"; // 이메일 발송자
+		String mailTo = email; // 이메일 받을 주소
 		String title = "BsBlog - 회원 가입 인증 이메일 입니다."; // 이메일 제목
 		String content = "" + // html 형식으로 작성
 				"<br><br>" + "인증 번호는 " + authNumber + " 입니다." + "<br>" + "가입시 인증번호를 입력해주세요."; // 이메일 내용 삽입
@@ -117,6 +118,63 @@ public class MemberService {
 	// 탈퇴
 	public int deleteMyInfoPro(int member_idx) {
 		return mapper.deleteMyInfoPro(member_idx);
+	}
+
+	// 아이디 비밀번호 찾기용
+	public void mail_send(String mailFrom, String mailTo, String title, String content) {
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(mailFrom);
+			helper.setTo(mailTo);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 이메일 이용하여 아이디 찾기
+	public String id_findPro(String member_email) {
+		
+		MemberVO member = mapper.selectMemberEmail(member_email);
+		
+		String member_id = member.getMember_id();
+		String setFrom = "bsblog@bsblog.com";
+		String mailTo = member_email;
+		String title = "BsBlog - 아이디 찾기 이메일 입니다.";
+		String content = "" + "<br><br>" + "아이디는 " + member_id + " 입니다."; // 이메일 내용
+		
+		mail_send(setFrom, mailTo, title, content);
+		return "msg";
+	}
+
+	// 이메일 이용하여 비밀번호 찾기
+	public int password_findPro(String member_email) {
+		makeRandomNumber();
+		
+		MemberVO member = mapper.selectMemberEmail(member_email);
+		
+		String setFrom = "bsblog@bsblog.com";
+		String mailTo = member_email;
+		String title = "BsBlog - 임시 비밀번호 이메일 입니다.";
+		String content = "" + "<br><br>" + "임시 비밀번호는 " + authNumber + " 입니다." + "<br>" + "임시 비밀번호로 로그인 후 비밀번호를 변경하여 주세요."; // 이메일 내용
+		
+		// 임시 비밀번호 전송 전 임시 비밀번호를 멤버 테이블에 넣는 과정
+		// 1. BCryptPasswordEncoder 객체 생성
+		member.setMember_password(authNumber + "");
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		// 2. BCryptPasswordEncoder 객체의 encode() 메서드를 호출하여 해싱 결과 리턴
+		String securePassword = encoder.encode(member.getMember_password());
+		// 3. MemberVO 객체의 패스워드에 암호문 저장
+		member.setMember_password(securePassword);
+		
+		int updateCount =  mapper.modifyMyInfoPro(member);
+
+		mail_send(setFrom, mailTo, title, content);
+		
+		return updateCount;
 	}
 
 	

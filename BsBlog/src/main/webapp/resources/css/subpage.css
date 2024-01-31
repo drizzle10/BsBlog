@@ -125,13 +125,13 @@ form#join #buttons .submit,form#join #buttons .cancel{
 	box-shadow: 3px 3px 2px #CCC;
 }
 form#join #buttons .submit{
-	color: #fff;
+	color: black;
 	background-image: url("../images/member/submit_back.jpg");
 	background-repeat: repeat-x;
 	background-position: center center;
 }
 form#join #buttons .cancel{
-	color: #fff;
+	color: black;
 	background-image: url("../images/member/cancel_back.jpg");
 	background-repeat: repeat-x;
 	background-position: center center;

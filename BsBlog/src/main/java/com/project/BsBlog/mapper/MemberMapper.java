@@ -37,6 +37,9 @@ public interface MemberMapper {
 	// 탈퇴
 	int deleteMyInfoPro(int member_idx);
 
+	// 이메일 이용하여 아이디 찾기
+	MemberVO selectMemberEmail(String member_email);
+
 
 
 }
