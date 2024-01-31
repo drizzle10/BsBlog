@@ -54,7 +54,7 @@ $(document).ready(function(){
 // 입력 항목들에 대한 정규표현식 검사 결과를 저장할 변수 선언
 // => 각 항목 체크 완료 시 해당 값을 true 로 변경하고, 실패 시 false 로 변경
 var id_check_result = false, password_check_result = false; name_check_result = false
-var idDup_check_result = false;
+var idDup_check_result = false;  mailDup_check_result = false;
 // -------------- 정규표현식을 활용한 입력값 검증 -----------------
 
 // 1. 아이디에 대한 입력값 검증 : 4 ~ 16자리 영문자, 숫자, 특수문자(-_.) 조합
@@ -130,7 +130,7 @@ function password_check(password) {
 				password_check_result = true;
 				break;
 			default :
-				$("#password_check_result").html("사용 불가능한 비밀번호입니다.<br>다른 비밀번호를 사용하세요.");
+				$("#password_check_result").html("사용 불가능한 비밀번호입니다. 다른 비밀번호를 사용하세요.");
 				$("#password_check_result").css("color", "red");
 				password_check_result = false;
 		}
@@ -142,7 +142,7 @@ function password_check(password) {
 function name_check(name) {
 	let regex = /^[가-힣]{2,10}$/;
 	if(!regex.exec(name)) {
-		$("#name_check_result").html("이름이 형식에 맞지 않습니다.<br>형식에 맞게 이름을 입력하세요.");
+		$("#name_check_result").html("이름이 형식에 맞지 않습니다. 형식에 맞게 이름을 입력하세요.");
 		$("#name_check_result").css("color", "red");
 		$("#member_name").select();
 		name_check_result = false;
@@ -152,6 +152,7 @@ function name_check(name) {
 		name_check_result = true;
 	}
 }
+
 
 // submit시 작동
 function form_check() {
@@ -168,12 +169,16 @@ function form_check() {
 		$("#member_pass").select();
 		return false; // 현재 폼의 submit 동작을 중단하기 위해 false 리턴
 	} else if(!mailAuth_check) { // * 인증번호 일치 여부 공부
-		alert("이메일 인증번호가 일치하지 않습니다.<br>다시 확인하여 입력하세요.");
+		alert("이메일 인증번호가 일치하지 않습니다. 다시 확인하여 입력하세요.");
 		$("#member_email_auth").select();
 		return false; // 현재 폼의 submit 동작을 중단하기 위해 false 리턴
 	} else if(!idDup_check_result) {
 		alert("아이디 중복을 확인하여 주세요.");
 		$("#member_id").select();
+		return false; // 현재 폼의 submit 동작을 중단하기 위해 false 리턴
+	} else if(!mailDup_check_result) {
+		$("#manager_email").select();
+		alert("메일 중복을 확인하여 주세요");
 		return false; // 현재 폼의 submit 동작을 중단하기 위해 false 리턴
 	} 
 	return true;
@@ -203,5 +208,30 @@ function idDup_check() {
 		}
 	});
 };
+
+//회원 중복 메일 조회
+function mailDup_check() {
+	var member_email = $('#member_email').val(); //id값이 "member_email"인 입력란의 값을 저장
+	$.ajax({
+		url: 'mailDup_check', //Controller에서 요청 받을 주소
+		type: 'post', //POST 방식으로 전달
+		data: { member_email : member_email },
+		success: function(mailDup_checkCount) { //컨트롤러에서 넘어온 checkCount값을 받는다 
+			if (mailDup_checkCount == 0) { //mailCheck가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+				alert("사용 가능한 이메일 입니다.");
+				mailDup_check_result = true;
+				
+			} else { // mailCheck가 1일 경우 -> 이미 존재하는 아이디
+				alert("이미 존재하는 이메일 입니다. 다른 이메일을 사용해 주세요.");
+				$('#member_email').val('');
+				mailDup_check_result = false;
+			}
+		},
+		error: function() {
+			alert("실패");
+		}
+	});
+};
+
 
 

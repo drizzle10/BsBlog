@@ -65,11 +65,11 @@ public class MemberController {
 
 	}
 	
-	// 메일 중복 확인
+	// 아이디 중복 확인
 	// * responsebody 이유?
 	@ResponseBody
 	@PostMapping(value = "/idDup_check")
-	public int idDup_check(@RequestParam("member_id") String member_id, @ModelAttribute MemberVO member) {
+	public int idDup_check(@RequestParam String member_id, @ModelAttribute MemberVO member) {
 		System.out.println(member_id);
 		System.out.println(member);
 		
@@ -78,6 +78,15 @@ public class MemberController {
 		System.out.println(idDup_checkCount);
 		
 		return idDup_checkCount;
+	}
+	
+	// 메일 중복 확인
+	@ResponseBody
+	@PostMapping(value = "/mailDup_check")
+	public int mailDup_check(@RequestParam String member_email) {
+		int mailDup_checkCount = service.mailDup_check(member_email);
+		
+		return mailDup_checkCount;
 	}
 	
 	
@@ -235,6 +244,18 @@ public class MemberController {
 		return "member/my_report_detail";
 	}
 	
+	// member/id_find.jsp
+	@GetMapping(value = "/member_id_find.me")
+	public String member_id_find() {
+		return "member/member_id_find";
+	}
 
+	// member/password_find.jsp
+	@GetMapping(value = "/member_password_find.me")
+	public String member_password_find() {
+		return "member/member_password_find";
+	}
+	
+	
 	
 }

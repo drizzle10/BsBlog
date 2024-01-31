@@ -12,6 +12,9 @@ public interface MemberMapper {
 
 	// 아이디 중복 확인
 	int idDup_check(String member_id);
+	
+	// 메일 중복 확인
+	int mailDup_check(String member_email);
 
 	// 로그인 전 비밀번호 조회
 	String select_memberPassword(String member_id);
@@ -33,5 +36,7 @@ public interface MemberMapper {
 
 	// 탈퇴
 	int deleteMyInfoPro(int member_idx);
+
+
 
 }

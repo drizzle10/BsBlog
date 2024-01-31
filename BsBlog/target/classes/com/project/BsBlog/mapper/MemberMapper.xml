@@ -49,6 +49,16 @@
   		 WHERE 
   		 		member_id = #{member_id}
   	</select>
+
+	<!-- 메일 중복 확인 -->
+  	<select id="mailDup_check" resultType="integer">
+  		SELECT 
+  				COUNT(member_email) 
+  		  FROM 
+  		  		member 
+  		 WHERE 
+  		 		member_email = #{member_email}
+  	</select>
   	
   	<!-- 로그인 전 비밀번호 조회 -->
   	<select id="select_memberPassword" resultType="string">

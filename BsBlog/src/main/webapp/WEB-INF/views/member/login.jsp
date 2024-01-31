@@ -42,8 +42,8 @@
 		  			<input type="submit" value="로그인" class="submit">
 		  			<input type="reset" value="취소" class="cancel">
 		  			<br>
-		  			<input type="button" value="아이디 찾기" class="submit">
-		  			<input type="button" value="비밀번호 찾기" class="cancel">
+		  			<input type="button" value="아이디 찾기" class="submit" onclick="location.href='member_id_find.me'">
+		  			<input type="button" value="비밀번호 찾기" class="submit" onclick="location.href='member_password_find.me'">
 		  		</div>
 		  	</form>
 		  </article>

@@ -31,40 +31,50 @@
 		  	<h1>Join</h1>
 		  	<form action="joinPro.me" method="post" id="join" name="fr" onsubmit="return form_check()">
 		  		<fieldset>
-		  			<div style="border-bottom: 1px solid lightgray;">
+		  			<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">
 			  			<label>아이디</label>
-			  			<div>
-			  				<input type="button" value="중복체크" class="dup" onclick="idDup_check()"><br>
-			  			</div> 
-			  			<input type="text" name="member_id" class="id" id="member_id" placeholder="아이디를 입력해주세요." required="required" onkeyup="id_check(this.value)">
-			  			<span id="id_check_result"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></span><br>
+			  			<input type="button" value="중복확인" class="btn" id="idDup_checkBtn" onclick="idDup_check()"><br>
+			  			<input type="text" name="member_id" class="id" id="member_id" placeholder="아이디를 입력해주세요." required="required" onkeyup="id_check(this.value)" style="margin-left: 140px"><br>
+			  			<div id="id_check_result" style="margin-left: 140px;"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></div>
 		  			</div>
 		  			
-		  			<label>비밀번호</label>
-		  			<input type="password" name="member_password" id="member_passward" placeholder="비밀번호를 입력해주세요." required="required" onkeyup="password_check(this.value)"><br> 			
-		  			<span id="password_check_result"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></span><br> 
+		  			<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">
+			  			<label>비밀번호</label>
+			  			<input type="password" name="member_password" id="member_passward" placeholder="비밀번호를 입력해주세요." required="required" onkeyup="password_check(this.value)"><br> 			
+			  			<div id="password_check_result" style="margin-left: 140px;"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></div> 
+					</div>
+					
+					<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">		  			
+			  			<label>이름</label>
+			  			<input type="text" name="member_name" id="member_name" placeholder="이름을 입력해주세요." required="required" onkeyup="name_check(this.value)"><br>
+			  			<div id="name_check_result" style="margin-left: 140px;"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></div> 
+		  			</div>
 		  			
-		  			<label>이름</label>
-		  			<input type="text" name="member_name" id="member_name" placeholder="이름을 입력해주세요." required="required" onkeyup="name_check(this.value)"><br>
-		  			<span id="name_check_result" style="color: red"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></span><br> 
+		  			<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">
+			  			<label>주소</label>
+						<input type="button" value="주소검색" onclick="Me_execDaumPostcode()" required="required"><br>
+						<input type="text" name="member_postcode" id="member_postcode" placeholder="우편번호를 선택해주세요" required="required" style="margin-left: 140px;">
+			  			<input type="text" name="member_address" id="member_address" placeholder="주소를 선택해주세요." required="required"><br> 
+		  			</div>
 		  			
-		  			<label>주소</label>
-					<input type="button" value="주소검색" onclick="Me_execDaumPostcode()" required="required"><br>
-					<input type="text" name="member_postcode" id="member_postcode" placeholder="우편번호를 선택해주세요" required="required">
-		  			<input type="text" name="member_address" id="member_address" placeholder="주소를 선택해주세요." required="required"><br><br> 
+		  			<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">
+			  			<label>이메일</label>
+			  			<input type="button" id="mailDup_checkBtn" class="btn" value="중복확인" onclick="mailDup_check()"><br>
+			  			<input type="email" name="member_email" id="member_email" placeholder="이메일 주소를 입력해주세요." required="required" style="margin-left: 140px;"> 
+			  			<div id="mail_check_result"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></div> 
+		  			</div>
 		  			
-		  			<label>이메일</label>
-		  			<input type="button" id="mailAuth_checkBtn" value="인증번호 전송"><br>
-		  			<input type="email" name="member_email" id="member_email" placeholder="이메일 주소를 입력해주세요." required="required"><br> 
-		  			<span id="checkMailResult"><!-- 자바스크립트에 의해 메세지가 표시될 공간 --></span><br> 
+			  		<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">
+			  			<label>이메일 인증</label>
+			  			<input type="button" class="btn" id="mailAuth_checkBtn" value="인증번호 전송"><br>
+			  			<input type="text" id="mailAuth" placeholder="인증번호를 입력해주세요." style="margin-left: 140px;"><br>
+			  			<div id="mailAuth_check_warn" style="margin-left: 140px;"></div> 
+		  			</div>
 		  			
-		  			<label>이메일 인증</label>
-		  			<input type="text" id="mailAuth" placeholder="인증번호를 입력해주세요."><br>
-		  			<div id="mailAuth_check_warn"></div><br> 
-		  			
-		  			<label>휴대폰 번호</label>
-		  			<input type="text" name="member_phone" id="member_phone" placeholder="휴대폰 번호를 입력해주세요.(숫자만 입력 가능)" required="required" pattern="[0-9]+"><br>
-		  			<br> 
+		  			<div style="border-bottom: 1px solid lightgray; padding: 20px 0;">
+			  			<label>휴대폰 번호</label>
+		  				<input type="text" name="member_phone" id="member_phone" placeholder="휴대폰 번호를 입력해주세요.(숫자만 입력 가능)" required="required" pattern="[0-9]+"><br>
+		  			</div> 
 		  		</fieldset>
 		  		<div class="clear"></div>
 		  		<div id="buttons">

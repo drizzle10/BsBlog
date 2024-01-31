@@ -74,11 +74,16 @@ public class MemberService {
 		return mapper.joinPro(member);
 	}
 
-	// 아이디 중복 체크
+	// 아이디 중복 확인
 	public int idDup_check(String member_id) {
 		return mapper.idDup_check(member_id);
 	}
 
+	// 메일 중복 확인
+	public int mailDup_check(String member_email) {
+		return mapper.mailDup_check(member_email);
+	}
+	
 	// 로그인 전 비밀번호 조회
 	public String select_memberPassword(String member_id) {
 		return mapper.select_memberPassword(member_id);
@@ -113,5 +118,7 @@ public class MemberService {
 	public int deleteMyInfoPro(int member_idx) {
 		return mapper.deleteMyInfoPro(member_idx);
 	}
+
+	
 
 }
