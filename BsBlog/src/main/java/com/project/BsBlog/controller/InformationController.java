@@ -365,7 +365,7 @@ public class InformationController {
 			return "information/fail_back";
 		} else { // 삭제 성공 시
 			// File 객체의 delete() 메서드를 활용하여 실제 업로드 된 파일 삭제
-			String uploadDir = "/resources/upload"; // 가상의 업로드 경로
+			String uploadDir = "/resources/upload/upload"; // 가상의 업로드 경로
 			// => webapp/resources 폴더 내에 upload 폴더 생성 필요
 			String saveDir = session.getServletContext().getRealPath(uploadDir);
 			System.out.println("실제 업로드 경로 : " + saveDir);
@@ -422,7 +422,7 @@ public class InformationController {
 		// 가상 업로드 경로에 대한 실제 업로드 경로 알아내기
 		// => 단, request 객체에 getServletContext() 메서드 대신, session 객체로 동일한 작업 수행
 		//    (request 객체에 해당 메서드 없음)
-		String uploadDir = "/resources/upload"; // 가상의 업로드 경로
+		String uploadDir = "/resources/upload/upload"; // 가상의 업로드 경로
 		// => webapp/resources 폴더 내에 upload 폴더 생성 필요
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
 //				System.out.println("실제 업로드 경로 : " + saveDir);
@@ -573,6 +573,8 @@ public class InformationController {
 	}
 	
 	// TODO
+	// * 사진 썸네일 경로 다 수정(업로드, 수정, 삭제 다)
+	// * 파일 다운로드부분 어떻게 할건지 생각
 	// 아이디, 비밀번호 찾기
 	// 댓글 없을때 댓글 없다는 내용 적기
 	// 댓글 조회시 시분초 다 나오게

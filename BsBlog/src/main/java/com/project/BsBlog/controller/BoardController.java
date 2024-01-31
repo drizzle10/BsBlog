@@ -203,7 +203,7 @@ public class BoardController {
 		
 		String oldRealFile = diary.getDiary_realfile();
 		
-		String uploadDir = "/resources/upload";
+		String uploadDir = "/resources/upload/upload";
 		
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		System.out.println("실제 업로드 경로 : " + saveDir);
@@ -273,7 +273,7 @@ public class BoardController {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else {
-			String uploadDir = "/resources/upload";
+			String uploadDir = "/resources/upload/upload";
 			String saveDir = session.getServletContext().getRealPath(uploadDir);
 			System.out.println("실제 업로드 경로 : " + saveDir);
 			
@@ -295,7 +295,7 @@ public class BoardController {
 		String ftpBaseDir = "/upload";
 		ftp.connect(ftpBaseDir);
 		
-		String uploadDir = "/resources/upload"; 
+		String uploadDir = "/resources/upload/upload"; 
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		
 		File f = new File(saveDir, fileName); 
@@ -466,7 +466,7 @@ public class BoardController {
 		
 		String oldRealFile = note.getNote_realfile();
 		
-		String uploadDir = "/resources/upload";
+		String uploadDir = "/resources/upload/upload";
 		
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		System.out.println("실제 업로드 경로 : " + saveDir);
@@ -536,7 +536,7 @@ public class BoardController {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else {
-			String uploadDir = "/resources/upload";
+			String uploadDir = "/resources/upload/upload";
 			String saveDir = session.getServletContext().getRealPath(uploadDir);
 			System.out.println("실제 업로드 경로 : " + saveDir);
 			
@@ -558,7 +558,7 @@ public class BoardController {
 		String ftpBaseDir = "/upload";
 		ftp.connect(ftpBaseDir);
 		
-		String uploadDir = "/resources/upload"; 
+		String uploadDir = "/resources/upload/upload"; 
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		
 		File f = new File(saveDir, fileName); 

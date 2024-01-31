@@ -194,7 +194,7 @@ public class GuestbookController {
 		
 		String oldRealFile = guestbook.getGuestbook_realfile();
 		
-		String uploadDir = "/resources/upload";
+		String uploadDir = "/resources/upload/upload";
 		
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		System.out.println("실제 업로드 경로 : " + saveDir);
@@ -265,7 +265,7 @@ public class GuestbookController {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다. 다시 시도해 주세요.");
 			return "board/fail_back";
 		} else {
-			String uploadDir = "/resources/upload";
+			String uploadDir = "/resources/upload/upload";
 			String saveDir = session.getServletContext().getRealPath(uploadDir);
 			System.out.println("실제 업로드 경로 : " + saveDir);
 			
@@ -276,6 +276,31 @@ public class GuestbookController {
 			
 			return "redirect:/guestbook.gu?pageNum=" + pageNum + "&sId=" + sId;
 		}
+	}
+	
+	@GetMapping(value = "/guestbookFileDownload")
+	public String guestbookFiledownload(@RequestParam String fileName, @RequestParam int guestbook_num, @RequestParam int pageNum, @RequestParam String sId, HttpSession session) {
+		System.out.println("fileName : " + fileName);
+		System.out.println("diary_num : " + guestbook_num);
+		System.out.println("pageNum : " + pageNum);
+		
+		String ftpBaseDir = "/upload";
+		ftp.connect(ftpBaseDir);
+		
+		String uploadDir = "/resources/upload/upload"; 
+		String saveDir = session.getServletContext().getRealPath(uploadDir);
+		
+		File f = new File(saveDir, fileName); 
+		
+		if(!f.exists()) {
+			System.out.println("f.exists() : " + f.exists());
+			ftp.download(f, fileName);
+		}
+		
+		ftp.disconnect();
+			
+		return "redirect:/guestbook_detail.gu?guestbook_num=" + guestbook_num + "&pageNum=" + pageNum + "sId=" + sId;
+		
 	}
 	
 
@@ -304,55 +329,55 @@ public class GuestbookController {
 		
 		service.increaseGuestbookReSeq(guestbook);
 		
-		String uploadDir = "/resources/upload"; 
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
-		
-		File f = new File(saveDir); 
-		if(!f.exists()) { 
-			f.mkdirs();
-		}
-		
-		MultipartFile mFile = guestbook.getFile();
-		
-		String originalFileName = mFile.getOriginalFilename();
-		long fileSize = mFile.getSize();
-		System.out.println("파일명 : " + originalFileName);
-		System.out.println("파일크기 : " + fileSize + " Byte");
-		
-		String uuid = UUID.randomUUID().toString();
-		System.out.println("업로드 될 파일명 : " + uuid + "_" + originalFileName);
-		
-		guestbook.setGuestbook_file(originalFileName); // 실제로는 불필요한 컬럼
-		guestbook.setGuestbook_realfile(uuid + "_" + originalFileName);
+//		String uploadDir = "/resources/upload"; 
+//		String saveDir = session.getServletContext().getRealPath(uploadDir);
+//		
+//		File f = new File(saveDir); 
+//		if(!f.exists()) { 
+//			f.mkdirs();
+//		}
+//		
+//		MultipartFile mFile = guestbook.getFile();
+//		
+//		String originalFileName = mFile.getOriginalFilename();
+//		long fileSize = mFile.getSize();
+//		System.out.println("파일명 : " + originalFileName);
+//		System.out.println("파일크기 : " + fileSize + " Byte");
+//		
+//		String uuid = UUID.randomUUID().toString();
+//		System.out.println("업로드 될 파일명 : " + uuid + "_" + originalFileName);
+//		
+//		guestbook.setGuestbook_file(originalFileName); // 실제로는 불필요한 컬럼
+//		guestbook.setGuestbook_realfile(uuid + "_" + originalFileName);
 		
 		int insertCount = service.writeGuestbookReplyPro(guestbook);
 		
 		System.out.println("@@@@@@guestbook : " + guestbook);
 		if(insertCount > 0) {
-			try {
-				String ftpBaseDir = "/upload";
-				ftp.connect(ftpBaseDir);
-				
-				System.out.println("ftp접속 완");
-				
-				File f2 = new File(saveDir, guestbook.getGuestbook_realfile());
-				mFile.transferTo(f2);
-
-				System.out.println("톰캣 업로드 완");
-				ftp.upload(f2, guestbook.getGuestbook_realfile());
-				
-				System.out.println("ftp업로드 완");
-				
-				if(f2.exists()) {
-					f2.delete();
-				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				ftp.disconnect();
-			}
+//			try {
+//				String ftpBaseDir = "/upload";
+//				ftp.connect(ftpBaseDir);
+//				
+//				System.out.println("ftp접속 완");
+//				
+//				File f2 = new File(saveDir, guestbook.getGuestbook_realfile());
+//				mFile.transferTo(f2);
+//
+//				System.out.println("톰캣 업로드 완");
+//				ftp.upload(f2, guestbook.getGuestbook_realfile());
+//				
+//				System.out.println("ftp업로드 완");
+//				
+//				if(f2.exists()) {
+//					f2.delete();
+//				}
+//			} catch (IllegalStateException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} finally {
+//				ftp.disconnect();
+//			}
 			
 			return "redirect:/guestbook.gu?pageNum=" + pageNum + "sId=" + sId;
 		} else {

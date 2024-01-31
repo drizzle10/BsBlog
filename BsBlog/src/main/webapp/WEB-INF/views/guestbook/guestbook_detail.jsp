@@ -46,7 +46,7 @@
 				<tr>
 				<!-- * 왜 news_realfile , news_file을 서야했는지?-->
 					<td>파일</td>
-					<td><a href="guestbookFileDownload?fileName=${guestbookDetail.guestbook_realfile }&guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId }">${guestbookDetail.guestbook_file }</a></td>
+					<td><a href="guestbookFileDownload?fileName=${guestbookDetail.guestbook_realfile }&guestbook_num=${guestbookDetail.guestbook_num}&pageNum=${param.pageNum}&sId=${sessionScope.sId }"><img src="/BsBlog/resources/upload/upload/${guestbookDetail.guestbook_realfile}"></a></td>
 				</tr>
 				<tr>
 					<td>내용</td>
