@@ -13,13 +13,13 @@
 <script type="text/javascript">
 	// 로딩 하자마자 댓글 토글 hide
 	$(document).ready(function () {
-		reply();
-	});
+		$('#reReplyBox').hide();
+	}); 
 
 	// ---------- 댓글 작성 ----------
 	// 만약 함수가 작동 않는다면 프로젝트 클린, 톰캣 클린하고 인터넷 캐시 삭제 해보기
 	// pom.xml json 파싱 필수
-	function reply_write() {
+	/* function reply_write() {
 		if(${sessionScope.sId == null}){
 			alert("로그인 후 댓글 작성이 가능합니다.");
 			location.href = "login.me";
@@ -50,7 +50,7 @@
 			}
 		}
 	};
-	
+	 */
 
 		
 		
@@ -93,15 +93,10 @@
 	
 	}; 
 	
-	// 대댓글 토글
-	// 댓글 토글에서 이 함수를 호출하므로 댓글 토글보다 위에 있어야함
-	// 토글을 위해 idNum필요?	
-	function reReply(idNum){
-		 if ($('#reReplyBox' + idNum).css('display') == 'none') {
-	          $('#reReplyBox'+ idNum).css('display', 'block');
-	     } else {
-	            $('#reReplyBox'+ idNum).css('display', 'none');
-	     }
+	// 댓글 클릭시 토글
+	function reReply(r){
+		console.log(r);
+			$("#reReplyBox" + r).toggle();
 	}
 	
 	// 대댓글
@@ -126,69 +121,15 @@
 	};
 	
 
-	// 댓글 토글
-	function reply(){
-		$.ajax({
-			url: "reply.re",
-			type: "POST",
-			data: {
-				reply_ne_ref : ${newsDetail.news_num}
-			},
-			dataType: "json"
-		})	
-		.done(function(replyList) {
-			if(replyList.length < 1) {
-				// document.getElementById("replyList").innerHTML = "등록된 댓글이 없습니다.";
-			} else {
-				let idNum = 0;
-			
-				for(let reply of replyList) {
-					let space = "";
-					console.log(reply);
-				
-					if(reply.reply_re_lev > 0) {
-						for(let i = 0; i < reply.reply_re_lev; i++){
-							space += "&nbsp;&nbsp;";
-						}
-							space += "<img src='<%=request.getContextPath() %>/resources/css/images/re.png'>&nbsp;";
-					}
-					
-					let result = space + reply.reply_id + '(' + reply.reply_date +')' + '<br>' + reply.reply_content + '<br>'	
-								+  '<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply('+ idNum +')" style="cursor: pointer" > <br> 답글 </a></span>'
-								<!-- 로그인한 사람과 댓글작성자가 같을 경우 삭제버튼, 수정버튼 표시 -->
-		                       // if(('${sessionScope.sId}' == reply.reply_id) || ('${sessionScope.sId}' == 'admin') ){
-			                    +  '<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete('+ reply.reply_idx + ',' + '\'' + reply.reply_id + '\'' +')" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span><hr>'
-			                   //  }
-		                        + '<div id="reReplyBox'+ idNum++ +'" style="display:none">'
-								+ '<form action="#" method="post" id="reReply_form'+ idNum +'">'
-								+ '<input type="hidden" name="reply_ne_ref" value="'+ reply.reply_ne_ref +'">'
-								+ '<input type="hidden" name="reply_re_ref" value="'+ reply.reply_re_ref +'">'
-								+ '<input type="hidden" name="reply_re_lev" value="'+ reply.reply_re_lev +'">'
-								+ '<input type="hidden" name="reply_re_seq" value="'+ reply.reply_re_seq +'">'
-								+ '<input type="hidden" name="reply_id" value="${sessionScope.sId}">'
-								+ '<input type="hidden" name="pageNum" value="${param.pageNum}">'
-								+ '<textarea id ="rereBox" name="reply_content" style="width: 670px; height: 200px; resize: none;">댓글을 입력하세요.</textarea>&nbsp;&nbsp;'
-								+ '<input type="button" id="go_reply_wri_btn" value="작성" onclick="reReply_write('+ idNum +')"></form></div>';
-		                    
-								// 수정!!!!!!!!!!!!!!!
-								// append로 해야 들어가짐
-		                        $("#replyList").append(result);
-				}
-			}
-		})	
-		.fail(function () {
-			alert("댓글을 불러올 수가 없습니다. 다시 시도해 주세요.");
-		});
-	}				
-				
+	
 </script>
 </head>
+
 <body>
 	<div id="wrap">
 		<!-- 헤더 들어가는곳 -->
 		<jsp:include page="../inc/top.jsp" />
 		<!-- 헤더 들어가는곳 -->
-
 		<!-- 본문들어가는 곳 -->
 		<!-- 본문 메인 이미지 -->
 		<div id="sub_img_center"></div>
@@ -242,16 +183,110 @@
 			<!-- 댓글 -->
 			<div class="clear">
 				<div>댓글</div>
-				<textarea maxlength="1000" id="reply_content" style="resize: none; width: 670px; height: 200px;">댓글은 1000자 이상 작성할 수 없습니다.</textarea>
-				<div>
-					<input type="button" value="작성" onclick="reply_write()">
-				</div>
+				<form action="reply_writePro.re" method="post">
+					<input type="hidden" name="reply_id" value="${sessionScope.sId}">
+					<input type="hidden" name="reply_ne_ref" value="${newsDetail.news_num }">
+					<input type="hidden" name="pageNum" value="${param.pageNum }">
+					<textarea maxlength="1000" id="reply_content" name="reply_content" style="resize: none; width: 670px; height: 200px;">댓글은 1000자 이상 작성할 수 없습니다.</textarea>
+					<input type="submit" value="작성">
+				</form>
 			</div>
 			<br>
 			<hr>
 			<br>
 			<div class="clear">
-				<div id="replyList"></div>
+				<div id="replyList">
+					<c:if test="${empty reply }">
+						작성된 댓글이 없습니다.
+					</c:if>
+					<c:forEach var="reply" items="${reply }">
+						<c:set var="r" value="${r+1 }"/>
+						<c:if test="${reply.reply_re_lev == 0 }">
+							${reply.reply_id } | ${reply.reply_date }<br>
+							${reply.reply_content }<br>
+							<c:choose>
+								<c:when test="${sessionScope.sId ne null && sessionScope.sId eq reply.reply_id }">
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
+									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify()" style="text-decoration: none; cursor: pointer;"> 수정 </a></span>
+									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete()" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
+										<div id="reReplyBox${r}" style="display: none;">
+											<form action="reReply_writePro.re" method="post" id="reReply_form">
+												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
+												<input type="hidden" name="reply_re_ref" value="${ reply.reply_re_ref}">
+												<input type="hidden" name="reply_re_lev" value="${ reply.reply_re_lev}">
+												<input type="hidden" name="reply_re_seq" value="${ reply.reply_re_seq}">
+												<input type="hidden" name="reply_id" value="${sessionScope.sId}">
+												<input type="hidden" name="pageNum" value="${param.pageNum}">
+												<textarea id ="rereBox" name="reply_content" style="width: 670px; height: 200px; resize: none;">댓글을 입력하세요.</textarea>
+												<input type="submit" id="go_reply_wri_btn" value="작성">
+											</form>
+										</div>
+									<hr>
+								</c:when>
+								<c:when test="${sessionScope.sId ne null && sessionScope.sId ne reply.reply_id }">
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
+										<div id="reReplyBox${r}" style="display: none;">
+											<form action="reReply_writePro.re" method="post" id="reReply_form">
+												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
+												<input type="hidden" name="reply_re_ref" value="${ reply.reply_re_ref}">
+												<input type="hidden" name="reply_re_lev" value="${ reply.reply_re_lev}">
+												<input type="hidden" name="reply_re_seq" value="${ reply.reply_re_seq}">
+												<input type="hidden" name="reply_id" value="${sessionScope.sId}">
+												<input type="hidden" name="pageNum" value="${param.pageNum}">
+												<textarea id ="rereBox" name="reply_content" style="width: 670px; height: 200px; resize: none;">댓글을 입력하세요.</textarea>
+												<input type="submit" id="go_reply_wri_btn" value="작성">
+											</form>
+										</div>
+									<hr>
+								</c:when>
+							</c:choose>
+						</c:if>
+						<c:if test="${reply.reply_re_lev > 0 }">
+							<c:forEach var = "i" begin = "0" end = "${reply.reply_re_lev }" step="1">
+								&nbsp;&nbsp;
+							</c:forEach>
+							<img src='<%=request.getContextPath() %>/resources/css/images/re.png'>
+							${reply.reply_id } | ${reply.reply_date }<br>
+							${reply.reply_content }<br>
+							<c:choose>
+								<c:when test="${sessionScope.sId ne null && sessionScope.sId eq reply.reply_id }">
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
+									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify()" style="text-decoration: none; cursor: pointer;"> 수정 </a></span>
+									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete()" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
+										<div id="reReplyBox${r}" style="display: none;">
+											<form action="reReply_writePro.re" method="post" id="reReply_form">
+												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
+												<input type="hidden" name="reply_re_ref" value="${ reply.reply_re_ref}">
+												<input type="hidden" name="reply_re_lev" value="${ reply.reply_re_lev}">
+												<input type="hidden" name="reply_re_seq" value="${ reply.reply_re_seq}">
+												<input type="hidden" name="reply_id" value="${sessionScope.sId}">
+												<input type="hidden" name="pageNum" value="${param.pageNum}">
+												<textarea id ="rereBox" name="reply_content" style="width: 670px; height: 200px; resize: none;">댓글을 입력하세요.</textarea>
+												<input type="submit" id="go_reply_wri_btn" value="작성">
+											</form>
+										</div>
+									<hr>
+								</c:when>
+								<c:when test="${sessionScope.sId ne null && sessionScope.sId ne reply.reply_id }">
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
+										<div id="reReplyBox${r}" style="display: none;">
+											<form action="reReply_writePro.re" method="post" id="reReply_form">
+												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
+												<input type="hidden" name="reply_re_ref" value="${ reply.reply_re_ref}">
+												<input type="hidden" name="reply_re_lev" value="${ reply.reply_re_lev}">
+												<input type="hidden" name="reply_re_seq" value="${ reply.reply_re_seq}">
+												<input type="hidden" name="reply_id" value="${sessionScope.sId}">
+												<input type="hidden" name="pageNum" value="${param.pageNum}">
+												<textarea id ="rereBox" name="reply_content" style="width: 670px; height: 200px; resize: none;">댓글을 입력하세요.</textarea>
+												<input type="submit" id="go_reply_wri_btn" value="작성">
+											</form>
+										</div>
+									<hr>
+								</c:when>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+				</div>
 			</div>
 			
 		</article>
