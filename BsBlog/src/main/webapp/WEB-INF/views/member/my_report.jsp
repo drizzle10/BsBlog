@@ -25,6 +25,7 @@
 			<ul>
 				<li><a href="my_info.me?sId=${sessionScope.sId }">My Info</a></li>
 				<li><a href="my_report.me?sId=${sessionScope.sId }">My Report</a></li>
+				<li><a href="my_heart.me?sId=${sessionScope.sId }">My Heart</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
@@ -32,13 +33,15 @@
 			<h1>My Report</h1>
 			<table id="notice">
 				<tr>
-					<th class="twrite">신고상태</th>
 					<th class="ttitle">신고 번호</th>
+					<th class="ttitle">신고 상태</th>
+					<th class="ttitle">신고 내용</th>
 					<th class="ttitle">신고일</th>
 				</tr>
 				<tr>
+					<td>${report.report_idx } </td>
 					<td>${report.report_status } </td>
-					<td class="left" onclick="location.href='my_report_detail.me?report_idx=${report.report_idx }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${report.report_idx }</td>
+					<td class="left" onclick="location.href='my_report_detail.me?report_idx=${report.report_idx }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${report.report_content }</td>
 					<td>${report.report_date }</td>
 				</tr>
 			</table>
@@ -46,8 +49,8 @@
 				<form action="my_report.me" method="get">
 				<input type="hidden" name="sId" value="${sessionScope.sId }">
 					<select name="searchType">
-						<option value="content">내용</option>
 						<option value="status">상태</option>
+						<option value="content">내용</option>
 					</select>
 						<input type="text" name="keyword" class="input_box">
 						<input type="submit" value="검색" class="btn">

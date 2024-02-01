@@ -40,12 +40,12 @@
 					<th class="tread">조회수</th>
 				</tr>
 				<c:forEach var="news" items="${news }">
-				<tr>
-					<td class="left" onclick="location.href='news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${news.news_subject }</td>
-					<td>${news.news_id }</td>
-					<td>${news.news_date }</td>
-					<td>${news.news_readcount }</td>
-				</tr>
+					<tr>
+						<td class="left" onclick="location.href='news_detail.in?news_num=${news.news_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${news.news_subject }</td>
+						<td>${news.news_id }</td>
+						<td>${news.news_date }</td>
+						<td>${news.news_readcount }</td>
+					</tr>
 				</c:forEach>
 			</table>
 			<c:if test="${sessionScope.sId eq 'admin' }">
@@ -63,7 +63,7 @@
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
 						<option value="subject_content">제목&내용</option>
-						<option value="name">작성자</option>
+						<option value="id">작성자</option>
 					</select>
 						<input type="text" name="keyword" class="input_box">
 						<input type="submit" value="검색" class="btn">

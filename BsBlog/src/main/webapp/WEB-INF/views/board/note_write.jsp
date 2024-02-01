@@ -56,7 +56,6 @@
 						<!--  <div id="image_container"></div> -->
 					</tr>
 					<tr>
-						<td>내용</td>
 						<td colspan="2"><textarea name="note_content" id="editor"></textarea></td>
 					</tr>
 

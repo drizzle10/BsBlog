@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board/diary.jsp</title>
+<title>member/my_heart.jsp</title>
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
@@ -23,62 +23,51 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
-				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
+				<li><a href="my_info.me?sId=${sessionScope.sId }">My Info</a></li>
+				<li><a href="my_report.me?sId=${sessionScope.sId }">My Report</a></li>
+				<li><a href="my_heart.me?sId=${sessionScope.sId }">My Heart</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
 		<article>
-			<h1>Diary</h1>
+			<h1>My Heart</h1>
 			<table id="notice">
 				<tr>
-					<th class="ttitle">제목</th>
-					<th class="twrite">작성자</th>
-					<th class="tdate">작성일</th>
-					<th class="tread">조회수</th>
+					<th class="ttitle">좋아요 작성자</th>
+					<th class="ttitle">좋아요 제목</th>
+					<th class="ttitle">좋아요 날짜</th>
 				</tr>
-				<c:forEach var="diary" items="${diary }">
+				<c:forEach var="note" items="${note }">
 					<tr>
-						<td class="left" onclick="location.href='diary_detail.bo?diary_num=${diary.diary_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${diary.diary_subject }</td>
-						<td>${diary.diary_id }</td>
-						<td>${diary.diary_date }</td>
-						<td>${diary.diary_readcount }</td>
+						<td>${note.note_id }</td>
+						<td class="left" onclick="location.href='note_detail.bo?note_num=${note.note_num }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${note.note_subject }</td>
+						<td>${note.heart_date }</td>
 					</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${sessionScope.sId eq 'admin' }">
 				<div id="table_search">
-				<!-- * location.href 알아보기 -->
-					<input type="button" value="글쓰기" class="btn" onclick="location.href='diary_write.bo?pageNum=${pageInfo.pageNum }&sId=${sessionScope.sId }'">
-				</div>
-			</c:if>
-			<!-- 검색 기능 구현을 위한 form 태그 -->
-			<!-- * get인 이유? -->
-			<!-- * 드롭다운 박스 안하고 그냥 해보기 -->
-			<div id="table_search">
-				<form action="diary.bo" method="get">
+				<form action="my_heart.me" method="get">
+				<input type="hidden" name="sId" value="${sessionScope.sId }">
 					<select name="searchType">
-						<option value="subject">제목</option>
-						<option value="content">내용</option>
-						<option value="subject_content">제목&내용</option>
 						<option value="id">작성자</option>
+						<option value="subject">제목</option>
 					</select>
 						<input type="text" name="keyword" class="input_box">
 						<input type="submit" value="검색" class="btn">
 				</form>
 			</div>
-
+			
 			<%PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo"); %>
 			<div class="clear"></div>
 			<div id="page_control">
-				<%if(pageInfo.getPageNum() > pageInfo.getStartPage()) {%><a href="diary.bo?pageNum=${pageInfo.pageNum - 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Prev</a>
+				<%if(pageInfo.getPageNum() > pageInfo.getStartPage()) {%><a href="my_heart.me?pageNum=${pageInfo.pageNum - 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Prev</a>
 				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
                    <c:choose>
                       <c:when test="${i eq pageInfo.pageNum }"><a href="#">${i }</a></c:when>
-                      <c:otherwise><a class="pageLink" href="diary.bo?pageNum=${i }&searchType=${searchType}&keyword=${keyword}">${i }</a></c:otherwise>
+                      <c:otherwise><a class="pageLink" href="my_heart.me?pageNum=${i }&searchType=${searchType}&keyword=${keyword}">${i }</a></c:otherwise>
                    </c:choose>
                 </c:forEach>
-				<%if(pageInfo.getPageNum() < pageInfo.getMaxPage()) {%><a href="diary.bo?pageNum=${pageInfo.pageNum + 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Next</a>
+				<%if(pageInfo.getPageNum() < pageInfo.getMaxPage()) {%><a href="my_heart.me?pageNum=${pageInfo.pageNum + 1}&searchType=${searchType}&keyword=${keyword}"><%}%>Next</a>
 			</div>
 		</article>
 

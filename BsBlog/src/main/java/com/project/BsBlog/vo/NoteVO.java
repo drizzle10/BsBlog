@@ -34,6 +34,8 @@ public class NoteVO {
 	private int note_readcount;
 	private Date note_date;
 	private MultipartFile file;
+	// ------ 마이페이지 내 좋아요한 글 불러오기 위함----
+	private Date heart_date;
 	
 	public int getNote_num() {
 		return note_num;
@@ -113,6 +115,12 @@ public class NoteVO {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+	public Date getHeart_date() {
+		return heart_date;
+	}
+	public void setHeart_date(Date heart_date) {
+		this.heart_date = heart_date;
+	}
 	
 	@Override
 	public String toString() {
@@ -120,11 +128,8 @@ public class NoteVO {
 				+ ", note_subject=" + note_subject + ", note_content=" + note_content + ", note_file=" + note_file
 				+ ", note_realfile=" + note_realfile + ", note_re_ref=" + note_re_ref + ", note_re_lev=" + note_re_lev
 				+ ", note_re_seq=" + note_re_seq + ", note_readcount=" + note_readcount + ", note_date=" + note_date
-				+ ", file=" + file + "]";
+				+ ", file=" + file + ", heart_date=" + heart_date + "]";
 	}
-	
-	
-	
 	
 	
 }

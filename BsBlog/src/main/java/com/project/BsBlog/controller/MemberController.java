@@ -1,5 +1,7 @@
 package com.project.BsBlog.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.BsBlog.service.MemberService;
 import com.project.BsBlog.vo.MemberVO;
+import com.project.BsBlog.vo.NoteVO;
 import com.project.BsBlog.vo.PageInfo;
 import com.project.BsBlog.vo.ReportVO;
 
@@ -23,6 +26,18 @@ import com.project.BsBlog.vo.ReportVO;
 public class MemberController {
 	@Autowired
 	MemberService service;
+	
+	int listLimit; 
+	
+	int pageListLimit; 
+
+	int startRow;
+	
+	int maxPage;
+	
+	int startPage;
+
+	int endPage;
 	
 	// member/join.jsp
 	@GetMapping(value = "/join.me")
@@ -200,11 +215,11 @@ public class MemberController {
 		System.out.println(keyword);
 		System.out.println(sId);
 		
-		int listLimit = 10; 
+		listLimit = 10; 
 		
-		int pageListLimit = 10; 
+		pageListLimit = 10; 
 
-		int startRow = (pageNum - 1) * listLimit;
+		startRow = (pageNum - 1) * listLimit;
 		
 		// 나의 신고 조회
 		ReportVO report = service.selectMyReport(sId, searchType, keyword, startRow, listLimit);
@@ -212,9 +227,9 @@ public class MemberController {
 		// 나의 신고 목록 갯수 조회
 		int listCount = service.selectMyReportCount(sId, searchType, keyword);
 		
-		int maxPage = (int)Math.ceil((double)listCount / listLimit);
+		maxPage = (int)Math.ceil((double)listCount / listLimit);
 		
-		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
 
 		int endPage = startPage + pageListLimit - 1;
 
@@ -244,6 +259,45 @@ public class MemberController {
 		
 		return "member/my_report_detail";
 	}
+
+	// member/my_heart.jsp
+	@GetMapping("/my_heart.me")
+	public String my_heart(@RequestParam String sId, @RequestParam(defaultValue = "") String searchType, 
+							@RequestParam(defaultValue = "") String keyword, 
+							@RequestParam(defaultValue = "1") int pageNum, Model model) {
+
+		listLimit = 10; 
+		
+		pageListLimit = 10; 
+
+		startRow = (pageNum - 1) * listLimit;
+		
+		// 나의 좋아요 조회
+		List<NoteVO> note = service.selectMyHeart(sId, searchType, keyword, startRow, listLimit);
+		
+		// 나의 신고 목록 갯수 조회
+		int listCount = service.selectMyHeartCount(sId, searchType, keyword);
+		
+		maxPage = (int)Math.ceil((double)listCount / listLimit);
+		
+		startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+
+		int endPage = startPage + pageListLimit - 1;
+
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pageInfo = new PageInfo(
+						pageNum, listLimit, listCount, pageListLimit, maxPage, startPage, endPage);
+		
+		model.addAttribute("note", note);
+		
+		model.addAttribute("pageInfo", pageInfo);
+		
+		return "member/my_heart";
+	}
+	
 	
 	// member/id_find.jsp
 	@GetMapping(value = "/id_find.me")

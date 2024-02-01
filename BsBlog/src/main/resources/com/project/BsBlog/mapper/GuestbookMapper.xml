@@ -50,7 +50,7 @@
 						 LIKE 
 						 	  '%${keyword}%'
 					</when>
-					<when test="searchType.equals('name')">
+					<when test="searchType.equals('id')">
 						WHERE 
 							  guestbook_id 
 						 LIKE 
@@ -95,7 +95,7 @@
 					 LIKE 
 					 	  '%${keyword}%'
 				</when>
-				<when test="searchType.equals('name')">
+				<when test="searchType.equals('id')">
 					WHERE 
 						  guestbook_id 
 					 LIKE 

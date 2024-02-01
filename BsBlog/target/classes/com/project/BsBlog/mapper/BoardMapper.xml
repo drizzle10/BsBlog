@@ -65,7 +65,7 @@
 						 LIKE 
 						 	  '%${keyword}%'
 					</when>
-					<when test="searchType.equals('name')">
+					<when test="searchType.equals('id')">
 						WHERE 
 							  diary_id 
 						 LIKE 
@@ -109,7 +109,7 @@
 					 LIKE 
 					 	  '%${keyword}%'
 				</when>
-				<when test="searchType.equals('name')">
+				<when test="searchType.equals('id')">
 					WHERE 
 						  diary_id 
 					 LIKE 
@@ -238,7 +238,7 @@
 					 LIKE 
 					 	  '%${keyword}%'
 				</when>
-				<when test="searchType.equals('name')">
+				<when test="searchType.equals('id')">
 					WHERE 
 						  note_id 
 					 LIKE 
@@ -282,7 +282,7 @@
 					 LIKE 
 					 	  '%${keyword}%'
 				</when>
-				<when test="searchType.equals('name')">
+				<when test="searchType.equals('id')">
 					WHERE 
 						  note_id 
 					 LIKE 

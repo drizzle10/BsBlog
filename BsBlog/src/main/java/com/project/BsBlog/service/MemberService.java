@@ -1,5 +1,6 @@
 package com.project.BsBlog.service;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.BsBlog.mapper.MemberMapper;
 import com.project.BsBlog.vo.MemberVO;
+import com.project.BsBlog.vo.NoteVO;
 import com.project.BsBlog.vo.ReportVO;
 
 @Service
@@ -115,6 +117,16 @@ public class MemberService {
 		return mapper.selectMyReportDetail(sId);
 	}
 
+	// 나의 좋아요 조회
+	public List<NoteVO> selectMyHeart(String sId, String searchType, String keyword, int startRow, int listLimit) {
+		return mapper.selectMyHeart(sId, searchType, keyword, startRow, listLimit);
+	}
+
+	// 나의 좋아요 갯수 조회
+	public int selectMyHeartCount(String sId, String searchType, String keyword) {
+		return mapper.selectMyHeartCount(sId, searchType, keyword);
+	}
+	
 	// 탈퇴
 	public int deleteMyInfoPro(int member_idx) {
 		return mapper.deleteMyInfoPro(member_idx);
@@ -176,6 +188,8 @@ public class MemberService {
 		
 		return updateCount;
 	}
+
+	
 
 	
 

@@ -62,7 +62,7 @@
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
 						<option value="subject_content">제목&내용</option>
-						<option value="name">작성자</option>
+						<option value="id">작성자</option>
 					</select>
 						<input type="text" name="keyword" class="input_box">
 						<input type="submit" value="검색" class="btn">

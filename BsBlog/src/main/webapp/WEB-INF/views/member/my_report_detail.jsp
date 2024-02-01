@@ -25,6 +25,7 @@
 			<ul>
 				<li><a href="my_info.me?sId=${sessionScope.sId }">My Info</a></li>
 				<li><a href="my_report.me?sId=${sessionScope.sId }">My Report</a></li>
+				<li><a href="my_heart.me?sId=${sessionScope.sId }">My Heart</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->

@@ -104,32 +104,27 @@
 		  	   report
 		 WHERE 
 		 	   report_id = #{sId} 	   
-			<if test="!keyword.equals('')">
-					<choose>
-						<when test="searchType.equals('content')">
-							AND 
-								  report_content 
-							 LIKE 
-							 	  '%${keyword}%' 
-						</when>
-						<when test="searchType.equals('status')">
-							AND 
-								  report_status 
-							 LIKE 
-							 	  '%${keyword}%' 
-						</when>
-					</choose>
-				</if>
+		<if test="!keyword.equals('')">
+			<choose>
+				<when test="searchType.equals('status')">
+					AND 
+						  report_status 
+					 LIKE 
+					 	  '%${keyword}%' 
+				</when>
+				<when test="searchType.equals('content')">
+					AND 
+						  report_content 
+					 LIKE 
+					 	  '%${keyword}%' 
+				</when>
+			</choose>
+		</if>
+	ORDER BY
+			 report_idx DESC
+	   LIMIT 
+	   		 #{startRow}, #{listLimit} 	
   	</select>
-  	
-  	<!-- 탈퇴 -->
-  	<delete id="deleteMyInfoPro">
-  		DELETE
-  		  FROM
-  		  		member
-  		 WHERE
-  		 		member_idx = #{member_idx}
-  	</delete>
   	
   	<!-- 나의 신고 목록 갯수 조회 -->
   	<select id="selectMyReportCount" resultType="integer">
@@ -139,22 +134,22 @@
 		  	   report
 		 WHERE 
 		 	   report_id = #{sId}	   
-			<if test="!keyword.equals('')">
-					<choose>
-						<when test="searchType.equals('content')">
-							AND 
-								  report_content 
-							 LIKE 
-							 	  '%${keyword}%' 
-						</when>
-						<when test="searchType.equals('status')">
-							AND 
-								  report_status 
-							 LIKE 
-							 	  '%${keyword}%' 
-						</when>
-					</choose>
-				</if>
+		<if test="!keyword.equals('')">
+			<choose>
+				<when test="searchType.equals('status')">
+					AND 
+						  report_status 
+					 LIKE 
+					 	  '%${keyword}%' 
+				</when>
+				<when test="searchType.equals('content')">
+					AND 
+						  report_content 
+					 LIKE 
+					 	  '%${keyword}%' 
+				</when>
+			</choose>
+		</if>
   	</select>
   	
   	<!-- 나의 신고 상세 조회 -->
@@ -166,6 +161,95 @@
   		 WHERE
   		 		report_id = #{report_id} 		
   	</select>
+  	
+  	<!-- 나의 좋아요 조회 -->
+	<select id="selectMyHeart" resultType="com.project.BsBlog.vo.NoteVO">
+		SELECT
+				n.note_subject,
+				n.note_id,
+				h.heart_date
+		 FROM
+		 		note n
+		 JOIN
+		 		heart h
+	  	   ON 
+	  	   		n.note_num = h.rf_note_num		 				
+		 WHERE 
+		 	    h.rf_member_idx = (
+			 	    				SELECT 
+			 	    						member_idx
+			 	    				  FROM
+			 	    				  		member
+			 	    				 WHERE
+			 	    				 		member_id = #{sId}
+			 	    				)	
+		<if test="!keyword.equals('')">
+			<choose>
+				<when test="searchType.equals('subject')">
+					  AND 
+						   n.note_subject 
+					 LIKE 
+					 	  '%${keyword}%' 
+				</when>
+				<when test="searchType.equals('id')">
+					  AND 
+						   n.note_id 
+					 LIKE 
+					 	  '%${keyword}%' 
+				</when>
+			</choose>
+		</if>
+	ORDER BY
+			 h.heart_date DESC
+	   LIMIT 
+	   		 #{startRow}, #{listLimit} 	
+  	</select>
+  	
+  		<!-- 나의 신고 목록 갯수 조회 -->
+  	<select id="selectMyHeartCount" resultType="integer">
+  		SELECT 
+			  	COUNT(*) 
+		  FROM 
+		  	  	heart h
+		  JOIN
+		   	  	note n
+		    ON
+		    	h.rf_note_num = n.note_num	  	 
+		 WHERE 
+		 	    h.rf_member_idx = (
+			 	    				SELECT 
+			 	    						member_idx
+			 	    				  FROM
+			 	    				  		member
+			 	    				 WHERE
+			 	    				 		member_id = #{sId}
+			 	    				)	   
+		<if test="!keyword.equals('')">
+			<choose>
+				<when test="searchType.equals('subject')">
+					AND 
+						n.note_subject 
+				   LIKE
+						'%${keyword}%' 
+				</when>
+				<when test="searchType.equals('id')">
+					AND
+						n.note_id 
+				   LIKE
+					 	'%${keyword}%' 
+				</when>
+			</choose>
+		</if>
+  	</select>
+  	
+  	<!-- 탈퇴 -->
+  	<delete id="deleteMyInfoPro">
+  		DELETE
+  		  FROM
+  		  		member
+  		 WHERE
+  		 		member_idx = #{member_idx}
+  	</delete>
   	
   	<!-- 이메일 이용하여 아이디 찾기 -->
 	<select id="selectMemberEmail" resultType="com.project.BsBlog.vo.MemberVO">

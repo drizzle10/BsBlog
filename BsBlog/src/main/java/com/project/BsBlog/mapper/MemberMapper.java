@@ -1,8 +1,11 @@
 package com.project.BsBlog.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.project.BsBlog.vo.MemberVO;
+import com.project.BsBlog.vo.NoteVO;
 import com.project.BsBlog.vo.ReportVO;
 
 public interface MemberMapper {
@@ -39,6 +42,12 @@ public interface MemberMapper {
 
 	// 이메일 이용하여 아이디 찾기
 	MemberVO selectMemberEmail(String member_email);
+
+	// 나의 좋아요 조회
+	List<NoteVO> selectMyHeart(@Param("sId") String sId, @Param("searchType") String searchType, @Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit);
+
+	// 나의 좋아요 갯수 조회
+	int selectMyHeartCount(@Param("sId") String sId, @Param("searchType") String searchType, @Param("keyword") String keyword);
 
 
 
