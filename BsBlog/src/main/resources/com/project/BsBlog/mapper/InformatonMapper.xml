@@ -356,4 +356,17 @@ CREATE TABLE reply(
 	  ORDER BY
 			    news_num DESC LIMIT 2		
 	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyReplyPro">
+		UPDATE
+			   reply
+		   SET
+		   	   reply_content = #{reply_content}, 
+		   	   reply_date = now()
+		 WHERE
+		   	   reply_idx = #{reply_idx}	      	   	   
+		   AND
+			   reply_ne_ref = #{reply_ne_ref}
+	</update>
 </mapper>

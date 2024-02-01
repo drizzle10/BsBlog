@@ -101,6 +101,12 @@ public class InformationService {
 	}
 
 
+	// 댓글 수정
+	public int modifyReplyPro(ReplyVO reply) {
+		return mapper.modifyReplyPro(reply);
+	}
+
+
 
 
 

@@ -482,6 +482,23 @@ public class InformationController {
 			return "redirect:/news_detail.in?news_num=" + reply.getReply_ne_ref() + "&pageNum=" + pageNum + "&sId=" + reply.getReply_id();
 		}
 	}
+
+	// information/news_detail.jsp
+	@PostMapping(value = "/reply_modifyPro.re")
+	public String reply_modifyPro(@ModelAttribute ReplyVO reply, @RequestParam int pageNum, Model model) {
+		
+		System.out.println("reply : " + reply);
+		
+		// 댓글 수정
+		int updateCount = service.modifyReplyPro(reply);
+		
+		if(updateCount < 0) {
+			model.addAttribute("msg", "댓글 수정에 실패하였습니다.");
+			return "information/fail_back";
+		} else {
+			return "redirect:/news_detail.in?news_num=" + reply.getReply_ne_ref() + "&pageNum=" + pageNum + "&sId=" + reply.getReply_id();
+		}
+	}
 	
 	
 	// 댓글 삭제

@@ -61,6 +61,9 @@ public interface InformationMapper {
 	// 홈에서 게스트북 목록 2개 불러오기
 	List<GuestbookVO> selectGuestbookHome();
 
+	// 댓글 수정
+	int modifyReplyPro(ReplyVO reply);
+
 
 	
 
