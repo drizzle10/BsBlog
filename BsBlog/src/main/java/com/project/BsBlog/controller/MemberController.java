@@ -115,6 +115,7 @@ public class MemberController {
 			return "member/fail_back";
 		} else {
 			session.setAttribute("sId", member.getMember_id());
+			session.setAttribute("sIdx", member.getMember_idx());
 			return "redirect:/";
 		}
 	}
@@ -294,4 +295,9 @@ public class MemberController {
 		return "member/password_find_success";
 	}
 	
+	// qna.jsp
+	@GetMapping(value = "/qna.qn")
+	public String qna() {
+		return "qna/qna";
+	}
 }

@@ -50,6 +50,15 @@ public interface BoardMapper {
 	// 글 조회시 조회수 증가
 	void increaseNoteReadCount(int note_num);
 
+	// note_detail 들어가면 보이는 좋아요 출력
+	int selectHeart(@Param("sId") String sId, @Param("note_num") int note_num);
+	
+	// 좋아요 추가
+	int addHeart(@Param("sId") String sId, @Param("note_num") int note_num);
+	
+	// 좋아요 해제
+	int deleteHeart(@Param("sId") String sId, @Param("note_num") int note_num);
+
 	// 글 수정
 	int modifyNotePro(NoteVO note);
 
@@ -58,6 +67,10 @@ public interface BoardMapper {
 
 	// 글 삭제
 	int deleteNotePro(NoteVO note);
+
+
+
+
 
 	
 }

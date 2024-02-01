@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.BsBlog.handler.FTPHandler;
@@ -165,13 +166,14 @@ public class BoardController {
 	
 	//board/diary_detail.jsp
 	@GetMapping(value = "/diary_detail.bo")
-	public String diary_detail(@RequestParam int diary_num, @RequestParam int pageNum, Model model) {
+	public String diary_detail(@RequestParam int diary_num, @RequestParam int pageNum, Model model, HttpSession session ) {
 		
 		// 글 상세 조회
 		DiaryVO diaryDetail = service.selectDiaryDetail(diary_num);
 		
 		// 글 조회시 조회수 증가
 		service.increaseDiaryReadCount(diary_num);
+
 		
 		model.addAttribute("diaryDetail", diaryDetail);
 		
@@ -428,7 +430,10 @@ public class BoardController {
 	
 	//board/note_detail.jsp
 	@GetMapping(value = "/note_detail.bo")
-	public String note_detail(@RequestParam int note_num, @RequestParam int pageNum, Model model) {
+	public String note_detail(@RequestParam int note_num, @RequestParam int pageNum, Model model, HttpSession session) {
+		
+		String sId = (String) session.getAttribute("sId");
+		int heart;
 		
 		// 글 상세 조회
 		NoteVO noteDetail = service.selectNoteDetail(note_num);
@@ -438,7 +443,78 @@ public class BoardController {
 		
 		model.addAttribute("noteDetail", noteDetail);
 		
+		/*
+		 * heart1.png(좋아요) = 꽉찬 하트
+		 * heart2.png(안좋아요) =  빈 하트
+		 * */
+		
+		// note_detail 들어가면 보이는 좋아요 출력
+		if(sId == null) { // 비회원
+			heart = 2;
+			model.addAttribute("heart", heart);
+		} else { // 회원
+			int result = service.selectHeart(sId, note_num);
+			if(result == 0) { // 좋아요 조회 결과 좋아요 한게 없다면
+				heart = 2; // 빈 하트 출력
+				model.addAttribute("heart", heart);
+			} else { // 좋아요 조회 결과 좋아요 한게 있다면
+				heart = 1; // 꽉찬 하트 출력
+				model.addAttribute("heart", heart);
+			}
+		}
+		
 		return "board/note_detail";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/addHeart")
+	public int addHeart(@RequestParam int note_num, HttpSession session, Model model) {
+		String sId = (String) session.getAttribute("sId");
+		int heart;
+		
+		if(sId == null) { // 비회원
+			System.out.println("아이디 없는자 좋아요 실패");
+			heart = 2;
+			return heart;
+		} else { // 회원
+			int insertCount = service.addHeart(sId, note_num); // 좋아요 추가
+			
+			if(insertCount == 0) { // 좋아요 추가 실패했다면
+				System.out.println("좋아요 실패");
+				heart = 2; // 빈 하트
+				return heart;
+			} else { // 좋아요 추가 성공했다면
+				heart = 1; // 꽉찬 하트
+				return heart;
+			}
+		}
+		
+	}
+
+	@ResponseBody
+	@GetMapping(value = "/deleteHeart")
+	public int deleteHeart(@RequestParam int note_num, HttpSession session, Model model) {
+		String sId = (String) session.getAttribute("sId");
+		int heart;
+		
+		if(sId == null) { // 비회원
+			System.out.println("아이디 없는자 안좋아요 실패");
+			heart = 2; 
+			return heart;
+		} else { // 회원
+			int deleteCount = service.deleteHeart(sId, note_num); // 좋아요 해제
+			
+			if(deleteCount == 0) { // 좋아요 해제 성공
+				System.out.println("안좋아요 실패");
+				heart = 1; // 빈 하트 출력
+				return heart;
+			} else { // 좋아요 해제 실패
+				heart = 2;  // 꽉찬 하트 출력
+				return heart;
+			}
+			
+		}
+		
 	}
 	
 	// board/note_modify.jsp

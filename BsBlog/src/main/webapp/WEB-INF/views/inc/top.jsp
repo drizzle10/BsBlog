@@ -35,7 +35,7 @@
   		<li><a href="welcome.in?sId=${sessionScope.sId }">INFORMATION</a></li>
   		<li><a href="diary.bo?sId=${sessionScope.sId }">BOARD</a></li>
   		<li><a href="guestbook.gu?sId=${sessionScope.sId }">GUESTBOOK</a></li>
-  		<li><a href="../contact/mailForm.jsp">CONTACT</a></li>
+  		<li><a href="qna.qn">Q&A</a></li>
   	</ul>
   </nav>
 </header>

@@ -340,6 +340,66 @@
 		       
 	</update>
 	
+	<!-- note_detail 들어가면 보이는 좋아요 출력 -->
+	<select id="selectHeart" resultType="integer">
+        SELECT 
+        		COUNT(*) 
+          FROM 
+          		heart
+         WHERE 
+         		rf_note_num = #{note_num}
+           AND 
+           		rf_member_idx = (SELECT 
+           								member_idx 
+								   FROM 
+								   		member
+								  WHERE 
+								  		member_id = #{sId}
+								)
+	</select>
+	
+	<!-- 좋아요 추가 -->
+	<insert id="addHeart">
+		INSERT 
+		  INTO 
+		  		heart
+		VALUES (
+				IFNULL(
+	            	   (SELECT 
+	                		   MAX(heart_idx)
+	                	  FROM 
+	                		   heart h
+	               		),0
+	              	  )+1,   
+				#{note_num}, 
+				(SELECT 
+			 			 member_idx 
+                   FROM 
+                    	 member
+                  WHERE 
+                   		 member_id = #{sId}
+                ),
+				now()
+				)
+	</insert>
+	
+	<!-- 좋아요 해제 -->
+	<delete id="deleteHeart">
+		  DELETE 
+		    FROM 
+		    		heart
+		   WHERE 
+		   			rf_note_num = #{note_num}
+			 AND 
+			 		rf_member_idx = (SELECT 
+			 								member_idx 
+									   FROM 
+									   		member
+									  WHERE 
+									  		member_id = #{sId}
+									)
+	</delete>
+	
 	<!-- 글 수정 -->
 	<update id="modifyNotePro">
 		UPDATE 

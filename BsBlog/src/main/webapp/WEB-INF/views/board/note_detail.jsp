@@ -10,6 +10,7 @@
 <link href="<%=request.getContextPath() %>/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.1.js"></script>
+
 </head>
 <body>
 	<div id="wrap">
@@ -54,7 +55,11 @@
 					<td colspan="3">${noteDetail.note_content }</td>
 				</tr>
 			</table>
-
+			<c:if test="${sessionScope.sId ne null }">
+				<div id="heart" style="text-align: right; vertical-align: middle;">
+					좋아요 <img src="/BsBlog/resources/css/images/heart${heart}.png" width = 20px; height = 20px; onclick="checkHeart()">
+				</div>
+			</c:if>
 			<div id="table_search">
 				<c:if test="${sessionScope.sId eq 'admin' }">
 					<!-- * news-> news_detail로 넘어올때 주소창에 pageNum을 파라미터로 넘겼기 때문에 modify로 넘어갈때 param.pageNum으로 해야함 -->
@@ -66,6 +71,48 @@
 
 			<div class="clear"></div>
 		</article>
+
+		<script type="text/javascript">
+			// 좋아요 추가
+			function checkHeart() {
+				if(${heart} == 2){ // 빈 하트일때 클릭한다면 꽉찬 하트로 변경
+					$.ajax({
+						url: "addHeart",
+						type: "GET",
+						data: {
+							note_num : ${noteDetail.note_num}
+						},
+						success: function (heart) {
+							console.log(heart);
+							if(heart == 2) {
+								alert("좋아요에 실패하였습니다.");
+							} else {
+								$('#heart').html("<img src='/BsBlog/resources/images/heart" + heart + ".png'");
+								location.reload();
+							}
+						}
+					});
+				} else if(${heart} == 1) { // 꽉찬 하트일때 클릭한다면 빈 하트로 변경
+					// 좋아요 해제
+					$.ajax({
+						url: "deleteHeart",
+						type: "GET",
+						data: {
+							note_num : ${noteDetail.note_num}
+						},
+						success: function (heart) {
+							console.log(heart);
+							if(heart == 1) {
+								alert("안좋아요에 실패하였습니다.");
+							} else {
+								$('#heart').html("<img src='/BsBlog/resources/images/heart" + heart + ".png'");
+								location.reload();
+							}
+						}
+					});
+				}
+			};
+		</script>
 
 		<div class="clear"></div>
 		<!-- 푸터 들어가는곳 -->

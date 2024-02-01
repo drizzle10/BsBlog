@@ -75,12 +75,27 @@ public class BoardService {
 	public NoteVO selectNoteDetail(int note_num) {
 		return mapper.selectNoteDetail(note_num);
 	}
-
+	
 	// 글 조회시 조회수 증가
 	public void increaseNoteReadCount(int note_num) {
 		mapper.increaseNoteReadCount(note_num);
 	}
 
+	// note_detail 들어가면 보이는 좋아요 출력
+	public int selectHeart(String sId, int note_num) {
+		return mapper.selectHeart(sId, note_num);
+	}
+
+	// 좋아요 추가
+	public int addHeart(String sId, int note_num) {
+		return mapper.addHeart(sId, note_num);
+	}
+
+	// 좋아요 해제
+	public int deleteHeart(String sId, int note_num) {
+		return mapper.deleteHeart(sId, note_num);
+	}
+	
 	// 글 수정
 	public int modifyNotePro(NoteVO note) {
 		return mapper.modifyNotePro(note);
@@ -95,6 +110,15 @@ public class BoardService {
 	public int deleteNotePro(NoteVO note) {
 		return mapper.deleteNotePro(note);
 	}
+
+	
+
+
+
+	
+
+	
+
 
 	
 

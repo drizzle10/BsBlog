@@ -52,6 +52,7 @@
 					<input type="button" value="글쓰기" class="btn" onclick="location.href='note_write.bo?pageNum=${pageInfo.pageNum }&sId=${sessionScope.sId}'">
 				</div>
 			</c:if>
+			
 			<!-- 검색 기능 구현을 위한 form 태그 -->
 			<!-- * get인 이유? -->
 			<!-- * 드롭다운 박스 안하고 그냥 해보기 -->
