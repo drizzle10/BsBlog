@@ -31,8 +31,6 @@
 		  	<h1>Id Find</h1>
 		  	<form action="id_findPro.me" method="post" id="join">
 		  		<fieldset>
-		  			<legend>Id Find</legend><br>
-		  			<label>User Email</label><br>
 		  			<input type="text" name="member_email" placeholder="가입시 사용한 이메일을 입력하세요. 입력하신 이메일로 아이디가 전송됩니다." style="width: 600px; height: 100px;">
 		  		</fieldset>
 		

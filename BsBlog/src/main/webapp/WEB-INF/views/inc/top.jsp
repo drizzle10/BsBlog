@@ -27,7 +27,7 @@
   <!-- 로고들어가는 곳 -->
   
   <!-- * 왜 /BsBlog를 해야 매핑이 되는가? -->
-  <div id="logo"><a href="/BsBlog"><img src="<%=request.getContextPath() %>/resources/css/images//logo.gif"></a></div>
+  <div id="logo"><a href="/BsBlog"><img src="<%=request.getContextPath() %>/resources/css/images/BsBlog.png" width="265px" height="200px"></a></div>
   <!-- 메뉴들어가는 곳 -->
   <nav id="top_menu">
   	<ul>
@@ -35,7 +35,6 @@
   		<li><a href="welcome.in?sId=${sessionScope.sId }">INFORMATION</a></li>
   		<li><a href="diary.bo?sId=${sessionScope.sId }">BOARD</a></li>
   		<li><a href="guestbook.gu?sId=${sessionScope.sId }">GUESTBOOK</a></li>
-  		<li><a href="qna.qn">Q&A</a></li>
   	</ul>
   </nav>
 </header>

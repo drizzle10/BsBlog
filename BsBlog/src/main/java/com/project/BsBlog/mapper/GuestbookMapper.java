@@ -41,6 +41,9 @@ public interface GuestbookMapper {
 
 	// 게스트북 게시판 신고
 	int writeReport(ReportVO report);
+
+	// 홈에서 게스트북 목록 2개 불러오기 
+	List<GuestbookVO> selectGuestbookHome();
 	
 	
 }

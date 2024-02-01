@@ -1,22 +1,28 @@
 @charset "UTF-8";
+/*
+240201 수정
+*/
 #sub_img{
 	width: 971px;
-	height: 179px;
+	height: 50px;
 	background-image: url("../images/company/sub_back.png");
 	background-repeat: no-repeat;
 	background-position: left top; 
 }
 #sub_img_center{
 	width: 971px;
-	height: 179px;
+	height: 50px;
 	background-image: url("../images/center/sub_back.png");
 	background-repeat: no-repeat;
 	background-position: left top; 
 }
 
+/*
+240201 수정
+*/
 #sub_img_member{
 	width: 971px;
-	height: 179px;
+	height: 50px;
 	background-image: url("../images/member/sub_back.png");
 	background-repeat: no-repeat;
 	background-position: left top; 
@@ -25,7 +31,7 @@
 #sub_menu{
 	width: 238px;
 	float: left;
-	margin: 20px;
+	margin: 0 40px 20px 0;
 }
 #sub_menu ul{
 	margin: 20px 0 0 10px;
@@ -35,7 +41,7 @@
 	text-decoration: none;
 	color: #666;
 	display: block;
-	height: 15px;
+	height: 30px;
 	width: 150px;
 	padding: 7px;
 	
@@ -69,7 +75,7 @@ article{
 article h1{
 	font-family: "Times New Roman";
 	font-size: 45px;
-	color: #CCC;
+	color: brown;
 	margin: 20px 0;
 	font-weight: normal;
 }
@@ -82,12 +88,12 @@ form#join fieldset{
 	padding: 10px 0 20px 5px;
 	border: none;
 }
-form#join fieldset legend{
+/* form#join fieldset legend{
 	font-size: 20px;
 	border-bottom: 1px dotted #666;
 	width: 600px;
 	padding: 5px 0;
-}
+} */
 form#join label{
 	width: 140px;
 	float: left;
@@ -116,7 +122,10 @@ form#join input.dup{
 	background-repeat: repeat-x;
 	background-position: center center;
 }
-form#join #buttons .submit,form#join #buttons .cancel{
+/*
+240201 수정
+*/
+form#join #buttons .submit,form#join #buttons .cancel, .home_btn, .login_btn{
 	height: 30px;
 	width: 150px;
 	border: 1px solid #666;

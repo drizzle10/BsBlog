@@ -36,8 +36,9 @@
 		
 		  		<div class="clear"></div>
 		  		<div id="buttons">
-		  			<input type="button" value="홈" class="btn" onclick="location.href='/BsBlog'">
-		  			<input type="button" value="로그인" class="btn" onclick="location.href='login.me'">
+		  		<br>
+		  			<input type="button" value="홈" class="home_btn" onclick="location.href='/BsBlog'">
+		  			<input type="button" value="로그인" class="login_btn" onclick="location.href='login.me'">
 		  		</div>
 		  </article>
 		  

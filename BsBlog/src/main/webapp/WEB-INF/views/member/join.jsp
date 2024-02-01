@@ -80,8 +80,8 @@
 		  		</fieldset>
 		  		<div class="clear"></div>
 		  		<div id="buttons">
-		  			<input type="submit" value="Submit" class="submit">
-		  			<input type="reset" value="Cancel" class="cancel">
+		  			<input type="submit" value="가입" class="submit">
+		  			<input type="reset" value="취소" class="cancel">
 		  		</div>
 		  	</form>
 		  </article>

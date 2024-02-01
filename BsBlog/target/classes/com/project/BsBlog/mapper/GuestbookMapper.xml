@@ -273,4 +273,14 @@
 				now()
 				)	
 	</insert>
+	
+	<!-- 홈에서 게스트북 목록 2개 불러오기 -->
+	<select id="selectGuestbookHome" resultType="com.project.BsBlog.vo.GuestbookVO">
+		SELECT 
+				*
+		  FROM
+		  		guestbook
+	  ORDER BY
+			    guestbook_num DESC LIMIT 2		
+	</select>
 </mapper>

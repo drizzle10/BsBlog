@@ -35,7 +35,7 @@
 				<tr>
 					<th class="ttitle">좋아요 작성자</th>
 					<th class="ttitle">좋아요 제목</th>
-					<th class="ttitle">좋아요 날짜</th>
+					<th class="ttitle">좋아요 일자</th>
 				</tr>
 				<c:forEach var="note" items="${note }">
 					<tr>

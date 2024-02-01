@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.BsBlog.mapper.InformationMapper;
+import com.project.BsBlog.vo.GuestbookVO;
 import com.project.BsBlog.vo.NewsVO;
 import com.project.BsBlog.vo.ReplyVO;
 
@@ -93,6 +94,14 @@ public class InformationService {
 	public int replyDeletePro(int reply_idx) {
 		return mapper.replyDeletePro(reply_idx);
 	}
+
+	// 홈에서 뉴스 목록 2개 불러오기
+	public List<NewsVO> selectNewsHome() {
+		return mapper.selectNewsHome();
+	}
+
+
+
 
 
 	

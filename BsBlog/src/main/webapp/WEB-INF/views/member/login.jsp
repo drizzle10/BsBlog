@@ -31,7 +31,6 @@
 		  	<h1>Login</h1>
 		  	<form action="loginPro.me" method="post" id="join">
 		  		<fieldset>
-		  			<legend>Login Info</legend>
 		  			<label>Id</label>
 		  			<input type="text" name="member_id"><br>
 		  			

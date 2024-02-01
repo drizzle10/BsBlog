@@ -22,14 +22,11 @@
 				<li><a href="welcome.in">Welcome</a></li>
 				<li><a href="career.in">Career</a></li>
 				<li><a href="news.in?sId=${sessionScope.sId }">News</a></li>
-				<li><a href="#">Public Policy</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
 		<article>
 			<h1>Welcome</h1>
-			<br>
-			<br>
 			<br>
 			<p>BsBlog에 오신걸 환영합니다!</p>
 			<p>하고 싶은 말이 있으시면 GUESTBOOK에 적어주세요</p>

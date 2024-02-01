@@ -35,7 +35,7 @@
 			</div>
 			<table id="notice">
 				<tr>
-					<th class="twrite">신고상태</th>
+					<th class="ttitle">신고상태</th>
 					<th class="ttitle">신고자</th>
 					<th class="ttitle">신고일</th>
 				</tr>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.project.BsBlog.vo.GuestbookVO;
 import com.project.BsBlog.vo.NewsVO;
 import com.project.BsBlog.vo.ReplyVO;
 
@@ -53,6 +54,12 @@ public interface InformationMapper {
 
 	// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
 	int replyDeletePro(int reply_idx);
+
+	// 홈에서 뉴스 목록 2개 불러오기
+	List<NewsVO> selectNewsHome();
+
+	// 홈에서 게스트북 목록 2개 불러오기
+	List<GuestbookVO> selectGuestbookHome();
 
 
 	

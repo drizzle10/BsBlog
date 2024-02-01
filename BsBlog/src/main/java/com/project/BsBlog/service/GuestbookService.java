@@ -71,5 +71,10 @@ public class GuestbookService {
 		return mapper.writeReport(report);
 	}
 
+	// 홈에서 게스트북 목록 2개 불러오기
+	public List<GuestbookVO> selectGuestbookHome() {
+		return mapper.selectGuestbookHome();
+	}
+
 
 }

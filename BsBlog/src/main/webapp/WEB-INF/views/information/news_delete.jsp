@@ -26,7 +26,6 @@
 				<li><a href="welcome.in">Welcome</a></li>
 				<li><a href="career.in">Career</a></li>
 				<li><a href="news.in?sId=${sessionScope.sId }">News</a></li>
-				<li><a href="#">Public Policy</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->

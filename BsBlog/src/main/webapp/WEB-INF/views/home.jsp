@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,58 +18,36 @@
 		<div class="clear"></div>   
 		<!-- 본문들어가는 곳 -->
 		<!-- 메인 이미지 -->
-		<div id="main_img"><img src="<%=request.getContextPath() %>/resources/css/images/main_img.jpg"></div>
+		<iframe width="971" height="500" src="https://www.youtube.com/embed/mv20PoNo0GY?si=fGf32RtnhhRlllzP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+		<q>출처 : 이슬라이브 유튜브</q>
 		<!-- 본문 내용 -->
 		<article id="front">
 		  	<div id="solution">
+			  	<div id="hosting">
+				  	<h1>NEWS</h1>
+				  	<br>
+			  		<c:forEach var="news" items="${news }">
+			  			<h3><a href="news_detail.in?news_num=${news.news_num }">${news.news_subject }</a></h3>
+						<p>${news.news_date }</p>
+						<br>
+			  		</c:forEach>
+			  	</div>
 		  		<div id="hosting">
-		  			<h3>Web Hosting Solution</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			  		<h1>GUESTBOOK</h1>
+				  	<br>
+			  		<c:forEach var="guestbook" items="${guestbook }">
+			  			<h3><a href="guestbook_detail.gu?guestbook_num=${guestbook.guestbook_num }">${guestbook.guestbook_subject }</a></h3>
+						<p>${guestbook.guestbook_date }</p>
+						<br>
+			  		</c:forEach>
 		  		</div>
-		  		<div id="security">
-		  		  	<h3>Web Security Solution</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		  		</div>
-		  		<div id="payment">
-		  			<h3>Web Payment Solution</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		  		</div>
+		  	</div>
+		  	<div>
+				
+				
 		  	</div>
 		  	<div class="clear"></div>
-			<div id="sec_news">
-				<h3><span class="orange">Security</span> News</h3>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
-			</div>
-		
-			<div id="news_notice">
-		  		<h3 class="brown">News &amp; Notice</h3>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
-				<dl>
-					<dt>Vivamus id ligula....</dt>
-					<dd>Proin quis ante Proin quis anteProin 
-					quis anteProin quis anteProin quis anteProin 
-					quis ante......</dd>
-				</dl>
-		  	</div>
-	  	</article>
-		  
-		<div class="clear"></div>  
+			<div class="clear"></div>  
 		
 		<!-- 푸터 들어가는곳 -->
 		<jsp:include page="inc/bottom.jsp"></jsp:include>

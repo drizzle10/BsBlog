@@ -32,15 +32,15 @@
 			<h1>Member</h1>
 			<table id="notice">
 				<tr>
-					<th class="twrite">회원번호</th>
+					<th class="ttitle">회원번호</th>
 					<th class="ttitle">아이디</th>
 					<th class="ttitle">이름</th>
 				</tr>
 				<c:forEach var="member" items="${memberList }">
 					<tr>
 						<td>${member.member_idx }</td>
-						<td>${member.member_id }</td>
-						<td class="left" onclick="location.href='member_detail.ad?member_idx=${member.member_idx }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${member.member_name }</td>
+						<td class="left" onclick="location.href='member_detail.ad?member_idx=${member.member_idx }&pageNum=${pageInfo.pageNum}&sId=${sessionScope.sId }'">${member.member_id }</td>
+						<td>${member.member_name }</td>
 					</tr>
 				</c:forEach>
 			</table>

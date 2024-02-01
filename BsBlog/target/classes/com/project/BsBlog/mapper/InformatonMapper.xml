@@ -346,4 +346,14 @@ CREATE TABLE reply(
 		   OR	
 			  	reply_re_ref = #{reply_idx}
 	</delete>
+	
+	<!-- 홈에서 뉴스 목록 2개 불러오기 -->
+	<select id="selectNewsHome" resultType="com.project.BsBlog.vo.NewsVO">
+		SELECT 
+				*
+		  FROM
+		  		news
+	  ORDER BY
+			    news_num DESC LIMIT 2		
+	</select>
 </mapper>

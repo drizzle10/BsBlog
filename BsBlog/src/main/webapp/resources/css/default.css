@@ -15,9 +15,12 @@ body{
 	text-align: left;
 	background-color: beige; 
 }
+/*
+240201 수정
+*/
 #login{
 	float:right;
-	margin:20px 64px 0 0;
+	margin:20px 10px 0 0;
 	font-family :Arial;
 	font-size: 12px;
 	word-spacing: 5px;
@@ -34,21 +37,28 @@ body{
 	clear: both;
 }
 
+/*
+240201 수정
+*/
 #logo{
 	float: left;
 	width: 265px;
-	margin: 60px 0 0 40px;
+	margin: 0 0 0 40px;
 }
 
+/*
+240201 수정
+*/
 header{
-	height: 151px;
+	height: 250px;
 	margin: 0px;
 	padding: 0px;
 	}
 
 nav#top_menu{
 	width: 600px;
-	margin: 50px 20px 0 0;
+	height: 130px;
+	margin: 80px 20px 0 0;
 	float: right;
 }
 nav#top_menu ul{
@@ -64,8 +74,11 @@ nav#top_menu li{
 nav#top_menu a{
 	text-decoration: none;
 	display: block;
-	height: 20px;
-	padding: 10px;
+	height: 50px;
+	width: 130px;
+	text-align: center;
+	font-size: 1.3em;
+	/* padding: 10px; */
 	color: #333;
 }
 nav#top_menu a:hover{
@@ -76,8 +89,11 @@ nav#top_menu a:hover{
 
 
 /* footer */
+/*
+240201 수정
+*/
 footer{
-	margin: 50px 0 0 0;
+margin: 200px 0 0 0;
 height: 80px;
 background-image: url("../images/under_logo.gif");
 background-repeat: no-repeat;
@@ -89,9 +105,9 @@ footer hr{
 	margin: 0 0 0 20px;
 	}
 footer #copy{
-	width:450px;
-	margin: 20px 0 0 190px;
-	float: left;
+	width:380px;
+	margin: 20px 0 0 0;
+	float: right;
 }
 footer #social{
 	width: 130px;

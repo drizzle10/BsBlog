@@ -17,13 +17,17 @@
 article#front{
 	margin: 5px 0px 5px 0px;
 }
+
+/*
+240201 수정
+*/
 #solution{
-	width:910px;
-	min-height:150px;
-	border: 1px solid #FFFFFF;
-	background-color: #ebebeb;
-	padding: 10px;
-	margin: 0 0 0 20px;
+	width:971px;
+	min-height:200px;
+	/* border: 1px solid #FFFFFF; */
+	/* background-color: #ebebeb; */
+	/* padding: 10px; */
+	margin: 50px 0 0 0;
 	border-radius: 10px;
 }
 #hosting,#security,#payment{
@@ -31,22 +35,51 @@ article#front{
 	padding: 10px;
 	float: left;
 }
+/*
+240201 수정
+*/
 #hosting h3,#security h3,#payment h3{
 	font-size: 14px;
 	font-weight: 600;
 	color: #333;
-	margin: 0 0 10px 80px;
+	/* margin: 0 0 10px 80px; */
 }
+/*
+240201 수정
+*/
 #hosting p,#security p,#payment p{
-	font-size: 12px;
+	font-size: 1.2em;
 	color: #333;
-	margin: 0 0 0px 80px;
+	/* margin: 0 0 0px 80px; */
 }
+/*
+240201 수정
+*/
 #hosting{
-	background-image: url("../images/icon1.png");
+	/* background-image: url("../images/icon1.png");
 	background-repeat: no-repeat;
-	background-position: left 15px;
+	background-position: left 15px; */
+	width: 465px;
+	text-align: center;
 }
+/*
+240201 추가
+*/
+#hosting a{
+	text-decoration: none;
+	color: brown;
+	font-size: 1.2em;
+}
+/*
+240201 추가
+*/
+#hosting h1{
+	font-size: 2em;
+	border: 5px solid gray;
+	padding: 20px;
+	border-radius: 20px;
+}
+
 #security{
 	background-image: url("../images/icon2.png");
 	background-repeat: no-repeat;
