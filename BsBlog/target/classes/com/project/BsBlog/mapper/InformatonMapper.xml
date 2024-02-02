@@ -266,7 +266,7 @@ CREATE TABLE reply(
 					0,
 					0,
 					#{reply_ne_ref},
-					date_format(now(), '%Y-%m-%d %H:%i:%s')			 
+					now()	 
 			 )
 	</insert>
 	

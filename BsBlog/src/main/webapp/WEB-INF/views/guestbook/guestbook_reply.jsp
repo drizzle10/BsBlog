@@ -33,6 +33,8 @@
 			<input type="hidden" name="guestbook_num" value="${param.guestbook_num }" />
 			<input type="hidden" name="pageNum" value="${param.pageNum }" />
 			<input type="hidden" name="sId" value="${sessionScope.sId }">	
+			<input type="hidden" name="guestbook_file" value="${guestbook.guestbook_file }">	
+			<input type="hidden" name="guestbook_realfile" value="${guestbook.guestbook_realfile }">	
 			<input type="hidden" name="guestbook_re_ref" value="${guestbook.guestbook_re_ref }">	
 			<input type="hidden" name="guestbook_re_lev" value="${guestbook.guestbook_re_lev }">	
 			<input type="hidden" name="guestbook_re_seq" value="${guestbook.guestbook_re_seq }">	

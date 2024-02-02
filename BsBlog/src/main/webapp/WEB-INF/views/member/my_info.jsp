@@ -63,11 +63,15 @@
 					<td>${member.member_postcode }</td>
 				</tr>
 				<tr>
+				<tr>
+					<td>이메일</td>
+					<td>${member.member_email }</td>
+				</tr>
 					<td>휴대폰번호</td>
 					<td>${member.member_phone }</td>
 				</tr>
 				<tr>
-					<td>이메일</td>
+					<td>가입일</td>
 					<td>${member.member_date }</td>
 				</tr>
 			</table>

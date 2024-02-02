@@ -379,7 +379,7 @@ public class GuestbookController {
 //				ftp.disconnect();
 //			}
 			
-			return "redirect:/guestbook.gu?pageNum=" + pageNum + "sId=" + sId;
+			return "redirect:/guestbook.gu?pageNum=" + pageNum + "&sId=" + sId;
 		} else {
 			model.addAttribute("msg", "답글 작성이 실패되었습니다. 다시 시도해 주세요.");
 			return "guestbook/fail_back";

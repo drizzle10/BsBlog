@@ -32,8 +32,8 @@
 		<!-- 왼쪽 메뉴 -->
 		<nav id="sub_menu">
 			<ul>
-				<li><a href="diary.bo?sId=${sessionScope.sId }">Diary</a></li>
-				<li><a href="note.bo?sId=${sessionScope.sId }">Note</a></li>
+				<li><a href="member.ad?member_id=${sessionScope.sId }">Member</a></li>
+				<li><a href="report.ad?member_id=${sessionScope.sId }">Report</a></li>
 			</ul>
 		</nav>
 		<!-- 본문 내용 -->
