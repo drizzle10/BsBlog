@@ -48,7 +48,7 @@
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="password" value="${member.member_password }" readonly="readonly" style="border: none"></td>
+					<td><input type="password" value="${member.member_password }" readonly="readonly" style="border: none; background-color: beige;"></td>
 				</tr>
 				<tr>
 					<td>이름</td>

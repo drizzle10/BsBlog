@@ -561,11 +561,9 @@ public class InformationController {
 	
 	// TODO
 	// 댓글 조회시 시분초 다 나오게
-	// 댓글 페이징
 	// 알림 기능(소켓?
 	// sns로그인
 	// 무한 스크롤?
-	// 댓글 삭제 + 대댓글 위치조정 + 댓글 페이징
 	
 	// ftpClient.retrieve함수 false 해결
 	// news_detail.jsp 실제 조회할때만 조회수 증가

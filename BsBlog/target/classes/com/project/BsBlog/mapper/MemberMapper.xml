@@ -165,6 +165,7 @@
   	<!-- 나의 좋아요 조회 -->
 	<select id="selectMyHeart" resultType="com.project.BsBlog.vo.NoteVO">
 		SELECT
+				n.note_num,
 				n.note_subject,
 				n.note_id,
 				h.heart_date
@@ -205,7 +206,7 @@
 	   		 #{startRow}, #{listLimit} 	
   	</select>
   	
-  		<!-- 나의 신고 목록 갯수 조회 -->
+  	<!-- 나의 좋아요 목록 갯수 조회 -->
   	<select id="selectMyHeartCount" resultType="integer">
   		SELECT 
 			  	COUNT(*) 

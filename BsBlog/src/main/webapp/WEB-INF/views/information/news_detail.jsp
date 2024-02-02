@@ -239,6 +239,9 @@
 							</c:forEach>
 							<img src='<%=request.getContextPath() %>/resources/css/images/re.png'>
 							${reply.reply_id } | ${reply.reply_date }<br>
+							<c:forEach var = "i" begin = "0" end = "${reply.reply_re_lev }" step="1">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 							${reply.reply_content }<br>
 							<c:choose>
 								<c:when test="${sessionScope.sId ne null && sessionScope.sId eq reply.reply_id }">

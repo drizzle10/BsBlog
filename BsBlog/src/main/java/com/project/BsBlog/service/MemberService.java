@@ -152,6 +152,10 @@ public class MemberService {
 		
 		MemberVO member = mapper.selectMemberEmail(member_email);
 		
+		if(member == null) {
+			return "이메일 없음";
+		}
+		
 		String member_id = member.getMember_id();
 		String setFrom = "bsblog@bsblog.com";
 		String mailTo = member_email;
@@ -159,7 +163,7 @@ public class MemberService {
 		String content = "" + "<br><br>" + "아이디는 " + member_id + " 입니다."; // 이메일 내용
 		
 		mail_send(setFrom, mailTo, title, content);
-		return "msg";
+		return "이메일 있음";
 	}
 
 	// 이메일 이용하여 비밀번호 찾기
@@ -168,22 +172,30 @@ public class MemberService {
 		
 		MemberVO member = mapper.selectMemberEmail(member_email);
 		
+		if(member == null) {
+			return 0;
+		}
+		
 		String setFrom = "bsblog@bsblog.com";
 		String mailTo = member_email;
 		String title = "BsBlog - 임시 비밀번호 이메일 입니다.";
+		// --- ① 난수 생성 후 메일로 보낼 임시 비밀번호 적기
 		String content = "" + "<br><br>" + "임시 비밀번호는 " + authNumber + " 입니다." + "<br>" + "임시 비밀번호로 로그인 후 비밀번호를 변경하여 주세요."; // 이메일 내용
 		
 		// 임시 비밀번호 전송 전 임시 비밀번호를 멤버 테이블에 넣는 과정
 		// 1. BCryptPasswordEncoder 객체 생성
+		// --- ② 생성한 난수를 비밀번호에 저장
 		member.setMember_password(authNumber + "");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		// 2. BCryptPasswordEncoder 객체의 encode() 메서드를 호출하여 해싱 결과 리턴
+		// --- ③ 비밀번호에 저장한 난수를 암호화
 		String securePassword = encoder.encode(member.getMember_password());
 		// 3. MemberVO 객체의 패스워드에 암호문 저장
+		// --- ④ 암호화한 난수를 비밀번호에 엎어쓰기
 		member.setMember_password(securePassword);
-		
 		int updateCount =  mapper.modifyMyInfoPro(member);
 
+		// --- ⑤ 메일로 비밀번호 전송
 		mail_send(setFrom, mailTo, title, content);
 		
 		return updateCount;

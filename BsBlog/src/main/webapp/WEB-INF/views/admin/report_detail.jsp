@@ -67,7 +67,7 @@
 				<input type="button" value="처리완료" id="report_complete_btn" class="report_status_btn"> 
 			</div>
 			<div id="table_search">
-				<input type="button" value="신고목록" class="btn" onclick="location.href='report.gu?pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
+				<input type="button" value="신고목록" class="btn" onclick="location.href='report.ad?pageNum=${param.pageNum }&sId=${sessionScope.sId }'"> 
 			</div>
 
 			<div class="clear"></div>

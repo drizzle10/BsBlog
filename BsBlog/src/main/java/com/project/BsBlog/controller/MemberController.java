@@ -313,24 +313,27 @@ public class MemberController {
 	
 	@PostMapping(value = "/id_findPro.me")
 	public String id_FindPro(@RequestParam String member_email, Model model) {
+		
+		System.out.println("member_email : " + member_email);
+		
 		// 이메일 이용하여 아이디 찾기
-		String result = service.id_findPro(member_email);
+		String msg = service.id_findPro(member_email);
+		System.out.println("result : " + msg);
 		
-		if (result == null) {
-			model.addAttribute("msg", "아이디 찾기가 실패되었습니다. 다시 시도해 주세요.");
+		if (msg == "이메일 없음") {
+			model.addAttribute("msg", "등록된 이메일이 아닙니다. 다시 시도해 주세요.");
 			return "member/fail_back";
-		}
-		
-		return "redirect:/id_find_success.me";
+		} 
+			return "redirect:/id_find_success.me";
 	}
 	
 	@PostMapping(value = "/password_findPro.me")
 	public String password_FindPro(@RequestParam String member_email, Model model) {
 		// 이메일 이용하여 비밀번호 찾기
-		int updateCount = service.password_findPro(member_email);
+		int count = service.password_findPro(member_email);
 		
-		if (updateCount == 0) {
-			model.addAttribute("msg", "비밀번호 찾기가 실패되었습니다. 다시 시도해 주세요.");
+		if (count == 0) {
+			model.addAttribute("msg", "등록된 이메일이 아닙니다. 다시 시도해 주세요.");
 			return "member/fail_back";
 		}
 		
