@@ -280,7 +280,9 @@ CREATE TABLE reply(
 		 		reply_ne_ref = #{reply_ne_ref}
 	  ORDER BY 
 				reply_re_ref DESC,
-				reply_re_seq ASC		 		
+				reply_re_seq ASC
+		 LIMIT 
+				#{replyStartRow}, #{replyListLimit}				 		
 	</select>
 	
 	<!-- 댓글 갯수 조회 -->
@@ -335,6 +337,19 @@ CREATE TABLE reply(
 			  )
 	</insert>
 	
+	<!-- 댓글 수정 -->
+	<update id="modifyReplyPro">
+		UPDATE
+			   reply
+		   SET
+		   	   reply_content = #{reply_content}, 
+		   	   reply_date = now()
+		 WHERE
+		   	   reply_idx = #{reply_idx}	      	   	   
+		   AND
+			   reply_ne_ref = #{reply_ne_ref}
+	</update>
+	
 	<!-- 댓글 삭제 -->
 	<!-- 원 댓글 삭제하면 대댓글도 삭제 -->
 	<delete id="replyDeletePro">
@@ -357,16 +372,5 @@ CREATE TABLE reply(
 			    news_num DESC LIMIT 2		
 	</select>
 	
-	<!-- 댓글 수정 -->
-	<update id="modifyReplyPro">
-		UPDATE
-			   reply
-		   SET
-		   	   reply_content = #{reply_content}, 
-		   	   reply_date = now()
-		 WHERE
-		   	   reply_idx = #{reply_idx}	      	   	   
-		   AND
-			   reply_ne_ref = #{reply_ne_ref}
-	</update>
+	
 </mapper>

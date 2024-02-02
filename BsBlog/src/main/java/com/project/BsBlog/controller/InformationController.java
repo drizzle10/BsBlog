@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.BsBlog.vo.PageInfo;
+import com.project.BsBlog.vo.ReplyPageInfo;
 import com.project.BsBlog.vo.ReplyVO;
 import com.project.BsBlog.handler.FTPHandler;
 import com.project.BsBlog.service.InformationService;
@@ -35,6 +36,14 @@ public class InformationController {
 	private InformationService service;
 	
 	private FTPHandler ftp = new FTPHandler();
+	
+	
+	int listLimit; 
+	int pageListLimit; 
+	int startRow;
+	int maxPage;
+	int startPage;
+	int endPage;
 	
 	/*
 	private int pageNum; // 현재 페이지 번호
@@ -69,11 +78,11 @@ public class InformationController {
 		System.out.println("keyword : " + keyword);
 		System.out.println("pageNum : " + pageNum);
 		
-		int listLimit = 10; 
+		listLimit = 10; 
 		
-		int pageListLimit = 10; 
+		pageListLimit = 10; 
 
-		int startRow = (pageNum - 1) * listLimit;
+		startRow = (pageNum - 1) * listLimit;
 		
 		System.out.println("startRow : " + startRow);
 		// 글 목록 조회
@@ -88,13 +97,13 @@ public class InformationController {
 		System.out.println("news 갯수 조회 완");
 		System.out.println("listCount : " + listCount);
 		// * 아래 식 정리
-		int maxPage = (int)Math.ceil((double)listCount / listLimit);
+		maxPage = (int)Math.ceil((double)listCount / listLimit);
 		System.out.println("maxPage : " + maxPage);
 		
-		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
 		System.out.println("startPage : " + startPage);
 
-		int endPage = startPage + pageListLimit - 1;
+		endPage = startPage + pageListLimit - 1;
 		System.out.println("endPage : " + endPage);
 
 		
@@ -229,20 +238,52 @@ public class InformationController {
 	
 	// information/news_detail.jsp
 	@GetMapping(value = "/news_detail.in")
-	public String news_detail(@RequestParam int news_num, 
+	public String news_detail(@RequestParam int news_num, @RequestParam(defaultValue = "1") int replyPageNum, 
 							Model model, HttpSession session) {
+		String sId = (String) session.getAttribute("sId");
+		System.out.println("replyPageNum : " + replyPageNum );
 		
 		// 글 상세 조회
 		NewsVO newsDetail = service.selectNewsDetail(news_num);
-		System.out.println("newsDetail : " + newsDetail);
 		
 		// 글 조회시 조회수 증가
 		service.increaseNewsReadCount(news_num);
 		
-		List<ReplyVO> reply = service.selectReply(news_num);
+		// ---------- 댓글 페이징 ----------
+		int replyListLimit = 5; 
+		
+		int replyPageListLimit = 5; 
+
+		int replyStartRow = (replyPageNum - 1) * replyListLimit;
+		System.out.println("replyStartRow : " + replyStartRow);
+		
+		List<ReplyVO> reply = service.selectReply(news_num, replyStartRow, replyListLimit);
+		System.out.println("reply : " + reply);
+		
+		int replyListCount = service.selectReplyCount(news_num);
+		System.out.println("replyListCount : " + replyListCount);
+		
+		int replyMaxPage = (int)Math.ceil((double)replyListCount / replyListLimit);
+		System.out.println("replyMaxPage : " + replyMaxPage);
+
+		int replyStartPage = (replyPageNum - 1) / replyPageListLimit * replyPageListLimit + 1;
+		System.out.println("replyStartPage : " + replyStartPage);
+
+		int replyEndPage = replyStartPage + replyPageListLimit - 1;
+		System.out.println("replyEndPage : " + replyEndPage);
+		
+		if(replyEndPage > replyMaxPage) {
+			replyEndPage = replyMaxPage;
+		}
+		
+		ReplyPageInfo replyPageInfo = new ReplyPageInfo(
+				replyPageNum, replyListLimit, replyListCount, replyPageListLimit, replyMaxPage, replyStartPage, replyEndPage);
+		System.out.println("replyPageinfo : " + replyPageInfo);
+		//--------- 댓글 페이징 끝 ----------
 		
 		model.addAttribute("newsDetail", newsDetail);
 		model.addAttribute("reply", reply);
+		model.addAttribute("replyPageInfo", replyPageInfo);
 		
 		return "information/news_detail";
 	}
@@ -486,7 +527,7 @@ public class InformationController {
 
 	// information/news_detail.jsp
 	@PostMapping(value = "/reply_modifyPro.re")
-	public String reply_modifyPro(@ModelAttribute ReplyVO reply, @RequestParam int pageNum, Model model, HttpServletResponse response) throws IOException {
+	public String reply_modifyPro(@ModelAttribute ReplyVO reply, @RequestParam int pageNum, Model model, HttpServletResponse response) throws Exception {
 		
 		System.out.println("reply : " + reply);
 		
@@ -499,7 +540,9 @@ public class InformationController {
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('댓글이 수정되었습니다.');</script>");
+			out.println("<script>");
+			out.println("alert('댓글이 수정되었습니다.');");
+			out.println("</script>");
 			
 			return "redirect:/news_detail.in?news_num=" + reply.getReply_ne_ref() + "&pageNum=" + pageNum + "&sId=" + reply.getReply_id();
 		}
@@ -509,7 +552,7 @@ public class InformationController {
 	// 댓글 삭제
 	@ResponseBody
 	@PostMapping(value = "/reply_deletePro.re")
-	public int reply_deletePro(@RequestParam int reply_idx, @RequestParam int reply_ne_ref, @RequestParam int pageNum, Model model, @RequestParam String sId, HttpServletResponse response) throws IOException {
+	public int reply_deletePro(@RequestParam int reply_idx) {
 		// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
 		int deleteCount = service.replyDeletePro(reply_idx);
 		

@@ -41,7 +41,7 @@ public interface InformationMapper {
 	int writeReplyPro(ReplyVO reply);
 
 	// 댓글 조회
-	List<ReplyVO> selectReply(int reply_ne_ref);
+	List<ReplyVO> selectReply(@Param("reply_ne_ref") int reply_ne_ref, @Param("replyStartRow") int replyStartRow, @Param("replyListLimit") int replyListLimit);
 
 	// 댓글 갯수 조회
 	int selectReplyCount(int reply_ne_ref);
@@ -52,6 +52,10 @@ public interface InformationMapper {
 	// 대댓글 작성
 	int reReplyWritePro(ReplyVO reply);
 
+	// 댓글 수정
+	int modifyReplyPro(ReplyVO reply);
+
+	
 	// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
 	int replyDeletePro(int reply_idx);
 
@@ -60,9 +64,6 @@ public interface InformationMapper {
 
 	// 홈에서 게스트북 목록 2개 불러오기
 	List<GuestbookVO> selectGuestbookHome();
-
-	// 댓글 수정
-	int modifyReplyPro(ReplyVO reply);
 
 
 	

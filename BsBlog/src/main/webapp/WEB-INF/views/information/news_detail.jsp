@@ -1,3 +1,4 @@
+<%@page import="com.project.BsBlog.vo.ReplyPageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -65,10 +66,7 @@
 				url: "reply_deletePro.re",
 				type: "POST",
 				data: {
-					reply_idx : reply_idx,
-					reply_ne_ref: reply_ne_ref,
-					pageNum : ${param.pageNum},
-					sId : "${sessionScope.sId}"
+					reply_idx : reply_idx
 				}, 
 				success: function (insertCount) {
 					if(insertCount > 0){
@@ -174,9 +172,9 @@
 							${reply.reply_content }<br>
 							<c:choose>
 								<c:when test="${sessionScope.sId ne null && sessionScope.sId eq reply.reply_id }">
-									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
-									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify(${r})" style="text-decoration: none; cursor: pointer;"> 수정 </a></span>
-									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete(${reply.reply_idx}, ${reply.reply_ne_ref })" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer; color: brown;"> 답글 </a></span>
+									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify(${r})" style="text-decoration: none; cursor: pointer; color: brown;"> 수정 </a></span>
+									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete(${reply.reply_idx}, ${reply.reply_ne_ref })" style="text-decoration: none; cursor: pointer; color: brown;"> 삭제 </a></span>
 										<div id="reReplyBox${r}" style="display: none;">
 											<form action="reReply_writePro.re" method="post" id="reReply_form">
 												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
@@ -205,7 +203,7 @@
 									<hr>
 								</c:when>
 								<c:when test="${sessionScope.sId ne null && sessionScope.sId ne reply.reply_id }">
-									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer; color: brown;"> 답글 </a></span>
 										<div id="reReplyBox${r}" style="display: none;">
 											<form action="reReply_writePro.re" method="post" id="reReply_form">
 												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
@@ -244,9 +242,9 @@
 							${reply.reply_content }<br>
 							<c:choose>
 								<c:when test="${sessionScope.sId ne null && sessionScope.sId eq reply.reply_id }">
-									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
-									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify(${r})" style="text-decoration: none; cursor: pointer;"> 수정 </a></span>
-									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete(${reply.reply_idx}, ${reply.reply_ne_ref })" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer; color: brown;"> 답글 </a></span>
+									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify(${r})" style="text-decoration: none; cursor: pointer; color: brown;"> 수정 </a></span>
+									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete(${reply.reply_idx}, ${reply.reply_ne_ref })" style="text-decoration: none; cursor: pointer; color: brown;"> 삭제 </a></span>
 										<div id="reReplyBox${r}" style="display: none;">
 											<form action="reReply_writePro.re" method="post" id="reReply_form">
 												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
@@ -275,7 +273,7 @@
 									<hr>
 								</c:when>
 								<c:when test="${sessionScope.sId ne null && sessionScope.sId ne reply.reply_id }">
-									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
+									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer; color: brown;"> 답글 </a></span>
 										<div id="reReplyBox${r}" style="display: none;">
 											<form action="reReply_writePro.re" method="post" id="reReply_form">
 												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
@@ -307,6 +305,18 @@
 						</c:if>
 					</c:forEach>
 				</div>
+			</div>
+			<%ReplyPageInfo replyPageInfo = (ReplyPageInfo)request.getAttribute("replyPageInfo"); %>
+			<div class="clear"></div>
+			<div id="page_control">
+				<%if(replyPageInfo.getReplyPageNum() > replyPageInfo.getReplyStartPage()) {%><a href="news_detail.in?news_num=${newsDetail.news_num }&pageNum=${param.pageNum }&sId=${sessionScope.sId }&replyPageNum=${replyPageInfo.replyPageNum - 1}"><%}%>Prev</a>
+				<c:forEach var="i" begin="${replyPageInfo.replyStartPage }" end="${replyPageInfo.replyEndPage }">
+                   <c:choose>
+                      <c:when test="${i eq replyPageInfo.replyPageNum }"><a href="#">${i }</a></c:when>
+                      <c:otherwise><a class="pageLink" href="news_detail.in?news_num=${newsDetail.news_num }&pageNum=${param.pageNum }&sId=${sessionScope.sId }&replyPageNum=${i }">${i }</a></c:otherwise>
+                   </c:choose>
+                </c:forEach>
+				<%if(replyPageInfo.getReplyPageNum() < replyPageInfo.getReplyMaxPage()) {%><a href="news_detail.in?news_num=${newsDetail.news_num }&pageNum=${param.pageNum }&sId=${sessionScope.sId }&replyPageNum=${replyPageInfo.replyPageNum + 1}"><%}%>Next</a>
 			</div>
 			
 		</article>

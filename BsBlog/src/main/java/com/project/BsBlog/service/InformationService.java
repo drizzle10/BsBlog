@@ -69,15 +69,14 @@ public class InformationService {
 
 
 	// 댓글 조회
-	public List<ReplyVO> selectReply(int reply_ne_ref) {
-		return mapper.selectReply(reply_ne_ref);
+	public List<ReplyVO> selectReply(int reply_ne_ref, int replyStartRow, int replyListLimit) {
+		return mapper.selectReply(reply_ne_ref, replyStartRow, replyListLimit);
 	}
 
 	// 댓글 갯수 조회
 	public int selectReplyCount(int reply_ne_ref) {
 		return mapper.selectReplyCount(reply_ne_ref);
 	}
-
 
 	// 대댓글 순서번호(reply_re_seq) 조정
 	public void increaseReReplyReSeq(ReplyVO reply) {
@@ -90,6 +89,11 @@ public class InformationService {
 		return mapper.reReplyWritePro(reply);
 	}
 
+	// 댓글 수정
+	public int modifyReplyPro(ReplyVO reply) {
+		return mapper.modifyReplyPro(reply);
+	}
+	
 	// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
 	public int replyDeletePro(int reply_idx) {
 		return mapper.replyDeletePro(reply_idx);
@@ -101,10 +105,7 @@ public class InformationService {
 	}
 
 
-	// 댓글 수정
-	public int modifyReplyPro(ReplyVO reply) {
-		return mapper.modifyReplyPro(reply);
-	}
+	
 
 
 
