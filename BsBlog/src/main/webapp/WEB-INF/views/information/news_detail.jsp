@@ -19,7 +19,7 @@
 
 	
 	// ---------- 댓글 삭제 ---------
- 	function reply_delete(reply_idx, reply_id){
+ 	/* function reply_delete(reply_idx, reply_id){
 		if(('${sessionScope.sId}' != reply_id) || ('${sessionScope.sId}' != 'admin') ){
 			alert("삭제 권한이 없습니다.");
 		} else {
@@ -39,7 +39,7 @@
 			}
 		}
 	
-	}; 
+	};  */
 	
 	// 답글 클릭시 토글
 	function reReply(r){
@@ -51,6 +51,42 @@
 	function reply_modify(r) {
 		console.log(r);
 		$("#replyModifyBox" + r).toggle();
+	}
+	
+	// 댓글 삭제
+	function reply_delete(reply_idx, reply_ne_ref) {
+		let result = confirm("댓글을 삭제하시겠습니까?");
+		 
+		if(result) {
+			// redirect위해 get으로?
+			// location.href="reply_deletePro.re?reply_idx=" + reply_idx + "&reply_ne_ref=" + reply_ne_ref + "&pageNum=" + ${param.pageNum} + "&sId=" + "${sessionScope.sId}";
+			
+			$.ajax({
+				url: "reply_deletePro.re",
+				type: "POST",
+				data: {
+					reply_idx : reply_idx,
+					reply_ne_ref: reply_ne_ref,
+					pageNum : ${param.pageNum},
+					sId : "${sessionScope.sId}"
+				}, 
+				success: function (insertCount) {
+					if(insertCount > 0){
+						alert("댓글이 삭제되었습니다.");
+						// 컨트롤러 갔다가 success 되고 나면 redirect가 안됨 ㅜ 그래서 다시 note_detail.in 호출
+						location.href="news_detail.in?news_num=" + reply_ne_ref + "&pageNum=" + ${param.pageNum} + "&sId=" + "${sessionScope.sId}";
+					} else {
+						alert("댓글 삭제가 실패 되었습니다.");
+					}
+				},
+				fail: function (insertCount) {
+					if(insertCount < 0){
+						alert("댓글 삭제가 정상적으로 이루어지지 않았습니다. 다시 시도해 주세요");
+					}
+				}
+			});  
+		}
+		
 	}
 	
 	
@@ -140,7 +176,7 @@
 								<c:when test="${sessionScope.sId ne null && sessionScope.sId eq reply.reply_id }">
 									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
 									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify(${r})" style="text-decoration: none; cursor: pointer;"> 수정 </a></span>
-									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete()" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
+									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete(${reply.reply_idx}, ${reply.reply_ne_ref })" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
 										<div id="reReplyBox${r}" style="display: none;">
 											<form action="reReply_writePro.re" method="post" id="reReply_form">
 												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">
@@ -210,7 +246,7 @@
 								<c:when test="${sessionScope.sId ne null && sessionScope.sId eq reply.reply_id }">
 									<span id="reply_wri_btn"><a class="reply_write_btn" id="rep_writeBtn" onclick="reReply(${r})" style="cursor: pointer"> 답글 </a></span>
 									<span id="reply_mod_btn"><a href="#" id="rep_modBtn" onclick="reply_modify(${r})" style="text-decoration: none; cursor: pointer;"> 수정 </a></span>
-									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete()" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
+									<span id="reply_del_btn"><a href="#" id="rep_delBtn" onclick="reply_delete(${reply.reply_idx}, ${reply.reply_ne_ref })" style="text-decoration: none; cursor: pointer;"> 삭제 </a></span>
 										<div id="reReplyBox${r}" style="display: none;">
 											<form action="reReply_writePro.re" method="post" id="reReply_form">
 												<input type="hidden" name="reply_ne_ref" value="${ reply.reply_ne_ref}">

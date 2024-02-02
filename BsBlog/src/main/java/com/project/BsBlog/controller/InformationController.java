@@ -2,6 +2,7 @@ package com.project.BsBlog.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -485,7 +486,7 @@ public class InformationController {
 
 	// information/news_detail.jsp
 	@PostMapping(value = "/reply_modifyPro.re")
-	public String reply_modifyPro(@ModelAttribute ReplyVO reply, @RequestParam int pageNum, Model model) {
+	public String reply_modifyPro(@ModelAttribute ReplyVO reply, @RequestParam int pageNum, Model model, HttpServletResponse response) throws IOException {
 		
 		System.out.println("reply : " + reply);
 		
@@ -493,9 +494,13 @@ public class InformationController {
 		int updateCount = service.modifyReplyPro(reply);
 		
 		if(updateCount < 0) {
-			model.addAttribute("msg", "댓글 수정에 실패하였습니다.");
+			model.addAttribute("msg", "댓글 수정이 실패되었습니다. 다시 시도해 주세요.");
 			return "information/fail_back";
 		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('댓글이 수정되었습니다.');</script>");
+			
 			return "redirect:/news_detail.in?news_num=" + reply.getReply_ne_ref() + "&pageNum=" + pageNum + "&sId=" + reply.getReply_id();
 		}
 	}
@@ -503,28 +508,21 @@ public class InformationController {
 	
 	// 댓글 삭제
 	@ResponseBody
-	@GetMapping(value = "/reply_deletePro.re")
-	public void reply_deletePro(@RequestParam int reply_idx) {
+	@PostMapping(value = "/reply_deletePro.re")
+	public int reply_deletePro(@RequestParam int reply_idx, @RequestParam int reply_ne_ref, @RequestParam int pageNum, Model model, @RequestParam String sId, HttpServletResponse response) throws IOException {
 		// 원 댓글 삭제 + 원 댓글 삭제시 대댓글도 삭제
 		int deleteCount = service.replyDeletePro(reply_idx);
 		
-		String msg = "";
-		if(deleteCount > 0) {
-			msg += "댓글이 삭제되었습니다.";
-		} else {
-			msg += "댓글 삭제가 실패되었습니다. 다시 시도해 주세요.";
-		}
-		
+		return deleteCount;
 	}
 	
 	// TODO
-	// 댓글 없을때 댓글 없다는 내용 적기
 	// 댓글 조회시 시분초 다 나오게
 	// 댓글 페이징
 	// 알림 기능(소켓?
 	// sns로그인
 	// 무한 스크롤?
-	// 댓글 모델로 받아오는걸로 수정?
+	// 댓글 삭제 + 대댓글 위치조정 + 댓글 페이징
 	
 	// ftpClient.retrieve함수 false 해결
 	// news_detail.jsp 실제 조회할때만 조회수 증가
