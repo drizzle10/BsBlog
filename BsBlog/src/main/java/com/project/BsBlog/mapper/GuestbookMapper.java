@@ -34,6 +34,7 @@ public interface GuestbookMapper {
 	// 글 삭제
 	int deleteGuestbookPro(GuestbookVO guestbook);
 
+	// 글 순서 번호 조정(최신 답글이 위로 올라가게 하기 위함)
 	void increaseGuestbookReSeq(GuestbookVO guestbook);
 
 	// 답글 작성

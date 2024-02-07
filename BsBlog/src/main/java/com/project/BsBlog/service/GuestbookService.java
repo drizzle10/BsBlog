@@ -56,6 +56,7 @@ public class GuestbookService {
 		return mapper.deleteGuestbookPro(guestbook);
 	}
 
+	// 글 순서 번호 조정(최신 답글이 위로 올라가게 하기 위함)
 	public void increaseGuestbookReSeq(GuestbookVO guestbook) {
 		mapper.increaseGuestbookReSeq(guestbook);
 		

@@ -200,6 +200,7 @@
 		   	   guestbook_password = #{guestbook_password}	   	   
 	</delete>
 	
+	<!--  글 순서 번호 조정(최신 답글이 위로 올라가게 하기 위함) -->
 	<update id="increaseGuestbookReSeq">
 		UPDATE
 			   guestbook
@@ -211,6 +212,7 @@
 		   	   guestbook_re_seq > #{guestbook_re_seq} 	   
 	</update>
 	
+	<!-- 답글 작성 -->
 	<insert id="writeGuestbookReplyPro">
 		INSERT 
 	  INTO 
