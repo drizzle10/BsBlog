@@ -74,9 +74,6 @@ public class InformationController {
 						@RequestParam(defaultValue = "") String keyword,
 						@RequestParam(defaultValue = "1") int pageNum,
 						Model model) {
-		System.out.println("searchType : " + searchType);
-		System.out.println("keyword : " + keyword);
-		System.out.println("pageNum : " + pageNum);
 		
 		listLimit = 10; 
 		
@@ -84,45 +81,31 @@ public class InformationController {
 
 		startRow = (pageNum - 1) * listLimit;
 		
-		System.out.println("startRow : " + startRow);
 		// 글 목록 조회
 		List<NewsVO> news = service.selectNews(startRow, listLimit, searchType, keyword);
 		
-		System.out.println("news : " + news);
-		System.out.println("news 조회 완");
 		// 글 목록 갯수 조회
 		// * searchType과 keyword를 같이 보내야 하는 이유?
 		int listCount = service.selectNewsCount(searchType, keyword);
 		
-		System.out.println("news 갯수 조회 완");
-		System.out.println("listCount : " + listCount);
 		// * 아래 식 정리
 		maxPage = (int)Math.ceil((double)listCount / listLimit);
-		System.out.println("maxPage : " + maxPage);
 		
 		startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
-		System.out.println("startPage : " + startPage);
 
 		endPage = startPage + pageListLimit - 1;
-		System.out.println("endPage : " + endPage);
 
 		
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
-		System.out.println("페이지 계산 완");
 		
 		PageInfo pageInfo = new PageInfo(
 				pageNum, listLimit, listCount, pageListLimit, maxPage, startPage, endPage);
 		
-		System.out.println("pageInfo 객체 저장 완");
-		System.out.println("pageInfo : " + pageInfo);
-		
 		model.addAttribute("news", news);
 		model.addAttribute("pageInfo", pageInfo);
-		
-		System.out.println("news, pageInfo 모델에 저장");
 		
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("keyword", keyword);

@@ -37,10 +37,6 @@ $(document).ready(function(){
 			$resultMsg.html('인증번호가 일치합니다.');
 			$resultMsg.css('color','green');
 			$('#mailAuth').attr('disabled',true);
-			$('#userEamil1').attr('readonly',true);
-			$('#userEamil2').attr('readonly',true);
-			$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-	        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
 	        mailAuth_check = true;
 		}else{
 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인하고 입력해주세요.');
